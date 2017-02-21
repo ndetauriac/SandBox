@@ -6,7 +6,9 @@
         <title>Gaming</title>
         <link href="css/default.css" rel="stylesheet" />
 
+        <script src="js/Graphic/Sprites.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/player.js"></script>
 
 
         <script type="text/javascript">
@@ -16,12 +18,13 @@
         </script>
     </head>
     <body>
-        <div>Le contenu s'affiche ici.</div>
-        <img id="clapi" src="images/clapTrap.png" alt="" onclick="sayMyName();" />
+        <canvas id="gameArea" width="800" height="600" style="border: 1px solid #000000;">
+            Votre navigateur ne supporte pas le Canvas HTML5
+        </canvas>
 
         <script type="text/javascript">
             <!--
-            idInterv = setInterval(refreshGame, 10);
+            idInterv = setInterval(refreshGame, 40);
 
             //-->
         </script>

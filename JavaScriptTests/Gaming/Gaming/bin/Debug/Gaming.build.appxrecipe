@@ -25,6 +25,9 @@
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\clapTrap.png">
       <PackagePath>images\clapTrap.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\coin.png">
+      <PackagePath>images\coin.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\LockScreenLogo.scale-200.png">
       <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
@@ -52,11 +55,20 @@
       <PackagePath>images\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\secretagentsprites.jpg">
+      <PackagePath>images\secretagentsprites.jpg</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\index.html">
       <PackagePath>index.html</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\Graphic\Sprites.js">
+      <PackagePath>js\Graphic\Sprites.js</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\main.js">
       <PackagePath>js\main.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\player.js">
+      <PackagePath>js\player.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\css\default.css">
       <PackagePath>css\default.css</PackagePath>

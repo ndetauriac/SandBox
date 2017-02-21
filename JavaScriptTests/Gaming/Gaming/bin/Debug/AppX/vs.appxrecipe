@@ -28,13 +28,17 @@
     <AppXManifest Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-02-21T22:00:32.649</Modified>
+      <Modified>2017-02-21T23:46:43.448</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\clapTrap.png">
       <PackagePath>images\clapTrap.png</PackagePath>
       <Modified>2017-02-21T17:39:10.731</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\coin.png">
+      <PackagePath>images\coin.png</PackagePath>
+      <Modified>2017-02-21T23:42:34.912</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\LockScreenLogo.scale-200.png">
       <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
@@ -70,13 +74,25 @@
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2015-09-20T16:30:08.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\secretagentsprites.jpg">
+      <PackagePath>images\secretagentsprites.jpg</PackagePath>
+      <Modified>2017-02-21T22:42:36.313</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\index.html">
       <PackagePath>index.html</PackagePath>
-      <Modified>2017-02-21T22:05:29.092</Modified>
+      <Modified>2017-02-21T23:50:28.027</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\Graphic\Sprites.js">
+      <PackagePath>js\Graphic\Sprites.js</PackagePath>
+      <Modified>2017-02-21T23:52:52.110</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\main.js">
       <PackagePath>js\main.js</PackagePath>
-      <Modified>2017-02-21T22:00:50.758</Modified>
+      <Modified>2017-02-21T23:54:13.253</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\player.js">
+      <PackagePath>js\player.js</PackagePath>
+      <Modified>2017-02-21T22:53:30.345</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\css\default.css">
       <PackagePath>css\default.css</PackagePath>
@@ -85,7 +101,7 @@
     <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\bin\Debug\ReverseMap\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-02-21T22:00:32.467</Modified>
+      <Modified>2017-02-21T23:46:43.290</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
