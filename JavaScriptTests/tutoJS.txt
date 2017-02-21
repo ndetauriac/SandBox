@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+    <head>
+
+        <!-- en-tete du document -->
+        <link rel="stylesheet" href="style.css">
+
+        <!-- Init script.js -->
+        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript">
+        <!--
+
+            window.onload =init;
+            var boucle = true;
+        //-->
+        </script>
+        <title>Un exemple</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    </head>
+
+    <body>
+
+        <!-- ici se trouve le contenu de la page web -->
+        
+        <img id="clapi" src="images.png" alt="" onclick="sayMyName();"/>
+        
+        <script type="text/javascript">
+        <!--
+        idInterv = setInterval(refreshGame, 10);
+        
+        //-->
+        </script>
+        
+        <!--p>
+            <a href="#" onclick="test();">Say my name !</a><br />
+        </p-->
+    </body>
+
+</html>
