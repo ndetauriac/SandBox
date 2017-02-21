@@ -1,20 +1,17 @@
-class Personnage
-{
-    constructor()
-    {
+﻿// Votre code ici.
+class Personnage {
+    constructor() {
         this.imgObj = document.getElementById('clapi');
-        this.imgObj.style.position= 'relative'; 
+        this.imgObj.style.position = 'relative';
         this.imgObj.style.left = '0px';
         this.imgObj.style.top = '0px';
         this.posX = 0;
         this.posY = 0;
         this.lastMove = "NONE";
     }
-    
-    updatePosition()
-    {
-        switch(this.lastMove)
-        {
+
+    updatePosition() {
+        switch (this.lastMove) {
             case "UP":
                 this.moveUp();
                 break;
@@ -31,30 +28,28 @@ class Personnage
                 break;
         }
     }
-    
-    setMove(move)
-    {
+
+    setMove(move) {
         this.lastMove = move;
     }
-    
-    moveUp(){
+
+    moveUp() {
         this.imgObj.style.top = parseInt(this.imgObj.style.top) - 10 + 'px';
     }
-    
-    moveDown(){
+
+    moveDown() {
         this.imgObj.style.top = parseInt(this.imgObj.style.top) + 10 + 'px';
     }
-    
-    moveLeft(){
+
+    moveLeft() {
         this.imgObj.style.left = parseInt(this.imgObj.style.left) - 10 + 'px';
     }
-    
-    moveRight(){
+
+    moveRight() {
         this.imgObj.style.left = parseInt(this.imgObj.style.left) + 10 + 'px';
     }
-    
-    sayMyName()
-    {
+
+    sayMyName() {
         alert("Clapi");
     }
 }
@@ -65,56 +60,57 @@ const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
-            
-function init(){
+
+function init() {
     clapi = new Personnage();
-    
-    document.addEventListener('keydown', function(event) {
-        switch(event.keyCode)
-        {
-            case(ARROW_LEFT):
+
+    document.addEventListener('keydown', function (event) {
+        switch (event.keyCode) {
+            case (ARROW_LEFT):
                 keyLeft();
                 break;
-            case(ARROW_UP):
+            case (ARROW_UP):
                 keyUp();
                 break;
-            case(ARROW_RIGHT):
+            case (ARROW_RIGHT):
                 keyRight();
                 break;
-            case(ARROW_DOWN):
+            case (ARROW_DOWN):
                 keyDown();
                 break;
-            case(SPACE_BAR):
+            case (SPACE_BAR):
                 boucle = !boucle;
                 break;
-            case(ESCAPE_KEY):
+            case (ESCAPE_KEY):
                 boucle = false;
                 break;
         }
     });
 }
 
-function sayMyName(){
+var boucle = true;
+
+function sayMyName() {
     clapi.sayMyName();
 }
 
-function keyUp(){
+function keyUp() {
     clapi.setMove("UP");
 }
 
-function keyDown(){
+function keyDown() {
     clapi.setMove("DOWN");
 }
 
-function keyLeft(){
+function keyLeft() {
     clapi.setMove("LEFT");
 }
 
-function keyRight(){
+function keyRight() {
     clapi.setMove("RIGHT");
 }
-            
-function refreshGame(){
+
+function refreshGame() {
     if (boucle)
         clapi.updatePosition();
 }

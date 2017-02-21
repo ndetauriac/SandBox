@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>DISORDER</Machine>
+    <WindowsUser>Nicolas</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>a9d01657-8bff-4472-9466-9b7c5575d89a</PackageIdentityName>
+    <PackageIdentityPublisher>CN=Nicolas</PackageIdentityPublisher>
+    <IntermediateOutputPath>D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\bld\Debug\</IntermediateOutputPath>
+    <RemoteDeploymentType>
+    </RemoteDeploymentType>
+    <PackageRegistrationPath>
+    </PackageRegistrationPath>
+    <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
+    <RegisteredManifestChecksum>8F5642ECB314806EE066BAE77B415E8A113EE515D921D7989C756C4A0CE3441E</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>a9d01657-8bff-4472-9466-9b7c5575d89a_1.0.0.0_neutral__qahywczbq5y3p</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>a9d01657-8bff-4472-9466-9b7c5575d89a_qahywczbq5y3p!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>a9d01657-8bff-4472-9466-9b7c5575d89a</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Nicolas</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-02-21T22:00:32.649</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\clapTrap.png">
+      <PackagePath>images\clapTrap.png</PackagePath>
+      <Modified>2017-02-21T17:39:10.731</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\LockScreenLogo.scale-200.png">
+      <PackagePath>images\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\SplashScreen.scale-200.png">
+      <PackagePath>images\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\Square150x150Logo.scale-200.png">
+      <PackagePath>images\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\Square44x44Logo.scale-200.png">
+      <PackagePath>images\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>images\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\StoreLogo.png">
+      <PackagePath>images\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\images\Wide310x150Logo.scale-200.png">
+      <PackagePath>images\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-20T16:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\index.html">
+      <PackagePath>index.html</PackagePath>
+      <Modified>2017-02-21T22:05:29.092</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\js\main.js">
+      <PackagePath>js\main.js</PackagePath>
+      <Modified>2017-02-21T22:00:50.758</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\css\default.css">
+      <PackagePath>css\default.css</PackagePath>
+      <Modified>2017-02-21T21:55:34.434</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\SandBox\JavaScriptTests\Gaming\Gaming\bin\Debug\ReverseMap\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-02-21T22:00:32.467</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
