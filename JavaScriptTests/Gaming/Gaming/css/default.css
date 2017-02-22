@@ -1,5 +1,27 @@
-﻿body {
-  /* Supprimer ces marques de commentaire pour permettre les opérations de défilement et de zoom
-  touch-action: manipulation;
-  */
+﻿canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 90%;
+    z-index: 1;
+}
+
+#gamecontainer {
+    width: 800px;
+    height: 600px;
+    background-color: beige;
+    border: 1px solid black;
+    position: relative;
+    margin: 0 auto;
+}
+
+#gamestartscreen {
+    position: absolute;
+    margin: 0 auto;
+    z-index: 2;
+    text-align: right;
 }

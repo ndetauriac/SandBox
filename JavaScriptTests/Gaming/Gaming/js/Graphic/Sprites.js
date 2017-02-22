@@ -1,24 +1,68 @@
 ﻿class Sprites
 {
-    constructor(img, frameNumber, x, y)
+    constructor(img, frameNumberX, frameNumberY)
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         this.imgSprite = new Image();
+        this.imgSprite.frameNumberX = frameNumberX;
+        this.imgSprite.frameNumberY = frameNumberY;
+        this.imgSprite.onload = this.getSize;
+        this.imgSprite.onclick = this.click;
         this.imgSprite.src = img;
-        this.spriteW = this.imgSprite.width / frameNumber;
-        this.spriteH = this.imgSprite.height;
         this.imgSprite.style.position = 'relative';
-        this.posX = x;
-        this.posY = y;
+        this.lastPosX = 0;
+        this.lastPosY = 0;
+        
         this.frame = 0;
     }
-
-    draw()
+    
+    get height()
     {
-        this.context2D.clearRect(this.posX, this.posY, this.spriteW, this.spriteH);
+        return this.imgSprite.spriteH;
+    }
+    
+    get width()
+    {
+        return this.imgSprite.spriteW;
+    }
+    
+    clear()
+    {
+        this.context2D.clearRect(this.lastPosX, this.lastPosY, this.imgSprite.spriteW, this.imgSprite.spriteH);
+    }
+    
+    animate()
+    {
+        this.frame = (this.frame + 1) % (this.imgSprite.frameNumberX * this.imgSprite.frameNumberY);
+    }
+    
+    finishAnimation()
+    {
+        if (this.frame > 0)
+            this.animate();
+    }
+    
+    draw(x, y)
+    {
+        var posSpriteX = (this.frame % this.imgSprite.frameNumberX) * this.imgSprite.spriteW;
+        var posSpriteY = (this.frame - (this.frame % this.imgSprite.frameNumberX)) / this.imgSprite.frameNumberX * this.imgSprite.spriteH;
+        
         if (this.imgSprite != undefined)
-            this.context2D.drawImage(this.imgSprite, this.frame * this.spriteW, 0, this.spriteW, this.spriteH, this.posX, this.posY, this.spriteW, this.spriteH);
-
-        this.frame = (this.frame + 1) % 4;
+        {
+            this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.imgSprite.spriteW, this.imgSprite.spriteH, x, y, this.imgSprite.spriteW, this.imgSprite.spriteH);
+        }
+        this.lastPosX = x;
+        this.lastPosY = y;
+    }
+    
+    getSize()
+    {
+        this.spriteW = this.width / this.frameNumberX;
+        this.spriteH = this.height / this.frameNumberY;
+    }
+    
+    click()
+    {
+        console.log("Click");
     }
 }
