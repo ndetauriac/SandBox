@@ -6,6 +6,9 @@ class Coin
         this.value = 10;
         this.posX = x;
         this.posY = y;
+        this.previewPosX = x;
+        this.previewPosY = y;
+        this.staminaX = 0;
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = stasis;
@@ -16,26 +19,68 @@ class Coin
     updatePosition(plateforms, nPlateform) {
         var plat;
         var floorLevel = this.winHeight;
-        for (plat = 0; plat < nPlateform; plat++)
+        if (!this.stasis)
         {
-            
-            if (this.sprite.width != null && this.sprite.height != null) {
-                if (plateforms[plat].contact(this.posX, this.posY, this.sprite.width, this.sprite.height))
-                {
-                    floorLevel = plateforms[plat].yLevel;
+            this.computeXPosition();
+            this.computeYPosition();
+
+            var sWidth = this.sprite.width;
+            var sHeight = this.sprite.height;
+            for (plat = 0; plat < nPlateform; plat++)
+            {
+
+                if (this.sprite.width != null && this.sprite.height != null) {
+                    var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
+
+                    if (gap.isInContactRight || gap.isInContactLeft)
+                    {
+                        this.previewPosX = gap.gapX;
+                        this.staminaX = 0;
+                    }
+
+                    if (gap.isInContactTop || gap.isInContactBot)
+                    {
+                        this.previewPosY = gap.gapY;
+                        this.staminaY = 0;
+                    }
                 }
+
             }
-            
+
+            this.applyXPosition();
+            this.applyYPosition();
         }
-        if (this.sprite.height != null && !this.stasis)
-            this.gravity(floorLevel);
     }
-    
+
+    computeXPosition(){
+        this.previewPosX = this.posX;
+        this.previewPosX += this.staminaX;
+    }
+
+    computeYPosition(){
+        this.previewPosY = this.posY;
+        this.previewPosY += this.staminaY;
+    }
+
+    applyXPosition(){
+        this.posX = this.previewPosX;
+    }
+
+    applyYPosition(){
+        this.posY = this.previewPosY;
+        if (!this.onTheFloor){
+            this.staminaY += GRAVITY;
+        }
+        else{
+            this.staminaY = GRAVITY;
+        }
+    }
+
     get coinValue()
     {
         return this.value;
     }
-    
+
     contact(x, y, w, h)
     {
         if (this.sprite.width != null && this.sprite.height != null) {
@@ -49,17 +94,17 @@ class Coin
             return null;
         }
     }
-    
+
     draw()
     {
         this.sprite.animate();
         this.sprite.draw(this.posX, this.posY);
     }
-    
+
     gravity(level)
     {
         this.moveDown(level);
-        if (this.posY < (level - this.sprite.height) && !this.onTheFloor){
+        if (this.onTheFloor){
             this.staminaY++;
             this.onTheFloor = false;
         }
@@ -75,7 +120,7 @@ class Coin
         else
             this.posY += this.staminaY;
     }
-    
+
     clear()
     {
         this.sprite.clear();

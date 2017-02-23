@@ -13,12 +13,21 @@ const CTRL_LEFT = 17;
 
 function init() {
     mainPlayer = new Player("ninja", 600, 0);
-    ia1 = new Player("ninja", 0, 0);
-    addPlateform(200, 600);
-    addPlateform(800, 600);
-    addCoin(500, 200, true);
-    addCoin(600, 200, true);
-    addCoin(700, 200, true);
+    addPlateform(200, 550);
+    addPlateform(600, 300);
+    addPlateform(800, 550);
+    // Borders
+    // Left
+    addPlateform(-200, 0, 200, 800);
+    // Right
+    addPlateform(1200, 0, 200, 800);
+    // Top
+    addPlateform(0, -200, 1200, 200);
+    // Bottom
+    addPlateform(0, 800, 1200, 200);
+    addCoin(500, 200);
+    addCoin(600, 200);
+    addCoin(700, 200);
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
             /*
@@ -76,9 +85,9 @@ function addCoin(x, y, stasis = false)
     nCoin++;
 }
 
-function addPlateform(x, y)
+function addPlateform(x, y, w = 200, h = 50)
 {
-    platform[nPlatform] = new Plateform(x, y);
+    platform[nPlatform] = new Plateform(x, y, w, h);
     nPlatform++;
 }
 
@@ -129,20 +138,20 @@ function refreshGame() {
         }
         // Clear sprites
         mainPlayer.clear();
-        ia1.clear();
+        //ia1.clear();
         for (i = 0; i < nCoin; i++)
             coin[i].clear();
         for (i = 0; i < nPlatform; i++)
             platform[i].clear();
         for (i = 0; i < nShurikens; i++)
             shurikens[i].clear();
-        
+
         if (frameCpt++ == 3)
         {
-            
+
             // Update sprites
             mainPlayer.updatePosition(platform, nPlatform);
-            ia1.updatePosition(platform, nPlatform);
+            //ia1.updatePosition(platform, nPlatform);
             for (i = 0; i < nCoin; i++)
             {
                 coin[i].updatePosition(platform, nPlatform);
@@ -157,20 +166,20 @@ function refreshGame() {
                 {
                     shurikens[i] = shurikens[--nShurikens];
                 }
-                    
+
             }
             frameCpt = 0;
         }
-        
-            
+
+
         // Draw sprites
         for (i = 0; i < nCoin; i++)
             coin[i].draw();
-        for (i = 0; i < nPlatform; i++)
-            platform[i].draw();
         for (i = 0; i < nShurikens; i++)
             shurikens[i].draw();
+        for (i = 0; i < nPlatform; i++)
+            platform[i].draw();
         mainPlayer.draw();
-        ia1.draw();
+        //ia1.draw();
     }
 }

@@ -8,11 +8,13 @@ class Shuriken
         this.value = 10;
         this.posX = x;
         this.posY = y;
+        this.previewPosX = x;
+        this.previewPosY = y;
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = false;
         this.direction = direction;
-        this.speed = direction * SHURIKEN_SPEED;
+        this.staminaX = direction * SHURIKEN_SPEED;
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
@@ -20,28 +22,83 @@ class Shuriken
 
     updatePosition(plateforms, nPlateform) {
         var plat;
-        var floorLevel = this.winHeight;
+
+        this.computeXPosition();
+        this.computeYPosition();
+
+        var sWidth = this.sprite.width;
+        var sHeight = this.sprite.height;
         for (plat = 0; plat < nPlateform; plat++)
         {
-            
+
             if (this.sprite.width != null && this.sprite.height != null) {
-                if (plateforms[plat].contact(this.posX, this.posY, this.sprite.width, this.sprite.height))
+                var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
+
+                if (gap.isInContactLeft)
                 {
-                    floorLevel = plateforms[plat].yLevel;
+                    this.previewPosX = gap.gapX + sWidth / 2;
+                    this.staminaX = 0;
+                    this.staminaY = 0;
+                    this.onTheFloor = true;
+                }
+                if (gap.isInContactRight)
+                {
+                    this.previewPosX = gap.gapX - sWidth / 2;
+                    this.staminaX = 0;
+                    this.staminaY = 0;
+                    this.onTheFloor = true;
+                }
+                if (gap.isInContactBot)
+                {
+                    this.previewPosY = gap.gapY - sHeight / 2;
+                    this.staminaY = 0;
+                    this.staminaX = 0;
+                    this.onTheFloor = true;
+                }
+                if (gap.isInContactTop)
+                {
+                    this.previewPosY = gap.gapY + sHeight / 2;
+                    this.staminaY = 0;
+                    this.staminaX = 0;
+                    this.onTheFloor = true;
                 }
             }
-            
+
         }
-        if (this.sprite.height != null && !this.stasis)
-            this.gravity(floorLevel);
-        
-        this.posX += this.speed;
-        if (this.speed == 0)
+
+        this.applyXPosition();
+        this.applyYPosition();
+
+        if (this.staminaX == 0)
             this.lifeTime--;
-        
-        return (this.posX > this.winWidth || this.posX + this.sprite.width < 0 || this.lifeTime == 0);
+
+        return (this.lifeTime == 0);
     }
-    
+
+    computeXPosition(){
+        this.previewPosX = this.posX;
+        this.previewPosX += this.staminaX;
+    }
+
+    computeYPosition(){
+        this.previewPosY = this.posY;
+        this.previewPosY += this.staminaY;
+    }
+
+    applyXPosition(){
+        this.posX = this.previewPosX;
+    }
+
+    applyYPosition(){
+        this.posY = this.previewPosY;
+        if (!this.onTheFloor){
+            this.staminaY += GRAVITY / 2;
+        }
+        else{
+            this.staminaY = 0;
+        }
+    }
+
     contact(x, y, w, h)
     {
         if (this.sprite.width != null && this.sprite.height != null) {
@@ -55,14 +112,14 @@ class Shuriken
             return null;
         }
     }
-    
+
     draw()
     {
-        if (this.speed != 0)
+        if (this.staminaX != 0)
             this.sprite.animate();
         this.sprite.draw(this.posX, this.posY);
     }
-    
+
     gravity(level)
     {
         this.moveDown(level);
@@ -73,14 +130,14 @@ class Shuriken
         else{
             this.staminaY = 0;
             this.onTheFloor = true;
-            this.speed = 0;
+            this.staminaX = 0;
         }
     }
 
     moveDown(level) {
         this.posY += this.staminaY;
     }
-    
+
     clear()
     {
         this.sprite.clear();
