@@ -1,14 +1,19 @@
-class Coin
+const SHURIKEN_SPEED = 40;
+
+class Shuriken
 {
-    constructor(x, y, stasis = false)
+    constructor(x, y, direction)
     {
-        this.sprite = new Sprites("./images/coin.png", 10, 1, true, 3);
+        this.sprite = new Sprites("./images/shuriken.png", 4, 1, true, 1);
         this.value = 10;
         this.posX = x;
         this.posY = y;
         this.staminaY = 0;
         this.onTheFloor = false;
-        this.stasis = stasis;
+        this.stasis = false;
+        this.direction = direction;
+        this.speed = direction * SHURIKEN_SPEED;
+        this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
     }
@@ -29,11 +34,12 @@ class Coin
         }
         if (this.sprite.height != null && !this.stasis)
             this.gravity(floorLevel);
-    }
-    
-    get coinValue()
-    {
-        return this.value;
+        
+        this.posX += this.speed;
+        if (this.speed == 0)
+            this.lifeTime--;
+        
+        return (this.posX > this.winWidth || this.posX + this.sprite.width < 0 || this.lifeTime == 0);
     }
     
     contact(x, y, w, h)
@@ -52,7 +58,8 @@ class Coin
     
     draw()
     {
-        this.sprite.animate();
+        if (this.speed != 0)
+            this.sprite.animate();
         this.sprite.draw(this.posX, this.posY);
     }
     
@@ -66,14 +73,12 @@ class Coin
         else{
             this.staminaY = 0;
             this.onTheFloor = true;
+            this.speed = 0;
         }
     }
 
     moveDown(level) {
-        if (this.posY + this.staminaY > (level - this.sprite.height))
-            this.posY = level - this.sprite.height;
-        else
-            this.posY += this.staminaY;
+        this.posY += this.staminaY;
     }
     
     clear()
