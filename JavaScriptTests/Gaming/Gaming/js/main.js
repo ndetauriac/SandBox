@@ -12,12 +12,12 @@ const LEFT_SHIFT = 16;
 function init() {
     clapi = new Player();
     addCoin(200, 10);
-    addPlateform(100,500);
+    /*addPlateform(100,500);
     addPlateform(500,500);
     addPlateform(300,400);
     addPlateform(100,300);
     addPlateform(500,300);
-    addPlateform(300,200);
+    addPlateform(300,200);*/
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
             /*
