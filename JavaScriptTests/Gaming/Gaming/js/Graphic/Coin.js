@@ -8,11 +8,13 @@ class Coin
         this.posY = y;
         this.staminaY = 0;
         this.onTheFloor = false;
+		this.winWidth = document.getElementById('gameArea').width;
+		this.winHeight = document.getElementById('gameArea').height;
     }
 
     updatePosition(plateforms, nPlateform) {
         var plat;
-        var floorLevel = 600;
+        var floorLevel = this.winHeight;
         for (plat = 0; plat < nPlateform; plat++)
         {
             

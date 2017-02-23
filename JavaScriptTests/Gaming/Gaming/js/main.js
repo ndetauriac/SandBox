@@ -43,7 +43,14 @@ function init() {
         }
     });
     boucle = true;
+	
+	winWidth = document.getElementById('gameArea').width;
+	winHeight = document.getElementById('gameArea').height;
 }
+
+var winWidth;
+var winHeight;
+
 
 var coin = new Array();
 var nCoin = 0;
@@ -101,7 +108,7 @@ function refreshGame() {
             clapi.moveRight();
         }
         if(map[ARROW_DOWN]){
-            addCoin(Math.random()*800, Math.random()*600);
+            addCoin(Math.random()*winHeight, Math.random()*winHeight);
         }
         if(map[LEFT_SHIFT]){
             clapi.run = 1;

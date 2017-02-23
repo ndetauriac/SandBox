@@ -1,5 +1,6 @@
 ﻿const MAX_SPEED_X = 10; 
-const MAX_JUMP_HEIGHT = 30; 
+const MAX_JUMP_HEIGHT = 35; 
+const GRAVITY = 2; 
 
 class Player {
     constructor() {
@@ -17,6 +18,8 @@ class Player {
         this.score = 0;
         this.boost = 0;
 		this.state = "IDLE_RIGHT";
+		this.winWidth = document.getElementById('gameArea').width;
+		this.winHeight = document.getElementById('gameArea').height;
     }
 	
 	get currentSprite()
@@ -58,7 +61,7 @@ class Player {
     updatePosition(plateforms, nPlateform) {
         
         var plat;
-        var floorLevel = 600;
+        var floorLevel = this.winHeight;
         for (plat = 0; plat < nPlateform; plat++)
         {
             
@@ -74,7 +77,7 @@ class Player {
         if (this.jumpPower > 0)
         {
             this.staminaY = -this.jumpPower;
-            this.jumpPower -= 2;
+            this.jumpPower -= GRAVITY;
             if (this.jumpPower < 0)
                 this.jumpPower = 0;
         }
@@ -102,7 +105,7 @@ class Player {
     {
         this.moveDown(level);
         if (this.posY < (level - this.currentSprite.height)){
-            this.staminaY++;
+            this.staminaY += GRAVITY;
             this.onTheFloor = false;
         }
         else{

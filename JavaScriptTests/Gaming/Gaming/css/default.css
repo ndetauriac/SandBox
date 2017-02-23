@@ -11,8 +11,8 @@
 }
 
 #gamecontainer {
-    width: 800px;
-    height: 600px;
+    width: 1200px;
+    height: 800px;
     background-color: beige;
     border: 1px solid black;
     position: relative;
