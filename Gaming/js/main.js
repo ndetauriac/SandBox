@@ -1,55 +1,84 @@
 ﻿// Votre code ici.
 
 var mainPlayer;
-var ia1;
+var enemies = new Array();
+var nEnemies = 0;
 const ESCAPE_KEY = 27;
 const SPACE_BAR = 32;
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
+
+const KEY_Z = 90;
+const KEY_S = 83;
+const KEY_Q = 81;
+const KEY_D = 68;
+
 const LEFT_SHIFT = 16;
 const CTRL_LEFT = 17;
+const WIN_WIDTH = window.innerWidth;
+const WIN_HEIGHT = window.innerHeight;
 
 function init() {
-    mainPlayer = new Player("ninja", 600, 0);
-    addPlateform(200, 550, 20, 250, "LEFT");
-    addPlateform(600, 300, 200, 20, "BOT");
-    addPlateform(800, 550, 200, 20);
+    mainPlayer = new Player("ninja", 600, 10);
+    addEnemies();
+    addPlateform(200, 550, 200, 20, "FULL");
+    addPlateform(600, 300, 200, 20, "FULL");
+    addPlateform(800, 700, 200, 20, "FULL");
     // Borders
     // Left
-    addPlateform(-200, 0, 200, 800);
+    addPlateform(-200, 0, 200, WIN_HEIGHT);
     // Right
-    addPlateform(1200, 0, 200, 800);
+    addPlateform(WIN_WIDTH, 0, 200, WIN_HEIGHT);
     // Top
-    addPlateform(0, -200, 1200, 200);
+    addPlateform(0, -200, WIN_WIDTH, 200);
     // Bottom
-    addPlateform(0, 800, 1200, 200);
-    addCoin(500, 200);
-    addCoin(600, 200);
-    addCoin(700, 200);
+    addPlateform(0, WIN_HEIGHT - 20, WIN_WIDTH, 200, "FULL");
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
-            /*
-            case (ARROW_LEFT):
-                keyLeft();
+            case (KEY_Z):
+                var tmpShuriken = mainPlayer.throwShuriken("UP");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
                 break;
-            case (ARROW_UP):
-                keyUp();
+            case (KEY_S):
+                var tmpShuriken = mainPlayer.throwShuriken("DOWN");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
                 break;
-            case (ARROW_RIGHT):
-                keyRight();
+            case (KEY_Q):
+                var tmpShuriken = mainPlayer.throwShuriken("LEFT");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
                 break;
-            case (ARROW_DOWN):
-                keyDown();
+            case (KEY_D):
+                var tmpShuriken = mainPlayer.throwShuriken("RIGHT");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
                 break;
-                */
             case (SPACE_BAR):
                 boucle = !boucle;
                 break;
             case (CTRL_LEFT):
-                shurikens[nShurikens] = mainPlayer.throwShuriken();
-                nShurikens++;
+                var tmpShuriken = mainPlayer.throwShuriken();
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
                 break;
             case (ESCAPE_KEY):
                 mainPlayer.kill();
@@ -57,8 +86,10 @@ function init() {
         }
     });
     boucle = true;
+    var canvas = document.getElementById('gameArea');
+    canvas.width = WIN_WIDTH;
+    canvas.height = WIN_HEIGHT;
 }
-
 
 var coin = new Array();
 var nCoin = 0;
@@ -79,10 +110,23 @@ onkeydown = onkeyup = function(e){
     /* insert conditional here */
 }
 
+function addEnemies()
+{
+    enemies[nEnemies] = new Player("ninja", Math.random() * WIN_WIDTH, 10);
+    nEnemies ++;
+}
+
 function addCoin(x, y, stasis = false)
 {
     coin[nCoin] = new Coin(x, y, stasis);
     nCoin++;
+}
+
+function addRandomCoin()
+{
+    let x = Math.random()*WIN_WIDTH*0.9 + WIN_WIDTH*0.05;
+    let y = Math.random() * WIN_HEIGHT * 0.9 + WIN_HEIGHT * 0.05;
+    addCoin(x, y);
 }
 
 function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
@@ -116,6 +160,13 @@ function keyRight() {
 function refreshGame() {
     if (boucle)
     {
+        if(Math.floor(Math.random()*100) == 0)
+        {
+            addRandomCoin();
+        }
+        
+        if(!enemies[nEnemies-1].isAlive)
+            addEnemies();
         // Controls
         if(mainPlayer.isPAlive)
         {
@@ -144,24 +195,31 @@ function refreshGame() {
         }
         // Clear sprites
         mainPlayer.clear();
-        //ia1.clear();
         for (i = 0; i < nCoin; i++)
             coin[i].clear();
         for (i = 0; i < nPlatform; i++)
             platform[i].clear();
         for (i = 0; i < nShurikens; i++)
             shurikens[i].clear();
+        for (i = 0; i < nEnemies; i++)
+            enemies[i].clear();
 
         if (frameCpt++ == 3)
         {
-
             // Update sprites
             mainPlayer.updatePosition(platform, nPlatform);
-            //ia1.updatePosition(platform, nPlatform);
+            for (i = 0; i < nEnemies; i++)
+                enemies[i].updatePosition(platform, nPlatform);
             for (i = 0; i < nCoin; i++)
             {
-                coin[i].updatePosition(platform, nPlatform);
-                if (mainPlayer.hasCollectedCoin(coin[i]))
+                if (coin[i].updatePosition(platform, nPlatform))
+                {
+                    if (mainPlayer.hasCollectedCoin(coin[i]))
+                    {
+                        coin[i] = coin[--nCoin];
+                    }
+                }
+                else
                 {
                     coin[i] = coin[--nCoin];
                 }
@@ -170,7 +228,10 @@ function refreshGame() {
             {
                 if (shurikens[i].updatePosition(platform, nPlatform))
                 {
-                    shurikens[i] = shurikens[--nShurikens];
+                    if(enemies[nEnemies-1].hasBeenHit(shurikens[i]))
+                    {
+                        shurikens[i] = shurikens[--nShurikens];
+                    }
                 }
 
             }
@@ -185,7 +246,8 @@ function refreshGame() {
             shurikens[i].draw();
         for (i = 0; i < nPlatform; i++)
             platform[i].draw();
+        for (i = 0; i < nEnemies; i++)
+            enemies[i].draw();
         mainPlayer.draw();
-        //ia1.draw();
     }
 }
