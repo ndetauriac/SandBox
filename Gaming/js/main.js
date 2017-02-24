@@ -13,9 +13,9 @@ const CTRL_LEFT = 17;
 
 function init() {
     mainPlayer = new Player("ninja", 600, 0);
-    addPlateform(200, 550);
-    addPlateform(600, 300);
-    addPlateform(800, 550);
+    addPlateform(200, 550, 20, 250, "LEFT");
+    addPlateform(600, 300, 200, 20, "BOT");
+    addPlateform(800, 550, 200, 20);
     // Borders
     // Left
     addPlateform(-200, 0, 200, 800);
@@ -85,9 +85,15 @@ function addCoin(x, y, stasis = false)
     nCoin++;
 }
 
-function addPlateform(x, y, w = 200, h = 50)
+function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
 {
-    platform[nPlatform] = new Plateform(x, y, w, h);
+    platform[nPlatform] = new Plateform(x, y, w, h, mode);
+    nPlatform++;
+}
+
+function addSemiPlateform(x, y, w = 200, h = 10)
+{
+    platform[nPlatform] = new Plateform(x, y, w, h, "BOT");
     nPlatform++;
 }
 

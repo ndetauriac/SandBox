@@ -1,12 +1,42 @@
 class Plateform
 {
-    constructor(x, y, w, h)
+    constructor(x, y, w, h, mode = "FULL")
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         this.rectX = x;
         this.rectY = y;
         this.rectW = w;
         this.rectH = h;
+        this.bottomSide = false;
+        this.topSide = false;
+        this.leftSide = false;
+        this.rightSide = false;
+        switch(mode)
+        {
+            case "TOP":
+                this.topSide = true;
+                this.color = "#888888";
+                break;
+            case "BOT":
+                this.bottomSide = true;
+                this.color = "#0000FF";
+                break;
+            case "LEFT":
+                this.leftSide = true;
+                this.color = "#00FF00";
+                break;
+            case "RIGHT":
+                this.rightSide = true;
+                this.color = "#FF0000";
+                break;
+            default:
+                this.bottomSide = true;
+                this.topSide = true;
+                this.leftSide = true;
+                this.rightSide = true;
+                this.color = "#000000";
+                break;
+        }
     }
 
     contact(prevX, prevY, nextX, nextY, prevW, prevH, nextW, nextH)
@@ -19,22 +49,22 @@ class Plateform
         var newPosY = nextY;
         if (!(nextX > this.rectX + this.rectW || nextX < this.rectX - nextW || nextY > this.rectY + this.rectH || nextY < this.rectY - nextH))
         {
-            if(this.leftContact(prevX + prevW, nextX + nextW))
+            if(this.leftContact(prevX + prevW, nextX + nextW) && this.leftSide)
             {
                 isInContactLeft = true;
                 newPosX = Math.floor(this.rectX - nextW - 1);
             }
-            else if(this.rightContact(prevX, nextX))
+            else if(this.rightContact(prevX, nextX) && this.rightSide)
             {
                 isInContactRight = true;
                 newPosX = Math.floor(this.rectX + this.rectW + 1);
             }
-            if(this.topContact(prevY + prevH, nextY + nextH))
+            if(this.topContact(prevY + prevH, nextY + nextH) && this.topSide)
             {
                 isInContactTop = true;
                 newPosY = Math.floor(this.rectY - nextH - 1);
             }
-            else if(this.bottomContact(prevY, nextY))
+            else if(this.bottomContact(prevY, nextY) && this.bottomSide)
             {
                 isInContactBot = true;
                 newPosY = Math.floor(this.rectY + this.rectH + 1);
@@ -73,6 +103,7 @@ class Plateform
 
     draw()
     {
+        this.context2D.fillStyle = this.color;
         this.context2D.fillRect(this.rectX, this.rectY, this.rectW, this.rectH);
     }
 

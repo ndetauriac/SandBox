@@ -19,8 +19,8 @@ class Player {
         this.mapSprites["JUMP_LEFT"] = new Sprites("./images/ninjaJumpLeft.png", 10, 1, false, 2);
         this.mapSprites["JUMP_RIGHT"] = new Sprites("./images/ninjaJumpRight.png", 10, 1, false, 2);
 
-        this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft.png", 10, 1, false, 2);
-        this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight.png", 10, 1, false, 2);
+        this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft.png", 10, 1, false, 5);
+        this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight.png", 10, 1, false, 5);
 
         this.posX = x;
         this.posY = y;
@@ -76,7 +76,12 @@ class Player {
             if (sWidth != null && sHeight != null) {
                 var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, prevWidth, prevHeight, sWidth, sHeight);
 
-                if (gap.isInContactRight || gap.isInContactLeft)
+                if (gap.isInContactRight)
+                {
+                    this.previewPosX = gap.gapX;
+                    this.staminaX = 0;
+                }
+                if (gap.isInContactLeft)
                 {
                     this.previewPosX = gap.gapX;
                     this.staminaX = 0;
