@@ -2,6 +2,7 @@ const MAX_SPEED_X = 20;
 const MAX_JUMP_HEIGHT = 35;
 const GRIP = 1;
 const GRAVITY = 2;
+const MAX_JUMP = 1;
 
 class Player {
     constructor(name, x, y) {
@@ -31,11 +32,12 @@ class Player {
         this.staminaY = 0;
 
         this.jumpPower = 0;
-        this.jumped = false;
+        this.jumped = 0;
         this.lastDir = 1;
         this.onTheFloor = false;
         this.score = 0;
         this.boost = 0;
+        this.healthBar = new HealthBar(100);
         this.isAlive = true;
         this.slide = false;
         this.state = "IDLE_RIGHT";
@@ -50,6 +52,31 @@ class Player {
         {
             this.score += coin.coinValue;
             document.getElementById('gamestartscreen').innerHTML = this.score;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    get Health()
+    {
+        return this.health;
+    }
+    
+    set Health(value)
+    {
+        this.health = value;
+        if (this.health <= 0)
+            this.isAlive = false;
+    }
+
+    hasBeenHit(shuriken)
+    {
+        if (shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) != null)
+        {
+            this.isAlive = this.healthBar.takeDamage(shuriken.shurikenDamage);
             return true;
         }
         else
@@ -75,7 +102,10 @@ class Player {
         {
             if (sWidth != null && sHeight != null) {
                 var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, prevWidth, prevHeight, sWidth, sHeight);
-
+                if (gap.kill)
+                {
+                    this.isAlive = false;
+                }
                 if (gap.isInContactRight)
                 {
                     this.previewPosX = gap.gapX;
@@ -158,7 +188,7 @@ class Player {
         }
         else{
             this.staminaY = GRAVITY;
-            this.jumped = false;
+            this.jumped = 0;
             this.mapSprites["JUMP_LEFT"].resetAnimation();
             this.mapSprites["JUMP_RIGHT"].resetAnimation();
         }
@@ -169,12 +199,49 @@ class Player {
         return this.isAlive;
     }
 
-    throwShuriken()
+    throwShuriken(direction = "NONE")
     {
-        return new Shuriken(this.posX, this.posY, this.lastDir);
-
+        var tmpShuriken;
+        switch(direction)
+        {
+            case "NONE":
+                tmpShuriken = new Shuriken(this.posX, this.posY, this.lastDir, 0, this.staminaX);
+                break;
+            case "LEFT":
+                tmpShuriken = new Shuriken(this.posX, this.posY, -1, 0, this.staminaX);
+                break;
+            case "RIGHT":
+                tmpShuriken = new Shuriken(this.posX, this.posY, 1, 0, this.staminaX);
+                break;
+            case "UP":
+                tmpShuriken = new Shuriken(this.posX, this.posY, 0, -1, this.staminaX);
+                break;
+            case "DOWN":
+                tmpShuriken = new Shuriken(this.posX, this.posY, 0, 1, this.staminaX);
+                break;
+        }
+        if (this.Score > 0)
+        {
+            this.Score --;
+            return tmpShuriken;
+        }
+        else
+        {
+            return null;
+        }
     }
-
+    
+    get Score()
+    {
+        return parseInt(this.score);
+    }
+    
+    set Score(value)
+    {
+        this.score = value;
+        document.getElementById('gamestartscreen').innerHTML = this.score;
+    }
+    
     gravity()
     {
         this.previewPosY += this.staminaY;
@@ -185,17 +252,17 @@ class Player {
         else{
             this.staminaY = 0;
             this.onTheFloor = true;
-            this.jumped = false;
+            this.jumped = 0;
             this.mapSprites["JUMP_LEFT"].resetAnimation();
             this.mapSprites["JUMP_RIGHT"].resetAnimation();
         }
     }
 
     moveUp() {
-        if (this.jumpPower == 0 && !this.jumped)
+        if (this.jumpPower == 0 && this.jumped < MAX_JUMP)
         {
             this.jumpPower = MAX_JUMP_HEIGHT;
-            this.jumped = true;
+            this.jumped++;
         }
     }
 
@@ -233,7 +300,7 @@ class Player {
             {
                 if (this.slide)
                 this.state = "SLIDE_RIGHT";
-                else if (this.jumped)
+                else if (this.jumped > 0)
                 this.state = "JUMP_RIGHT";
                 else
                 this.state = "RUN_RIGHT";
@@ -243,7 +310,7 @@ class Player {
             {
                 if (this.slide)
                 this.state = "SLIDE_LEFT";
-                else if (this.jumped)
+                else if (this.jumped > 0)
                 this.state = "JUMP_LEFT";
                 else
                 this.state = "RUN_LEFT";
@@ -253,14 +320,14 @@ class Player {
             {
                 if (this.lastDir == 1)
                 {
-                    if (this.jumped)
+                    if (this.jumped > 0)
                     this.state = "JUMP_RIGHT";
                     else
                     this.state = "IDLE_RIGHT";
                 }
                 else
                 {
-                    if (this.jumped)
+                    if (this.jumped > 0)
                     this.state = "JUMP_LEFT";
                     else
                     this.state = "IDLE_LEFT";
@@ -269,12 +336,17 @@ class Player {
         }
         else
         {
-
+            if (this.lastDir == 1)
+                this.state = "DIE_RIGHT";
+            else
+                this.state = "DIE_LEFT";
+                 
         }
     }
 
     draw()
     {
+        this.healthBar.draw(this.posX, this.posY - 10);
         this.mapSprites[this.state].animate();
         this.mapSprites[this.state].draw(this.posX, this.posY);
     }
@@ -290,6 +362,7 @@ class Player {
 
     clear()
     {
+        this.healthBar.clear();
         this.mapSprites[this.state].clear();
     }
 }

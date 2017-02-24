@@ -3,6 +3,7 @@ class Plateform
     constructor(x, y, w, h, mode = "FULL")
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
+        this.texture = new Image();
         this.rectX = x;
         this.rectY = y;
         this.rectW = w;
@@ -11,30 +12,42 @@ class Plateform
         this.topSide = false;
         this.leftSide = false;
         this.rightSide = false;
+        this.kill = false;
+        
         switch(mode)
         {
             case "TOP":
                 this.topSide = true;
-                this.color = "#888888";
+                this.texture.color = "#888888";
                 break;
             case "BOT":
                 this.bottomSide = true;
-                this.color = "#0000FF";
+                this.texture.color = "#0000FF";
                 break;
             case "LEFT":
                 this.leftSide = true;
-                this.color = "#00FF00";
+                this.texture.color = "#00FF00";
                 break;
             case "RIGHT":
                 this.rightSide = true;
-                this.color = "#FF0000";
+                this.texture.color = "#0000FF0";
+                break;
+            case "LAVA":
+                this.bottomSide = true;
+                this.topSide = true;
+                this.leftSide = true;
+                this.rightSide = true;
+                this.kill = true;
+                var ctx = this.context2D;
+                this.texture.src = "./images/lavaTexture.png";
+                this.texture.onload = function() {this.color = ctx.createPattern(this, 'repeat');}
                 break;
             default:
                 this.bottomSide = true;
                 this.topSide = true;
                 this.leftSide = true;
                 this.rightSide = true;
-                this.color = "#000000";
+                this.texture.color = "#000";
                 break;
         }
     }
@@ -45,10 +58,12 @@ class Plateform
         var isInContactBot = false;
         var isInContactLeft = false;
         var isInContactRight = false;
+        var kill = false;
         var newPosX = nextX;
         var newPosY = nextY;
         if (!(nextX > this.rectX + this.rectW || nextX < this.rectX - nextW || nextY > this.rectY + this.rectH || nextY < this.rectY - nextH))
         {
+            kill = this.kill;
             if(this.leftContact(prevX + prevW, nextX + nextW) && this.leftSide)
             {
                 isInContactLeft = true;
@@ -77,7 +92,8 @@ class Plateform
             isInContactLeft: isInContactLeft,
             isInContactRight: isInContactRight,
             gapX: newPosX,
-            gapY: newPosY
+            gapY: newPosY,
+            kill: kill
         }
     }
 
@@ -103,7 +119,7 @@ class Plateform
 
     draw()
     {
-        this.context2D.fillStyle = this.color;
+        this.context2D.fillStyle = this.texture.color;
         this.context2D.fillRect(this.rectX, this.rectY, this.rectW, this.rectH);
     }
 

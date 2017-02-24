@@ -19,6 +19,7 @@ class Coin
     updatePosition(plateforms, nPlateform) {
         var plat;
         var floorLevel = this.winHeight;
+        var exist = true;
         if (!this.stasis)
         {
             this.computeXPosition();
@@ -31,7 +32,11 @@ class Coin
 
                 if (this.sprite.width != null && this.sprite.height != null) {
                     var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
-
+                    
+                    if(gap.kill)
+                    {
+                        exist = false;
+                    }
                     if (gap.isInContactRight || gap.isInContactLeft)
                     {
                         this.previewPosX = gap.gapX;
@@ -50,6 +55,7 @@ class Coin
             this.applyXPosition();
             this.applyYPosition();
         }
+        return exist;
     }
 
     computeXPosition(){

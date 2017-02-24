@@ -2,7 +2,7 @@ const SHURIKEN_SPEED = 40;
 
 class Shuriken
 {
-    constructor(x, y, direction)
+    constructor(x, y, directionX, directionY, innerSpeed = 0)
     {
         this.sprite = new Sprites("./images/shuriken.png", 4, 1, true, 1);
         this.value = 10;
@@ -13,8 +13,8 @@ class Shuriken
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = false;
-        this.direction = direction;
-        this.staminaX = direction * SHURIKEN_SPEED;
+        this.staminaX = directionX * SHURIKEN_SPEED + innerSpeed;
+        this.staminaY = directionY * SHURIKEN_SPEED;
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
@@ -72,7 +72,7 @@ class Shuriken
         if (this.staminaX == 0)
             this.lifeTime--;
 
-        return (this.lifeTime == 0);
+        return (this.lifeTime > 0);
     }
 
     computeXPosition(){
@@ -112,10 +112,15 @@ class Shuriken
             return null;
         }
     }
+    
+    get shurikenDamage()
+    {
+        return this.value;
+    }
 
     draw()
     {
-        if (this.staminaX != 0)
+        if (this.staminaX != 0 || this.staminaY != 0)
             this.sprite.animate();
         this.sprite.draw(this.posX, this.posY);
     }
