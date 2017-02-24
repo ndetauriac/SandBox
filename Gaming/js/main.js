@@ -97,6 +97,9 @@ var nCoin = 0;
 var shurikens = new Array();
 var nShurikens = 0;
 
+var shurikensEnemy = new Array();
+var nShurikensEnemy = 0;
+
 var platform = new Array();
 var nPlatform = 0;
 
@@ -112,7 +115,7 @@ onkeydown = onkeyup = function(e){
 
 function addEnemies()
 {
-    enemies[nEnemies] = new Player("ninja", Math.random() * WIN_WIDTH, 10);
+    enemies[nEnemies] = new Player("ninja", Math.random() * (WIN_WIDTH - 200) + 100, 10);
     nEnemies ++;
 }
 
@@ -160,13 +163,10 @@ function keyRight() {
 function refreshGame() {
     if (boucle)
     {
-        if(Math.floor(Math.random()*100) == 0)
+        if(Math.floor(Math.random()*10000) == 0)
         {
             addRandomCoin();
         }
-        
-        if(!enemies[nEnemies-1].isAlive)
-            addEnemies();
         // Controls
         if(mainPlayer.isPAlive)
         {
@@ -201,15 +201,35 @@ function refreshGame() {
             platform[i].clear();
         for (i = 0; i < nShurikens; i++)
             shurikens[i].clear();
+        for (i = 0; i < nShurikensEnemy; i++)
+            shurikensEnemy[i].clear();
         for (i = 0; i < nEnemies; i++)
             enemies[i].clear();
 
         if (frameCpt++ == 3)
         {
             // Update sprites
-            mainPlayer.updatePosition(platform, nPlatform);
+            if(!mainPlayer.updatePosition(platform, nPlatform))
+            {
+                
+            }
             for (i = 0; i < nEnemies; i++)
-                enemies[i].updatePosition(platform, nPlatform);
+            {
+                if(enemies[i].isAlive)
+                {
+                    let tmpShuriken = enemies[i].move(mainPlayer);
+                    if (tmpShuriken != null)
+                    {
+                        shurikensEnemy[nShurikensEnemy] = tmpShuriken;
+                        nShurikensEnemy++;
+                    }
+                }
+                if (!enemies[i].updatePosition(platform, nPlatform))
+                {
+                    addCoin(enemies[i].PosX, enemies[i].PosY, true);
+                    enemies[i] = enemies[--nEnemies];
+                }
+            }
             for (i = 0; i < nCoin; i++)
             {
                 if (coin[i].updatePosition(platform, nPlatform))
@@ -228,12 +248,34 @@ function refreshGame() {
             {
                 if (shurikens[i].updatePosition(platform, nPlatform))
                 {
-                    if(enemies[nEnemies-1].hasBeenHit(shurikens[i]))
+                    for (j = 0; j < nEnemies; j++)
                     {
-                        shurikens[i] = shurikens[--nShurikens];
+                        if (enemies[j].isAlive)
+                        {
+                            if(enemies[j].hasBeenHit(shurikens[i]))
+                            {
+                                shurikens[i] = shurikens[--nShurikens];
+                            }
+                            if(!enemies[j].isAlive)
+                                addEnemies();
+                        }
                     }
                 }
+                else
+                {
+                    shurikens[i] = shurikens[--nShurikens];
+                }
 
+            }
+            for (i = 0; i < nShurikensEnemy; i++)
+            {
+                if(shurikensEnemy[i].updatePosition(platform, nPlatform))
+                {
+                    if(mainPlayer.hasBeenHit(shurikensEnemy[i]))
+                    {
+                        shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
+                    }
+                }
             }
             frameCpt = 0;
         }
@@ -244,6 +286,8 @@ function refreshGame() {
             coin[i].draw();
         for (i = 0; i < nShurikens; i++)
             shurikens[i].draw();
+        for (i = 0; i < nShurikensEnemy; i++)
+            shurikensEnemy[i].draw();
         for (i = 0; i < nPlatform; i++)
             platform[i].draw();
         for (i = 0; i < nEnemies; i++)

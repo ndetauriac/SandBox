@@ -25,17 +25,19 @@ class HealthBar
     
     draw(x, y)
     {
+        var posX = Math.floor(x);
+        var posY = Math.floor(y);
         this.context2D.fillStyle = "#000";
-        this.context2D.fillRect(x, y, HEALTH_BAR_MAX_WIDTH + 2, 5);
+        this.context2D.fillRect(posX, posY, HEALTH_BAR_MAX_WIDTH + 2, 5);
         this.context2D.fillStyle = this.rgbToHex(255- 255*this.currentHealth / this.healthMax, 255*this.currentHealth / this.healthMax, 0);
-        this.context2D.fillRect(x + 1 , y + 1, HEALTH_BAR_MAX_WIDTH * this.currentHealth / this.healthMax, 3);
-        this.previewPosX = x;
-        this.previewPosY = y;
+        this.context2D.fillRect(posX + 1 , posY + 1, HEALTH_BAR_MAX_WIDTH * this.currentHealth / this.healthMax, 3);
+        this.previewPosX = posX;
+        this.previewPosY = posY;
     }
     
     clear()
     {
-        this.context2D.clearRect(this.previewPosX, this.previewPosY, HEALTH_BAR_MAX_WIDTH + 4, 5);
+        this.context2D.clearRect(this.previewPosX, this.previewPosY, HEALTH_BAR_MAX_WIDTH + 2, 5);
     }
 
     rgbToHex(r, g, b) {
