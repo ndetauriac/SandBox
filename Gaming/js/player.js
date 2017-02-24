@@ -3,6 +3,7 @@ const MAX_JUMP_HEIGHT = 35;
 const GRIP = 1;
 const GRAVITY = 2;
 const MAX_JUMP = 1;
+const CADENCE = 20;
 
 class Player {
     constructor(name, x, y) {
@@ -35,7 +36,8 @@ class Player {
         this.jumped = 0;
         this.lastDir = 1;
         this.onTheFloor = false;
-        this.score = 0;
+        this.cadence = 0;
+        this.score = 10;
         this.boost = 0;
         this.healthBar = new HealthBar(100);
         this.isAlive = true;
@@ -44,6 +46,8 @@ class Player {
         this.lastState = "IDLE_RIGHT";
         this.winWidth = document.getElementById('gameArea').width;
         this.winHeight = document.getElementById('gameArea').height;
+        
+        this.lifeTime = 100;
     }
 
     hasCollectedCoin(coin)
@@ -71,12 +75,23 @@ class Player {
         if (this.health <= 0)
             this.isAlive = false;
     }
+    
+    get PosX()
+    {
+        return this.posX;
+    }
+    
+    get PosY()
+    {
+        return this.posY;
+    }
 
     hasBeenHit(shuriken)
     {
-        if (shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) != null)
+        var damages = shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height);
+        if (damages > 0)
         {
-            this.isAlive = this.healthBar.takeDamage(shuriken.shurikenDamage);
+            this.isAlive = this.healthBar.takeDamage(damages);
             return true;
         }
         else
@@ -134,8 +149,10 @@ class Player {
 
         this.applyXPosition();
         this.applyYPosition();
+        
+        this.cadence = Decr(this.cadence, 1, 0);
 
-        this.switchState();
+        return this.switchState();
     }
 
     computeXPosition(){
@@ -154,18 +171,14 @@ class Player {
         {
             if(!(!this.onTheFloor && this.slide))
             {
-                this.staminaX -= (GRIP/(1+this.slide));
-                if (this.staminaX < 0)
-                this.staminaX = 0;
+                this.staminaX = Decr(this.staminaX, GRIP/(1+this.slide), 0);
             }
         }
         else if (this.staminaX < 0)
         {
             if(!(!this.onTheFloor && this.slide))
             {
-                this.staminaX += (GRIP/(1+this.slide));
-                if (this.staminaX > 0)
-                this.staminaX = 0;
+                this.staminaX = Incr(this.staminaX, GRIP/(1+this.slide), 0);
             }
         }
         else
@@ -179,9 +192,7 @@ class Player {
         if (this.jumpPower > 0)
         {
             this.staminaY = -this.jumpPower;
-            this.jumpPower -= GRAVITY;
-            if (this.jumpPower < 0)
-                this.jumpPower = 0;
+            this.jumpPower = Decr(this.jumpPower, GRAVITY, 0);
         }
         else if (!this.onTheFloor){
             this.staminaY += GRAVITY;
@@ -198,31 +209,51 @@ class Player {
     {
         return this.isAlive;
     }
+    
+    move(player)
+    {
+        var throwDir = "NONE";
+        if(player.PosX > this.posX)
+        {
+            this.moveRight();
+            throwDir = "RIGHT";
+        }
+        else if(player.PosX < this.posX)
+        {
+            this.moveLeft();
+            throwDir = "LEFT";
+            
+        }
+        return this.throwShuriken(throwDir, true);
+    }
 
-    throwShuriken(direction = "NONE")
+    throwShuriken(direction = "NONE", free = false)
     {
         var tmpShuriken;
+        var xThrow = this.posX;
+        var yThrow = this.posY;
         switch(direction)
         {
             case "NONE":
-                tmpShuriken = new Shuriken(this.posX, this.posY, this.lastDir, 0, this.staminaX);
+                tmpShuriken = new Shuriken(xThrow, yThrow, this.lastDir, 0, this.staminaX);
                 break;
             case "LEFT":
-                tmpShuriken = new Shuriken(this.posX, this.posY, -1, 0, this.staminaX);
+                tmpShuriken = new Shuriken(xThrow, yThrow, -1, 0, this.staminaX);
                 break;
             case "RIGHT":
-                tmpShuriken = new Shuriken(this.posX, this.posY, 1, 0, this.staminaX);
+                tmpShuriken = new Shuriken(xThrow, yThrow, 1, 0, this.staminaX);
                 break;
             case "UP":
-                tmpShuriken = new Shuriken(this.posX, this.posY, 0, -1, this.staminaX);
+                tmpShuriken = new Shuriken(xThrow, yThrow, 0, -1, this.staminaX);
                 break;
             case "DOWN":
-                tmpShuriken = new Shuriken(this.posX, this.posY, 0, 1, this.staminaX);
+                tmpShuriken = new Shuriken(xThrow, yThrow, 0, 1, this.staminaX);
                 break;
         }
-        if (this.Score > 0)
+        if ((this.Score > 0 || free) && this.cadence == 0)
         {
             this.Score --;
+            this.cadence = CADENCE;
             return tmpShuriken;
         }
         else
@@ -259,31 +290,43 @@ class Player {
     }
 
     moveUp() {
-        if (this.jumpPower == 0 && this.jumped < MAX_JUMP)
+        if(this.isAlive)
         {
-            this.jumpPower = MAX_JUMP_HEIGHT;
-            this.jumped++;
+            if (this.jumpPower == 0 && this.jumped < MAX_JUMP)
+            {
+                this.jumpPower = MAX_JUMP_HEIGHT;
+                this.jumped++;
+            }
         }
     }
 
     moveDown() {
-        this.previewPosY += this.staminaY;
+        if(this.isAlive)
+        {
+            this.previewPosY += this.staminaY;
+        }
     }
 
     moveLeft() {
-        if (this.staminaX > -MAX_SPEED_X - this.boost * MAX_SPEED_X && !this.slide)
-        this.staminaX -= 2;
+        if(this.isAlive)
+        {
+            if (this.staminaX > -MAX_SPEED_X - this.boost * MAX_SPEED_X && !this.slide)
+                this.staminaX -= 2;
+        }
     }
 
     moveRight() {
-        if (this.staminaX < MAX_SPEED_X + this.boost * MAX_SPEED_X && !this.slide)
-        this.staminaX +=2;
+        if(this.isAlive)
+        {
+            if (this.staminaX < MAX_SPEED_X + this.boost * MAX_SPEED_X && !this.slide)
+                this.staminaX +=2;
+        }
     }
 
     set playerSlide(value)
     {
         if (this.staminaX > MAX_SPEED_X / 2 || this.staminaX < -MAX_SPEED_X / 2)
-        this.slide = value;
+            this.slide = value;
     }
 
     set run(value)
@@ -293,6 +336,7 @@ class Player {
 
     switchState()
     {
+        var keep = true;
         this.lastState = this.state;
         if (this.isAlive)
         {
@@ -336,17 +380,22 @@ class Player {
         }
         else
         {
+            this.lifeTime--;
+            if (this.lifeTime == 0)
+                keep = false;
             if (this.lastDir == 1)
                 this.state = "DIE_RIGHT";
             else
                 this.state = "DIE_LEFT";
                  
         }
+        return keep;
     }
 
     draw()
     {
-        this.healthBar.draw(this.posX, this.posY - 10);
+        if (this.isAlive)
+            this.healthBar.draw(this.posX, this.posY - 10);
         this.mapSprites[this.state].animate();
         this.mapSprites[this.state].draw(this.posX, this.posY);
     }

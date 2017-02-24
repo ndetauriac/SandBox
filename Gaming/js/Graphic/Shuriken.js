@@ -1,11 +1,11 @@
-const SHURIKEN_SPEED = 40;
+const SHURIKEN_SPEED = 35;
 
 class Shuriken
 {
     constructor(x, y, directionX, directionY, innerSpeed = 0)
     {
         this.sprite = new Sprites("./images/shuriken.png", 4, 1, true, 1);
-        this.value = 10;
+        this.value = 20;
         this.posX = x;
         this.posY = y;
         this.previewPosX = x;
@@ -69,7 +69,7 @@ class Shuriken
         this.applyXPosition();
         this.applyYPosition();
 
-        if (this.staminaX == 0)
+        if (this.staminaX == 0 && this.staminaY == 0)
             this.lifeTime--;
 
         return (this.lifeTime > 0);
@@ -102,14 +102,16 @@ class Shuriken
     contact(x, y, w, h)
     {
         if (this.sprite.width != null && this.sprite.height != null) {
-            if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h))
+            if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h / 3))
+                return 2 * this.value;
+            else if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h))
                 return this.value;
             else
-                return null;
+                return 0;
         }
         else
         {
-            return null;
+            return 0;
         }
     }
     
