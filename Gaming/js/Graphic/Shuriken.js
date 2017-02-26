@@ -70,8 +70,10 @@ class Shuriken
         this.applyYPosition();
 
         if (this.staminaX == 0 && this.staminaY == 0)
+        {
+            this.value = 0;
             this.lifeTime--;
-
+        }
         return (this.lifeTime > 0);
     }
 
@@ -114,7 +116,7 @@ class Shuriken
             return 0;
         }
     }
-    
+
     get shurikenDamage()
     {
         return this.value;

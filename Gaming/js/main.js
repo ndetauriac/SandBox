@@ -21,7 +21,8 @@ const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
 
 function init() {
-    mainPlayer = new Player("ninja", 600, 10);
+    mainPlayer = new Player(600, 10);
+    addEnemies();
     addEnemies();
     addPlateform(200, 550, 200, 20, "FULL");
     addPlateform(600, 300, 200, 20, "FULL");
@@ -115,7 +116,7 @@ onkeydown = onkeyup = function(e){
 
 function addEnemies()
 {
-    enemies[nEnemies] = new Player("ninja", Math.random() * (WIN_WIDTH - 200) + 100, 10);
+    enemies[nEnemies] = new Enemy(Math.random() * (WIN_WIDTH - 200) + 100, 10);
     nEnemies ++;
 }
 
@@ -211,8 +212,9 @@ function refreshGame() {
             // Update sprites
             if(!mainPlayer.updatePosition(platform, nPlatform))
             {
-                
+
             }
+
             for (i = 0; i < nEnemies; i++)
             {
                 if(enemies[i].isAlive)
@@ -250,7 +252,7 @@ function refreshGame() {
                 {
                     for (j = 0; j < nEnemies; j++)
                     {
-                        if (enemies[j].isAlive)
+                        if (enemies[j].isAlive && shurikens[i] != null)
                         {
                             if(enemies[j].hasBeenHit(shurikens[i]))
                             {
@@ -275,6 +277,9 @@ function refreshGame() {
                     {
                         shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
                     }
+                }
+                else {
+                    shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
                 }
             }
             frameCpt = 0;
