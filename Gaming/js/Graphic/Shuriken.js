@@ -103,7 +103,11 @@ class Shuriken
 
     contact(x, y, w, h)
     {
-        if (this.sprite.width != null && this.sprite.height != null) {
+        if (this.sprite.width === undefined && this.sprite.height === undefined)
+        {
+            return 0;
+        }
+        else if (this.sprite.width != null && this.sprite.height != null) {
             if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h / 3))
                 return 2 * this.value;
             else if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h))

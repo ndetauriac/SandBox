@@ -73,15 +73,22 @@ class Characters {
 
     hasBeenHit(shuriken)
     {
-        var damages = shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height);
-        if (damages > 0)
+        if (this.mapSprites[this.state].width === undefined || this.mapSprites[this.state].height === undefined)
         {
-            this.isAlive = this.healthBar.takeDamage(damages);
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            var damages = shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height);
+            if (damages > 0)
+            {
+                this.isAlive = this.healthBar.takeDamage(damages);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

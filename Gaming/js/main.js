@@ -38,49 +38,17 @@ function init() {
     addPlateform(0, WIN_HEIGHT - 20, WIN_WIDTH, 200, "FULL");
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
-            case (KEY_Z):
-                var tmpShuriken = mainPlayer.throwShuriken("UP");
-                if (tmpShuriken != null)
-                {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
-                }
-                break;
-            case (KEY_S):
-                var tmpShuriken = mainPlayer.throwShuriken("DOWN");
-                if (tmpShuriken != null)
-                {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
-                }
-                break;
-            case (KEY_Q):
-                var tmpShuriken = mainPlayer.throwShuriken("LEFT");
-                if (tmpShuriken != null)
-                {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
-                }
-                break;
-            case (KEY_D):
-                var tmpShuriken = mainPlayer.throwShuriken("RIGHT");
-                if (tmpShuriken != null)
-                {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
-                }
-                break;
             case (SPACE_BAR):
                 boucle = !boucle;
                 break;
-            case (CTRL_LEFT):
+            /*case (CTRL_LEFT):
                 var tmpShuriken = mainPlayer.throwShuriken();
                 if (tmpShuriken != null)
                 {
                     shurikens[nShurikens] = tmpShuriken;
                     nShurikens++;
                 }
-                break;
+                break;*/
             case (ESCAPE_KEY):
                 mainPlayer.kill();
                 break;
@@ -164,9 +132,10 @@ function keyRight() {
 function refreshGame() {
     if (boucle)
     {
-        if(Math.floor(Math.random()*10000) == 0)
+        if(Math.floor(Math.random()*100) == 0)
         {
             addRandomCoin();
+                    addEnemies();
         }
         // Controls
         if(mainPlayer.isPAlive)
@@ -187,6 +156,43 @@ function refreshGame() {
             }
             else{
                 mainPlayer.playerSlide = false;
+            }
+
+            if(map[KEY_Z])
+            {
+                var tmpShuriken = mainPlayer.throwShuriken("UP");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[KEY_S])
+            {
+                var tmpShuriken = mainPlayer.throwShuriken("DOWN");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[KEY_Q])
+            {
+                var tmpShuriken = mainPlayer.throwShuriken("LEFT");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[KEY_D])
+            {
+                var tmpShuriken = mainPlayer.throwShuriken("RIGHT");
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
             }
             if(map[LEFT_SHIFT]){
                 mainPlayer.run = 1;
@@ -225,13 +231,42 @@ function refreshGame() {
                         shurikensEnemy[nShurikensEnemy] = tmpShuriken;
                         nShurikensEnemy++;
                     }
+
+                    for (j = 0; j < nShurikens; j++)
+                    {
+                        if (shurikens[j].updatePosition(platform, nPlatform))
+                        {
+                            if(enemies[i].hasBeenHit(shurikens[j]))
+                            {
+                                shurikens[j] = shurikens[--nShurikens];
+                                j--;
+                            }
+                        }
+                        else
+                        {
+                            shurikens[j] = shurikens[--nShurikens];
+                            j--;
+                        }
+                    }
                 }
                 if (!enemies[i].updatePosition(platform, nPlatform))
                 {
                     addCoin(enemies[i].PosX, enemies[i].PosY, true);
                     enemies[i] = enemies[--nEnemies];
+                    i--;
                 }
             }
+
+            for (j = 0; j < nShurikens; j++)
+            {
+                if (!shurikens[j].updatePosition(platform, nPlatform))
+                {
+                    shurikens[j] = shurikens[--nShurikens];
+                    j--;
+                }
+            }
+
+
             for (i = 0; i < nCoin; i++)
             {
                 if (coin[i].updatePosition(platform, nPlatform))
@@ -245,29 +280,6 @@ function refreshGame() {
                 {
                     coin[i] = coin[--nCoin];
                 }
-            }
-            for (i = 0; i < nShurikens; i++)
-            {
-                if (shurikens[i].updatePosition(platform, nPlatform))
-                {
-                    for (j = 0; j < nEnemies; j++)
-                    {
-                        if (enemies[j].isAlive && shurikens[i] != null)
-                        {
-                            if(enemies[j].hasBeenHit(shurikens[i]))
-                            {
-                                shurikens[i] = shurikens[--nShurikens];
-                            }
-                            if(!enemies[j].isAlive)
-                                addEnemies();
-                        }
-                    }
-                }
-                else
-                {
-                    shurikens[i] = shurikens[--nShurikens];
-                }
-
             }
             for (i = 0; i < nShurikensEnemy; i++)
             {
