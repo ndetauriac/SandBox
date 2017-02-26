@@ -66,15 +66,17 @@
     
     draw(x, y)
     {
+        var posX = Math.floor(x);
+        var posY = Math.floor(y);
         var posSpriteX = (this.frame % this.imgSprite.frameNumberX) * this.imgSprite.spriteW;
         var posSpriteY = (this.frame - (this.frame % this.imgSprite.frameNumberX)) / this.imgSprite.frameNumberX * this.imgSprite.spriteH;
         
-        if (this.imgSprite != undefined)
+        if (this.imgSprite !== undefined)
         {
-            this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.imgSprite.spriteW, this.imgSprite.spriteH, x, y, this.imgSprite.spriteW, this.imgSprite.spriteH);
+            this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.imgSprite.spriteW, this.imgSprite.spriteH, posX, posY, this.imgSprite.spriteW, this.imgSprite.spriteH);
         }
-        this.lastPosX = x;
-        this.lastPosY = y;
+        this.lastPosX = posX;
+        this.lastPosY = posY;
     }
     
     getSize()

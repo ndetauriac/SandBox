@@ -1,7 +1,7 @@
 class Enemy extends Characters{
     constructor(x, y)
     {
-        super(x, y, 20);
+        super(x, y, 100);
     }
 
     move(player)
@@ -35,8 +35,8 @@ class Enemy extends Characters{
 
         }
 
-        //return this.throwShuriken(throwDir, true);
-        return null;// this.throwShuriken(throwDir, true);
+        return this.throwShuriken(throwDir, true);
+        //return null;
     }
 
     throwShuriken(direction = "NONE")

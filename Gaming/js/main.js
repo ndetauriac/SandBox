@@ -23,7 +23,6 @@ const WIN_HEIGHT = window.innerHeight;
 function init() {
     mainPlayer = new Player(600, 10);
     addEnemies();
-    addEnemies();
     addPlateform(200, 550, 200, 20, "FULL");
     addPlateform(600, 300, 200, 20, "FULL");
     addPlateform(800, 700, 200, 20, "FULL");
@@ -135,7 +134,6 @@ function refreshGame() {
         if(Math.floor(Math.random()*100) == 0)
         {
             addRandomCoin();
-                    addEnemies();
         }
         // Controls
         if(mainPlayer.isPAlive)
@@ -221,6 +219,15 @@ function refreshGame() {
 
             }
 
+            for (j = 0; j < nShurikens; j++)
+            {
+                if (!shurikens[j].updatePosition(platform, nPlatform))
+                {
+                    shurikens[j] = shurikens[--nShurikens];
+                    j--;
+                }
+            }
+
             for (i = 0; i < nEnemies; i++)
             {
                 if(enemies[i].isAlive)
@@ -234,19 +241,11 @@ function refreshGame() {
 
                     for (j = 0; j < nShurikens; j++)
                     {
-                        if (shurikens[j].updatePosition(platform, nPlatform))
-                        {
-                            if(enemies[i].hasBeenHit(shurikens[j]))
-                            {
-                                shurikens[j] = shurikens[--nShurikens];
-                                j--;
-                            }
-                        }
-                        else
+                        if(enemies[i].hasBeenHit(shurikens[j]))
                         {
                             shurikens[j] = shurikens[--nShurikens];
                             j--;
-                        }
+                        } 
                     }
                 }
                 if (!enemies[i].updatePosition(platform, nPlatform))
@@ -254,18 +253,9 @@ function refreshGame() {
                     addCoin(enemies[i].PosX, enemies[i].PosY, true);
                     enemies[i] = enemies[--nEnemies];
                     i--;
+                    addEnemies();
                 }
             }
-
-            for (j = 0; j < nShurikens; j++)
-            {
-                if (!shurikens[j].updatePosition(platform, nPlatform))
-                {
-                    shurikens[j] = shurikens[--nShurikens];
-                    j--;
-                }
-            }
-
 
             for (i = 0; i < nCoin; i++)
             {
