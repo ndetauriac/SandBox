@@ -1,7 +1,7 @@
 class Enemy extends Characters{
     constructor(x, y)
     {
-        super(x, y, 100);
+        super(x, y, 100, "red");
     }
 
     move(player)

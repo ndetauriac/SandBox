@@ -1,7 +1,7 @@
 class Player extends Characters{
     constructor(x, y)
     {
-        super(x, y, 100);
+        super(x, y, 100, "purple");
         this.score = 10;
     }
 
