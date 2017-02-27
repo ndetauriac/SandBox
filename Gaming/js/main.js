@@ -19,6 +19,7 @@ const LEFT_SHIFT = 16;
 const CTRL_LEFT = 17;
 const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
+const WIN_RATIO = 0.75;
 
 function init() {
     mainPlayer = new Player(600, 10);
@@ -55,8 +56,10 @@ function init() {
     });
     boucle = true;
     var canvas = document.getElementById('gameArea');
+    var context2D = canvas.getContext('2d');
     canvas.width = WIN_WIDTH;
     canvas.height = WIN_HEIGHT;
+    context2D.scale(WIN_RATIO, WIN_RATIO);
 }
 
 var coin = new Array();
@@ -133,7 +136,7 @@ function refreshGame() {
     {
         if(Math.floor(Math.random()*100) == 0)
         {
-            addRandomCoin();
+            //addRandomCoin();
         }
         // Controls
         if(mainPlayer.isPAlive)
@@ -245,7 +248,9 @@ function refreshGame() {
                         {
                             shurikens[j] = shurikens[--nShurikens];
                             j--;
-                        } 
+                        }
+                        if(!enemies[i].isAlive)
+                            addEnemies();
                     }
                 }
                 if (!enemies[i].updatePosition(platform, nPlatform))
@@ -253,7 +258,6 @@ function refreshGame() {
                     addCoin(enemies[i].PosX, enemies[i].PosY, true);
                     enemies[i] = enemies[--nEnemies];
                     i--;
-                    addEnemies();
                 }
             }
 
