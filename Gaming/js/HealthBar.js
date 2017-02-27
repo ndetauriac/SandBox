@@ -37,7 +37,7 @@ class HealthBar
     
     clear()
     {
-        this.context2D.clearRect(this.previewPosX, this.previewPosY, HEALTH_BAR_MAX_WIDTH + 2, 5);
+        this.context2D.clearRect(this.previewPosX-1, this.previewPosY-1, HEALTH_BAR_MAX_WIDTH + 4, 7);
     }
 
     rgbToHex(r, g, b) {
