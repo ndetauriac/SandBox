@@ -4,10 +4,10 @@ class Plateform
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         this.texture = new Image();
-        this.rectX = x;
-        this.rectY = y;
-        this.rectW = w;
-        this.rectH = h;
+        this.rectX = x/WIN_RATIO;
+        this.rectY = y/WIN_RATIO;
+        this.rectW = w/WIN_RATIO;
+        this.rectH = h/WIN_RATIO;
         this.bottomSide = false;
         this.topSide = false;
         this.leftSide = false;

@@ -2,27 +2,27 @@ const MAX_SPEED_X = 20;
 const MAX_JUMP_HEIGHT = 35;
 const GRIP = 1;
 const GRAVITY = 2;
-const MAX_JUMP = 1;
+const MAX_JUMP = 2;
 const CADENCE = 20;
 
 class Characters {
-    constructor(x, y, startHealth, color) {
+    constructor(x, y, startHealth) {
 
         this.mapSprites = {};
-        this.mapSprites["IDLE_LEFT"] = new Sprites("./images/ninjaIdleLeft_"+ color +".png", 10, 1, true, 3);
-        this.mapSprites["IDLE_RIGHT"] = new Sprites("./images/ninjaIdleRight_"+ color +".png", 10, 1, true, 3);
+        this.mapSprites["IDLE_LEFT"] = new Sprites("./images/ninjaIdleLeft.png", 10, 1, true, 3);
+        this.mapSprites["IDLE_RIGHT"] = new Sprites("./images/ninjaIdleRight.png", 10, 1, true, 3);
 
-        this.mapSprites["RUN_LEFT"] = new Sprites("./images/ninjaRunLeft_"+ color +".png", 10, 1, true, 3);
-        this.mapSprites["RUN_RIGHT"] = new Sprites("./images/ninjaRunRight_"+ color +".png", 10, 1, true, 3);
+        this.mapSprites["RUN_LEFT"] = new Sprites("./images/ninjaRunLeft.png", 10, 1, true, 3);
+        this.mapSprites["RUN_RIGHT"] = new Sprites("./images/ninjaRunRight.png", 10, 1, true, 3);
 
-        this.mapSprites["SLIDE_LEFT"] = new Sprites("./images/ninjaSlideLeft_"+ color +".png", 10, 1, true, 3);
-        this.mapSprites["SLIDE_RIGHT"] = new Sprites("./images/ninjaSlideRight_"+ color +".png", 10, 1, true, 3);
+        this.mapSprites["SLIDE_LEFT"] = new Sprites("./images/ninjaSlideLeft.png", 10, 1, true, 3);
+        this.mapSprites["SLIDE_RIGHT"] = new Sprites("./images/ninjaSlideRight.png", 10, 1, true, 3);
 
-        this.mapSprites["JUMP_LEFT"] = new Sprites("./images/ninjaJumpLeft_"+ color +".png", 10, 1, false, 2);
-        this.mapSprites["JUMP_RIGHT"] = new Sprites("./images/ninjaJumpRight_"+ color +".png", 10, 1, false, 2);
+        this.mapSprites["JUMP_LEFT"] = new Sprites("./images/ninjaJumpLeft.png", 10, 1, false, 2);
+        this.mapSprites["JUMP_RIGHT"] = new Sprites("./images/ninjaJumpRight.png", 10, 1, false, 2);
 
-        this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft_"+ color +".png", 10, 1, false, 5);
-        this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight_"+ color +".png", 10, 1, false, 5);
+        this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft.png", 10, 1, false, 5);
+        this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight.png", 10, 1, false, 5);
 
         this.posX = x;
         this.posY = y;
