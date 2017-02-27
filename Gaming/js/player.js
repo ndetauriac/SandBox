@@ -4,16 +4,16 @@ class Player extends Characters{
         super(x, y, 100, "purple");
         this.score = 0;
         this.ammo = 20;
-        $("#ammoValue").text(this.ammo);
-        $("#score").text(this.score);
+        $("#playerAmmo").text(this.ammo);
+        $("#playerCoin").text(this.score);
     }
 
     hasCollectedCoin(coin)
     {
-        if (coin.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) != null)
+        if (coin.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) !== null)
         {
             this.score += coin.coinValue;
-        $("#score").text(this.score);
+        $("#playerCoin").text(this.score);
             return true;
         }
         else
@@ -30,7 +30,7 @@ class Player extends Characters{
     set Score(value)
     {
         this.score = value;
-        $("#score").text(this.score);
+        $("#playerCoin").text(this.score);
     }
 
     get Ammo()
@@ -41,7 +41,7 @@ class Player extends Characters{
     set Ammo(value)
     {
         this.ammo = value;
-        $("#ammoValue").text(this.ammo);
+        $("#playerAmmo").text(this.ammo);
     }
 
     throwShuriken(direction = "NONE")
@@ -69,7 +69,7 @@ class Player extends Characters{
                     tmpShuriken = new Shuriken(xThrow, yThrow, 0, 1, this.staminaX);
                     break;
             }
-            if ((this.Ammo > 0) && this.cadence == 0)
+            if ((this.Ammo > 0) && this.cadence === 0)
             {
                 this.Ammo --;
                 this.cadence = CADENCE/4;

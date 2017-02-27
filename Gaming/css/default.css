@@ -1,4 +1,13 @@
-﻿canvas {
+@import url('https://fonts.googleapis.com/css?family=Bangers|Bubblegum+Sans');
+html {
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bangers', cursive;
+}
+
+canvas {
     display: block;
     position: absolute;
     top: 0;
@@ -16,64 +25,88 @@
     */
 }
 
-body{
+body {
     margin: 0;
 }
 
-h2 { 
-   position: absolute; 
-   top: 0px; 
-   left: 0px; 
-   color: white;
-   margin: 0px;
+.playerInfo {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px black;
 }
 
-h2 span { 
-   color: red;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #fff;
-   font: bold 18px/45px Helvetica, Sans-Serif; 
-   letter-spacing: -1px;  
-   background: rgb(0, 0, 0);
-   background: rgba(0, 0, 0, 0.2);
-   padding: 0px; 
+#playerAmmo {
+    background: url("../images/ammoValue.png");
 }
 
-#playerAmmo{
-   position: relative; 
-   width: 100%; /* for IE 6 */
+#playerCoin {
+    background: url("../images/coinValue.png");
 }
 
-#playerCoins {
-    position: relative;
-    margin: 0 auto;
-    z-index: 2;
-}
 
-#ammoValue { 
-    position: absolute; 
+/**********************************************************************/
+
+
+/**********************      GAME OVER    *****************************/
+
+
+/**********************************************************************/
+
+#gameOver {
+    position: absolute;
     top: 0;
-}
-
-#score{
-    position:absolute;
-    top: 0;
-}
-
-#gamecontainer {
-    /*width: 1200px;
-    height: 800px;*/
+    left: 0;
+    background: rgba(0, 0, 0, 0.50);
     width: 100%;
     height: 100%;
-    position: absolute;
-    margin: 0 auto;
-    padding:0;
-    /*background-image: url("../images/dojo.jpg");*/
+    z-index: 10;
 }
 
-#gamestartscreen {
-    position: absolute;
-    margin: 0 auto;
-    z-index: 2;
-    text-align: right;
+#gameOverTitle {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 10%;
+    font-family: 'Bangers', cursive;
+    font-size: 5.5em;
+    color: white;
+    text-shadow: 1px 4px 11px black;
+}
+
+.fontRed {
+    color: #d50000;
+}
+
+#gameOverKill {
+    background: url("../images/ammoValue.png") no-repeat;
+}
+
+#gameOverCoin {
+    background: url("../images/coinValue.png") no-repeat;
+}
+
+.gameOverInfo {
+    font-size:1.3em;
+    display: block;
+    text-indent: 50px;
+    margin:10px auto;
+}
+
+#gameOverRestart {
+    display: block;
+    margin: auto;
+    width: 10%;
+    -webkit-transition: all 2s;
+    font-size: 2.0em;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+#gameOverRestart:hover {
+    font-size:2.2em;
 }

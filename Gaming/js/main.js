@@ -1,7 +1,7 @@
 ﻿// Votre code ici.
 
 var mainPlayer;
-var enemies = new Array();
+var enemies = [];
 var nEnemies = 0;
 const ESCAPE_KEY = 27;
 const SPACE_BAR = 32;
@@ -15,6 +15,8 @@ const KEY_S = 83;
 const KEY_Q = 81;
 const KEY_D = 68;
 
+const KEY_R = 82;
+
 const LEFT_SHIFT = 16;
 const CTRL_LEFT = 17;
 const WIN_WIDTH = window.innerWidth;
@@ -23,6 +25,18 @@ const WIN_RATIO = 0.75;
 
 function init() {
     mainPlayer = new Player(600, 10);
+
+    enemies = [];
+    nEnemies = 0;
+    coin = [];
+    nCoin = 0;
+    shurikens = [];
+    nShurikens = 0;
+    shurikensEnemy = [];
+    nShurikensEnemy = 0;
+    platform = [];
+    nPlatform = 0;
+
     addEnemies();
     addPlateform(200, 550, 200, 20, "FULL");
     addPlateform(600, 300, 200, 20, "FULL");
@@ -49,6 +63,12 @@ function init() {
                     nShurikens++;
                 }
                 break;*/
+            case (KEY_R):
+                if($("#gameOver").hasClass("isGameOver")){
+                    startGame();
+                }
+                break;
+
             case (ESCAPE_KEY):
                 mainPlayer.kill();
                 break;
@@ -62,16 +82,16 @@ function init() {
     context2D.scale(WIN_RATIO, WIN_RATIO);
 }
 
-var coin = new Array();
+var coin = [];
 var nCoin = 0;
 
-var shurikens = new Array();
+var shurikens = [];
 var nShurikens = 0;
 
-var shurikensEnemy = new Array();
+var shurikensEnemy = [];
 var nShurikensEnemy = 0;
 
-var platform = new Array();
+var platform = [];
 var nPlatform = 0;
 
 var boucle = false;
@@ -82,7 +102,7 @@ onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
     map[e.keyCode] = e.type == 'keydown';
     /* insert conditional here */
-}
+};
 
 function addEnemies()
 {
@@ -131,10 +151,32 @@ function keyRight() {
     mainPlayer.moveRight();
 }
 
+function startGame(){
+    init();
+
+    var gameOverDiv = $("#gameOver");
+    gameOverDiv.removeClass("isGameOver");
+    gameOverDiv.fadeOut();
+}
+
+function gameOver(){
+    var gameOverDiv = $("#gameOver");
+    if(!gameOverDiv.hasClass("isGameOver")){
+        gameOverDiv.addClass("isGameOver");
+        gameOverDiv.fadeIn();
+        $("#gameOverCoin").html(mainPlayer.Score);
+        $("#gameOverKill").html(mainPlayer.Ammo); // TODO : replace with kills
+    }
+}
+
+$(document).on("click","#gameOverRestart", function(){
+    startGame();
+});
+
 function refreshGame() {
     if (boucle)
     {
-        if(Math.floor(Math.random()*100) == 0)
+        if(Math.floor(Math.random()*100) === 0)
         {
             //addRandomCoin();
         }
@@ -161,8 +203,8 @@ function refreshGame() {
 
             if(map[KEY_Z])
             {
-                var tmpShuriken = mainPlayer.throwShuriken("UP");
-                if (tmpShuriken != null)
+                let tmpShuriken = mainPlayer.throwShuriken("UP");
+                if (tmpShuriken !== null)
                 {
                     shurikens[nShurikens] = tmpShuriken;
                     nShurikens++;
@@ -170,8 +212,8 @@ function refreshGame() {
             }
             if(map[KEY_S])
             {
-                var tmpShuriken = mainPlayer.throwShuriken("DOWN");
-                if (tmpShuriken != null)
+                let tmpShuriken = mainPlayer.throwShuriken("DOWN");
+                if (tmpShuriken !== null)
                 {
                     shurikens[nShurikens] = tmpShuriken;
                     nShurikens++;
@@ -179,8 +221,8 @@ function refreshGame() {
             }
             if(map[KEY_Q])
             {
-                var tmpShuriken = mainPlayer.throwShuriken("LEFT");
-                if (tmpShuriken != null)
+                let tmpShuriken = mainPlayer.throwShuriken("LEFT");
+                if (tmpShuriken !== null)
                 {
                     shurikens[nShurikens] = tmpShuriken;
                     nShurikens++;
@@ -188,8 +230,8 @@ function refreshGame() {
             }
             if(map[KEY_D])
             {
-                var tmpShuriken = mainPlayer.throwShuriken("RIGHT");
-                if (tmpShuriken != null)
+                let tmpShuriken = mainPlayer.throwShuriken("RIGHT");
+                if (tmpShuriken !== null)
                 {
                     shurikens[nShurikens] = tmpShuriken;
                     nShurikens++;
@@ -200,6 +242,8 @@ function refreshGame() {
             }
             else
                 mainPlayer.run = 0;
+        }else{
+          gameOver();
         }
         // Clear sprites
         mainPlayer.clear();
@@ -236,7 +280,7 @@ function refreshGame() {
                 if(enemies[i].isAlive)
                 {
                     let tmpShuriken = enemies[i].move(mainPlayer);
-                    if (tmpShuriken != null)
+                    if (tmpShuriken !== null)
                     {
                         shurikensEnemy[nShurikensEnemy] = tmpShuriken;
                         nShurikensEnemy++;
