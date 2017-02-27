@@ -2,7 +2,7 @@ const MAX_SPEED_X = 20;
 const MAX_JUMP_HEIGHT = 35;
 const GRIP = 1;
 const GRAVITY = 2;
-const MAX_JUMP = 1;
+const MAX_JUMP = 2;
 const CADENCE = 20;
 
 class Characters {
@@ -112,7 +112,7 @@ class Characters {
                 var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, prevWidth, prevHeight, sWidth, sHeight);
                 if (gap.kill)
                 {
-                    this.isAlive = false;
+                    this.kill();
                 }
                 if (gap.isInContactRight)
                 {
