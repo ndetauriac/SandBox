@@ -2,7 +2,10 @@ class Player extends Characters{
     constructor(x, y)
     {
         super(x, y, 100, "purple");
-        this.score = 10;
+        this.score = 0;
+        this.ammo = 20;
+        $("#ammoValue").text(this.ammo);
+        $("#score").text(this.score);
     }
 
     hasCollectedCoin(coin)
@@ -10,7 +13,7 @@ class Player extends Characters{
         if (coin.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) != null)
         {
             this.score += coin.coinValue;
-            document.getElementById('gamestartscreen').innerHTML = this.score;
+        $("#score").text(this.score);
             return true;
         }
         else
@@ -27,7 +30,18 @@ class Player extends Characters{
     set Score(value)
     {
         this.score = value;
-        document.getElementById('gamestartscreen').innerHTML = this.score;
+        $("#score").text(this.score);
+    }
+
+    get Ammo()
+    {
+        return parseInt(this.ammo);
+    }
+
+    set Ammo(value)
+    {
+        this.ammo = value;
+        $("#ammoValue").text(this.ammo);
     }
 
     throwShuriken(direction = "NONE")
@@ -55,9 +69,9 @@ class Player extends Characters{
                     tmpShuriken = new Shuriken(xThrow, yThrow, 0, 1, this.staminaX);
                     break;
             }
-            if ((this.Score > 0) && this.cadence == 0)
+            if ((this.Ammo > 0) && this.cadence == 0)
             {
-                this.Score --;
+                this.Ammo --;
                 this.cadence = CADENCE/4;
                 return tmpShuriken;
             }

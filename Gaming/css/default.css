@@ -20,6 +20,45 @@ body{
     margin: 0;
 }
 
+h2 { 
+   position: absolute; 
+   top: 0px; 
+   left: 0px; 
+   color: white;
+   margin: 0px;
+}
+
+h2 span { 
+   color: red;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #fff;
+   font: bold 18px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0);
+   background: rgba(0, 0, 0, 0.2);
+   padding: 0px; 
+}
+
+#playerAmmo{
+   position: relative; 
+   width: 100%; /* for IE 6 */
+}
+
+#playerCoins {
+    position: relative;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+#ammoValue { 
+    position: absolute; 
+    top: 0;
+}
+
+#score{
+    position:absolute;
+    top: 0;
+}
 
 #gamecontainer {
     /*width: 1200px;

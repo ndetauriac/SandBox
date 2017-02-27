@@ -6,6 +6,7 @@
         <title>Gaming</title>
         <link href="css/default.css" rel="stylesheet" />
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="js/Graphic/Plateform.js"></script>
         <script src="js/Utils.js"></script>
         <script src="js/HealthBar.js"></script>
@@ -30,8 +31,14 @@
                 Votre navigateur ne supporte pas le Canvas HTML5
             </canvas>
 
-            <div id="gamestartscreen" class="gamelayer">
-                0
+            <div class="ammo" id="playerAmmo">
+                  <img src="images/Ammo.png" alt="Ammo" height="40" width="40"/>
+                  <h2><span id="ammoValue"></span></h2>
+            </div>
+
+            <div class="gamestartscreen" id="playerCoins">
+                  <img src="images/coinValue.png" alt="Coins" height="40" width="40"/>
+                  <h2><span id="score"></span></h2>
             </div>
 
             <script type="text/javascript">

@@ -86,7 +86,7 @@ onkeydown = onkeyup = function(e){
 
 function addEnemies()
 {
-    enemies[nEnemies] = new Enemy(Math.random() * (WIN_WIDTH - 200) + 100, 10);
+    enemies[nEnemies] = new Enemy(Math.random() * (WIN_WIDTH - 200) + 100, WIN_HEIGHT-200);
     nEnemies ++;
 }
 
@@ -299,10 +299,10 @@ function refreshGame() {
             shurikens[i].draw();
         for (i = 0; i < nShurikensEnemy; i++)
             shurikensEnemy[i].draw();
-        for (i = 0; i < nPlatform; i++)
-            platform[i].draw();
         for (i = 0; i < nEnemies; i++)
             enemies[i].draw();
         mainPlayer.draw();
+        for (i = 0; i < nPlatform; i++)
+            platform[i].draw();
     }
 }
