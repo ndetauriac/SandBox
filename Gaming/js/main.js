@@ -38,9 +38,9 @@ function init() {
     nPlatform = 0;
 
     addEnemies();
-    addPlateform(200, 550, 200, 20, "FULL");
-    addPlateform(600, 300, 200, 20, "FULL");
-    addPlateform(800, 700, 200, 20, "FULL");
+    addPlateform(WIN_WIDTH / 6, WIN_HEIGHT - 200, 200, 3, "FULL");
+    addPlateform(WIN_WIDTH / 2 - 100, WIN_HEIGHT - 400, 200, 3, "FULL");
+    addPlateform(2 * WIN_WIDTH / 3, WIN_HEIGHT - 300, 200, 3, "FULL");
     // Borders
     // Left
     addPlateform(-200, 0, 200, WIN_HEIGHT);
@@ -257,15 +257,9 @@ function refreshGame() {
             shurikensEnemy[i].clear();
         for (i = 0; i < nEnemies; i++)
             enemies[i].clear();
-
-        if (frameCpt++ == 3)
+        
+        if (frameCpt%1 == 0)
         {
-            // Update sprites
-            if(!mainPlayer.updatePosition(platform, nPlatform))
-            {
-
-            }
-
             for (j = 0; j < nShurikens; j++)
             {
                 if (!shurikens[j].updatePosition(platform, nPlatform))
@@ -274,6 +268,30 @@ function refreshGame() {
                     j--;
                 }
             }
+
+            for (i = 0; i < nShurikensEnemy; i++)
+            {
+                if(shurikensEnemy[i].updatePosition(platform, nPlatform))
+                {
+                    if(mainPlayer.isAlive && mainPlayer.hasBeenHit(shurikensEnemy[i]))
+                    {
+                        shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
+                    }
+                }
+                else {
+                    shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
+                }
+            }
+        }
+
+        if (frameCpt++ == 2)
+        {
+            // Update sprites
+            if(!mainPlayer.updatePosition(platform, nPlatform))
+            {
+
+            }
+
 
             for (i = 0; i < nEnemies; i++)
             {
@@ -321,19 +339,6 @@ function refreshGame() {
                 else
                 {
                     coin[i] = coin[--nCoin];
-                }
-            }
-            for (i = 0; i < nShurikensEnemy; i++)
-            {
-                if(shurikensEnemy[i].updatePosition(platform, nPlatform))
-                {
-                    if(mainPlayer.hasBeenHit(shurikensEnemy[i]))
-                    {
-                        shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
-                    }
-                }
-                else {
-                    shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
                 }
             }
             frameCpt = 0;

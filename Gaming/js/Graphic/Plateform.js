@@ -4,10 +4,10 @@ class Plateform
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         this.texture = new Image();
-        this.rectX = x/WIN_RATIO;
-        this.rectY = y/WIN_RATIO;
-        this.rectW = w/WIN_RATIO;
-        this.rectH = h/WIN_RATIO;
+        this.rectX = Math.floor(x/WIN_RATIO);
+        this.rectY = Math.floor(y/WIN_RATIO);
+        this.rectW = Math.floor(w/WIN_RATIO);
+        this.rectH = Math.floor(h/WIN_RATIO);
         this.bottomSide = false;
         this.topSide = false;
         this.leftSide = false;
@@ -67,22 +67,22 @@ class Plateform
             if(this.leftContact(prevX + prevW, nextX + nextW) && this.leftSide)
             {
                 isInContactLeft = true;
-                newPosX = Math.floor(this.rectX - nextW - 1);
+                newPosX = Math.floor(this.rectX - nextW) - GRAVITY;
             }
             else if(this.rightContact(prevX, nextX) && this.rightSide)
             {
                 isInContactRight = true;
-                newPosX = Math.floor(this.rectX + this.rectW + 1);
+                newPosX = Math.floor(this.rectX + this.rectW) + GRAVITY;
             }
             if(this.topContact(prevY + prevH, nextY + nextH) && this.topSide)
             {
                 isInContactTop = true;
-                newPosY = Math.floor(this.rectY - nextH - 1);
+                newPosY = Math.floor(this.rectY - nextH) - GRAVITY;
             }
             else if(this.bottomContact(prevY, nextY) && this.bottomSide)
             {
                 isInContactBot = true;
-                newPosY = Math.floor(this.rectY + this.rectH + 1);
+                newPosY = Math.floor(this.rectY + this.rectH) + GRAVITY;
             }
         }
 

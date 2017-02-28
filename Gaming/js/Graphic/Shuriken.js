@@ -1,10 +1,10 @@
-const SHURIKEN_SPEED = 35;
+const SHURIKEN_SPEED = 20;
 
 class Shuriken
 {
     constructor(x, y, directionX, directionY, innerSpeed = 0)
     {
-        this.sprite = new Sprites("./images/shuriken.png", 4, 1, true, 1);
+        this.sprite = new Sprites("./images/shuriken2.png", 4, 1, true, 1);
         this.value = 20;
         this.posX = x;
         this.posY = y;
@@ -13,8 +13,8 @@ class Shuriken
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = false;
-        this.staminaX = directionX * SHURIKEN_SPEED + innerSpeed;
-        this.staminaY = directionY * SHURIKEN_SPEED;
+        this.staminaX = (directionX * SHURIKEN_SPEED + innerSpeed) / 2;
+        this.staminaY = (directionY * SHURIKEN_SPEED)/2;
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
@@ -94,7 +94,7 @@ class Shuriken
     applyYPosition(){
         this.posY = this.previewPosY;
         if (!this.onTheFloor){
-            this.staminaY += GRAVITY / 2;
+            this.staminaY += GRAVITY / 10;
         }
         else{
             this.staminaY = 0;

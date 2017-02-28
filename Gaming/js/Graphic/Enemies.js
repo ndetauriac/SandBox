@@ -8,32 +8,58 @@ class Enemy extends Characters{
     move(player)
     {
         var throwDir = "NONE";
-        var distX = Math.abs(player.PosX - this.posX);
-        var distY = Math.abs(player.PosY - this.posY);
+        var distX = Math.abs(player.PosX - this.PosX);
+        var distY = Math.abs(player.PosY - this.PosY);
 
-        if(distY > distX)
+        // Move
+        if(distX < 200) {
+            if(this.lastDir > 0)
+            {
+                this.moveRight();
+            }
+            else if(this.lastDir < 0)
+            {
+                this.moveLeft();
+            }
+
+        } else {
+            if(player.PosX > this.posX)
+            {
+                this.moveRight();
+            }
+            else if(player.PosX < this.posX)
+            {
+                this.moveLeft();
+            }
+        }
+
+        if(distY > MAX_JUMP_HEIGHT)
         {
             if(player.PosY < this.posY)
             {
                 this.moveUp();
-                throwDir = "UP";
             }
-            else {
+        }
+
+        // Shoot
+
+        if(distY > distX)
+        {
+            if(player.PosY < this.PosY)
+            {
+                throwDir = "UP";
+            } else {
                 throwDir = "DOWN";
             }
-        }
-        if(player.PosX > this.posX)
-        {
-            this.moveRight();
-            if (throwDir == "NONE")
+        } else {
+            if(player.PosX > this.posX)
+            {
                 throwDir = "RIGHT";
-        }
-        else if(player.PosX < this.posX)
-        {
-            this.moveLeft();
-            if (throwDir == "NONE")
+            }
+            else if(player.PosX < this.posX)
+            {
                 throwDir = "LEFT";
-
+            }
         }
 
         return this.throwShuriken(throwDir, true);

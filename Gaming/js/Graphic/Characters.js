@@ -1,9 +1,9 @@
 const MAX_SPEED_X = 20;
-const MAX_JUMP_HEIGHT = 35;
-const GRIP = 1;
-const GRAVITY = 2;
+const MAX_JUMP_HEIGHT = 20;
+const GRIP = 1.5;
+const GRAVITY = 1;
 const MAX_JUMP = 2;
-const CADENCE = 20;
+const CADENCE = 40;
 
 class Characters {
     constructor(x, y, startHealth, color) {
@@ -63,12 +63,12 @@ class Characters {
 
     get PosX()
     {
-        return this.posX;
+        return this.posX + this.mapSprites[this.state].width / 2;
     }
 
     get PosY()
     {
-        return this.posY;
+        return this.posY + this.mapSprites[this.state].height / 2;
     }
 
     hasBeenHit(shuriken)
@@ -149,13 +149,13 @@ class Characters {
     }
 
     computeXPosition(){
-        this.previewPosX = this.posX;
-        this.previewPosX += this.staminaX;
+        this.previewPosX = Math.floor(this.posX + this.staminaX);
+        //this.previewPosX += this.staminaX;
     }
 
     computeYPosition(){
-        this.previewPosY = this.posY;
-        this.previewPosY += this.staminaY;
+        this.previewPosY = Math.floor(this.posY + this.staminaY);
+        //this.previewPosY += this.staminaY;
     }
 
     applyXPosition(){
@@ -164,14 +164,14 @@ class Characters {
         {
             if(!(!this.onTheFloor && this.slide))
             {
-                this.staminaX = Decr(this.staminaX, GRIP/(1+this.slide), 0);
+                this.staminaX = Decr(this.staminaX, GRIP/(1+this.slide*2), 0);
             }
         }
         else if (this.staminaX < 0)
         {
             if(!(!this.onTheFloor && this.slide))
             {
-                this.staminaX = Incr(this.staminaX, GRIP/(1+this.slide), 0);
+                this.staminaX = Incr(this.staminaX, GRIP/(1+this.slide*2), 0);
             }
         }
         else
@@ -222,7 +222,7 @@ class Characters {
     moveUp() {
         if(this.isAlive)
         {
-            if (this.jumpPower == 0 && this.jumped < MAX_JUMP)
+            if (this.jumpPower < MAX_JUMP_HEIGHT / 2 && this.jumped < MAX_JUMP)
             {
                 this.jumpPower = MAX_JUMP_HEIGHT;
                 this.jumped++;
