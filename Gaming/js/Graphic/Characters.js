@@ -5,6 +5,8 @@ const GRAVITY = 1;
 const MAX_JUMP = 2;
 const CADENCE = 40;
 
+const EFFECT_POISON = 0;
+
 class Characters {
     constructor(x, y, startHealth, color) {
 
@@ -23,6 +25,8 @@ class Characters {
 
         this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft_"+ color +".png", 10, 1, false, 5);
         this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight_"+ color +".png", 10, 1, false, 5);
+        
+        this.damageIndicator = null;
 
         this.posX = x;
         this.posY = y;
@@ -45,6 +49,8 @@ class Characters {
         this.lastState = "IDLE_RIGHT";
         this.winWidth = document.getElementById('gameArea').width;
         this.winHeight = document.getElementById('gameArea').height;
+        
+        this.statusEffect = null;
 
         this.lifeTime = 100;
     }
@@ -71,8 +77,10 @@ class Characters {
         return this.posY + this.mapSprites[this.state].height / 2;
     }
 
-    hasBeenHit(shuriken)
+    hasBeenHit(shuriken, statusEffect = "")
     {
+        if (statusEffect != "")
+            this.statusEffect = new StatusEffect("Fire");
         if (this.mapSprites[this.state].width === undefined || this.mapSprites[this.state].height === undefined)
         {
             return false;
@@ -83,6 +91,7 @@ class Characters {
             if (damages > 0)
             {
                 this.isAlive = this.healthBar.takeDamage(damages);
+                this.damageIndicator = new Damage(damages);
                 return true;
             }
             else
@@ -144,7 +153,19 @@ class Characters {
         this.applyYPosition();
 
         this.cadence = Decr(this.cadence, 1, 0);
-
+        var effectDamage = null;
+        if (this.statusEffect !== null && this.isAlive)
+        {
+            effectDamage = this.statusEffect.ApplyEffect();
+            if (effectDamage === null)
+            {
+                this.statusEffect = null;
+            }
+            else if(effectDamage > 0){
+                this.isAlive = this.healthBar.takeDamage(effectDamage);
+                this.damageIndicator = new Damage(effectDamage, "red");
+            }
+        }
         return this.switchState();
     }
 
@@ -328,6 +349,19 @@ class Characters {
             this.healthBar.draw(this.posX, this.posY - 10);
         this.mapSprites[this.state].animate();
         this.mapSprites[this.state].draw(this.posX, this.posY);
+        if(this.damageIndicator !== null)
+        {
+            if(!this.damageIndicator.draw(this.PosX, this.PosY))
+            {
+                this.damageIndicator = null;
+            }
+            /*
+            for(i = 0; i < this.damageIndicator.length; i++)
+            {
+                this.damageIndicator[i].draw(this.posX, this.posY);
+            }
+            */
+        }
     }
 
     kill()
@@ -343,5 +377,9 @@ class Characters {
     {
         this.healthBar.clear();
         this.mapSprites[this.state].clear();
+        if(this.damageIndicator !== null)
+        {
+            this.damageIndicator.clear();
+        }
     }
 }

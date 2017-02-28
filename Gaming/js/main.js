@@ -41,6 +41,9 @@ function init() {
     addPlateform(WIN_WIDTH / 6, WIN_HEIGHT - 200, 200, 3, "FULL");
     addPlateform(WIN_WIDTH / 2 - 100, WIN_HEIGHT - 400, 200, 3, "FULL");
     addPlateform(2 * WIN_WIDTH / 3, WIN_HEIGHT - 300, 200, 3, "FULL");
+    addPlateform(WIN_WIDTH / 2 - 100, WIN_HEIGHT - 40, 200, 20);
+    addPlateform(0, WIN_HEIGHT - 300, 200, 20, "TOP");
+    addPlateform(180, WIN_HEIGHT - 280, 20, 300, "RIGHT");
     // Borders
     // Left
     addPlateform(-200, 0, 200, WIN_HEIGHT);
@@ -49,7 +52,7 @@ function init() {
     // Top
     addPlateform(0, -200, WIN_WIDTH, 200);
     // Bottom
-    addPlateform(0, WIN_HEIGHT - 20, WIN_WIDTH, 200, "FULL");
+    addPlateform(0, WIN_HEIGHT - 20, WIN_WIDTH, 200);
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
             case (SPACE_BAR):
@@ -106,7 +109,7 @@ onkeydown = onkeyup = function(e){
 
 function addEnemies()
 {
-    enemies[nEnemies] = new Enemy(Math.random() * (WIN_WIDTH - 200) + 100, WIN_HEIGHT-200);
+    enemies[nEnemies] = new Enemy(10, WIN_HEIGHT - 290);
     nEnemies ++;
 }
 
@@ -292,7 +295,6 @@ function refreshGame() {
 
             }
 
-
             for (i = 0; i < nEnemies; i++)
             {
                 if(enemies[i].isAlive)
@@ -306,7 +308,7 @@ function refreshGame() {
 
                     for (j = 0; j < nShurikens; j++)
                     {
-                        if(enemies[i].hasBeenHit(shurikens[j]))
+                        if(enemies[i].hasBeenHit(shurikens[j], "Fire"))
                         {
                             shurikens[j] = shurikens[--nShurikens];
                             j--;
