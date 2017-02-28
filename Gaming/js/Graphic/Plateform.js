@@ -4,10 +4,14 @@ class Plateform
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         this.texture = new Image();
-        this.rectX = Math.floor(x/WIN_RATIO);
-        this.rectY = Math.floor(y/WIN_RATIO);
-        this.rectW = Math.floor(w/WIN_RATIO);
-        this.rectH = Math.floor(h/WIN_RATIO);
+        this.rectX = Math.floor(x);
+        this.rectY = Math.floor(y);
+        this.posX = this.rectX;
+        this.posY = this.rectY
+        this.previousPosX = this.rectX;
+        this.previousPosY = this.rectY
+        this.rectW = Math.floor(w);
+        this.rectH = Math.floor(h);
         this.bottomSide = false;
         this.topSide = false;
         this.leftSide = false;
@@ -119,13 +123,17 @@ class Plateform
 
     draw()
     {
+        this.previousRectX = this.posX;
+        this.previousRectY = this.posY;
         this.context2D.fillStyle = this.texture.color;
-        this.context2D.fillRect(this.rectX, this.rectY, this.rectW, this.rectH);
+        this.posX = Math.floor(this.rectX - posWorldX);
+        this.posY = Math.floor(this.rectY - posWorldY);
+        this.context2D.fillRect(this.posX, this.posY, this.rectW, this.rectH);
     }
 
     clear()
     {
-        this.context2D.clearRect(this.rectX, this.rectY, this.rectW, this.rectH);
+        this.context2D.clearRect(this.previousRectX - 1, this.previousRectY - 1, this.rectW + 2, this.rectH + 2);
     }
 
     get yLevel()

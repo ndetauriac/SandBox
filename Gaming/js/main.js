@@ -16,14 +16,28 @@ const KEY_Q = 81;
 const KEY_D = 68;
 
 const KEY_R = 82;
+const KEY_E = 69;
 
 const LEFT_SHIFT = 16;
 const CTRL_LEFT = 17;
+const WIN_RATIO = 0.75;
 const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
-const WIN_RATIO = 0.75;
+
+const WORLD_WIDTH = WIN_WIDTH * 2;
+const WORLD_HEIGHT = WIN_HEIGHT * 2;
+
+var posWorldX = 0;
+var posWorldY = 0;
 
 function init() {
+    var canvas = document.getElementById('gameArea');
+    var context2D = canvas.getContext('2d');
+    canvas.width = WIN_WIDTH;
+    canvas.height = WIN_HEIGHT;
+    context2D.scale(WIN_RATIO, WIN_RATIO);
+    posWorldX = 0;
+    posWorldY = 0;
     mainPlayer = new Player(600, 10);
 
     enemies = [];
@@ -38,21 +52,20 @@ function init() {
     nPlatform = 0;
 
     addEnemies();
-    addPlateform(WIN_WIDTH / 6, WIN_HEIGHT - 200, 200, 3, "FULL");
-    addPlateform(WIN_WIDTH / 2 - 100, WIN_HEIGHT - 400, 200, 3, "FULL");
-    addPlateform(2 * WIN_WIDTH / 3, WIN_HEIGHT - 300, 200, 3, "FULL");
-    addPlateform(WIN_WIDTH / 2 - 100, WIN_HEIGHT - 40, 200, 20);
-    addPlateform(0, WIN_HEIGHT - 300, 200, 20, "TOP");
-    addPlateform(180, WIN_HEIGHT - 280, 20, 300, "RIGHT");
+
+    addPlateform(WORLD_WIDTH / 6, WORLD_HEIGHT - 200, 200, 3, "FULL");
+    addPlateform(WORLD_WIDTH / 2 - 100, WORLD_HEIGHT - 400, 200, 3, "FULL");
+    addPlateform(2 * WORLD_WIDTH / 3, WORLD_HEIGHT - 300, 200, 3, "FULL");
+
     // Borders
     // Left
-    addPlateform(-200, 0, 200, WIN_HEIGHT);
+    addPlateform(-180, 0, 200, WORLD_HEIGHT);
     // Right
-    addPlateform(WIN_WIDTH, 0, 200, WIN_HEIGHT);
+    addPlateform(WORLD_WIDTH - 20, 0, 200, WORLD_HEIGHT);
     // Top
-    addPlateform(0, -200, WIN_WIDTH, 200);
+    addPlateform(0, -180, WORLD_WIDTH, 200);
     // Bottom
-    addPlateform(0, WIN_HEIGHT - 20, WIN_WIDTH, 200);
+    addPlateform(0, WORLD_HEIGHT - 20, WORLD_WIDTH, 200);
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
             case (SPACE_BAR):
@@ -66,6 +79,9 @@ function init() {
                     nShurikens++;
                 }
                 break;*/
+            case(KEY_E):
+                addSemiPlateform(mainPlayer.PosX - 100, mainPlayer.PosY + 100);
+                break;
             case (KEY_R):
                 if($("#gameOver").hasClass("isGameOver")){
                     startGame();
@@ -78,11 +94,6 @@ function init() {
         }
     });
     boucle = true;
-    var canvas = document.getElementById('gameArea');
-    var context2D = canvas.getContext('2d');
-    canvas.width = WIN_WIDTH;
-    canvas.height = WIN_HEIGHT;
-    context2D.scale(WIN_RATIO, WIN_RATIO);
 }
 
 var coin = [];
@@ -128,13 +139,13 @@ function addRandomCoin()
 
 function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
 {
-    platform[nPlatform] = new Plateform(x, y, w, h, mode);
+    platform[nPlatform] = new Plateform(x / WIN_RATIO , y / WIN_RATIO , w / WIN_RATIO , h / WIN_RATIO , mode);
     nPlatform++;
 }
 
 function addSemiPlateform(x, y, w = 200, h = 10)
 {
-    platform[nPlatform] = new Plateform(x, y, w, h, "BOT");
+    platform[nPlatform] = new Plateform(x, y, w, h, "TOP");
     nPlatform++;
 }
 
@@ -260,7 +271,7 @@ function refreshGame() {
             shurikensEnemy[i].clear();
         for (i = 0; i < nEnemies; i++)
             enemies[i].clear();
-        
+
         if (frameCpt%1 == 0)
         {
             for (j = 0; j < nShurikens; j++)
@@ -290,8 +301,21 @@ function refreshGame() {
         if (frameCpt++ == 2)
         {
             // Update sprites
-            if(!mainPlayer.updatePosition(platform, nPlatform))
+            if(mainPlayer.updatePosition(platform, nPlatform))
             {
+                if (mainPlayer.PosX * WIN_RATIO < WIN_WIDTH / 2)
+                    posWorldX = 0;
+                else if(mainPlayer.PosX * WIN_RATIO > WORLD_WIDTH - WIN_WIDTH / 2)
+                    posWorldX = WORLD_WIDTH - WIN_WIDTH / WIN_RATIO / 2;
+                else
+                    posWorldX = mainPlayer.PosX - WIN_WIDTH / WIN_RATIO / 2;
+
+                if (mainPlayer.PosY * WIN_RATIO < WIN_HEIGHT / 2 )
+                    posWorldY = 0;
+                else if (mainPlayer.PosY * WIN_RATIO > WORLD_HEIGHT - WIN_HEIGHT / 2)
+                    posWorldY = WORLD_HEIGHT - WIN_HEIGHT / WIN_RATIO / 2;
+                else
+                    posWorldY = mainPlayer.PosY - WIN_HEIGHT / WIN_RATIO / 2;
 
             }
 

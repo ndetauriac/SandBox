@@ -21,8 +21,8 @@ class Damage
     {
         this.previewPosX = this.posX;
         this.previewPosY = this.posY;
-        this.posX = Math.floor(x);
-        this.posY = Math.floor(y + this.upSpeed);
+        this.posX = Math.floor(x - posWorldX);
+        this.posY = Math.floor(y + this.upSpeed - posWorldY);
         this.context2D.font = FONT_DAMAGE;
         this.context2D.fillStyle = this.color;
         this.context2D.shadowBlur=5;

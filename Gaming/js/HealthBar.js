@@ -25,8 +25,8 @@ class HealthBar
     
     draw(x, y)
     {
-        var posX = Math.floor(x);
-        var posY = Math.floor(y);
+        var posX = Math.floor(x - posWorldX);
+        var posY = Math.floor(y - posWorldY);
         this.context2D.fillStyle = "#000";
         this.context2D.fillRect(posX, posY, HEALTH_BAR_MAX_WIDTH + 2, 5);
         this.context2D.fillStyle = this.rgbToHex(255- 255*this.currentHealth / this.healthMax, 255*this.currentHealth / this.healthMax, 0);

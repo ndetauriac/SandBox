@@ -66,8 +66,8 @@
     
     draw(x, y)
     {
-        var posX = Math.floor(x);
-        var posY = Math.floor(y);
+        var posX = Math.floor(x - posWorldX);
+        var posY = Math.floor(y - posWorldY);
         var posSpriteX = (this.frame % this.imgSprite.frameNumberX) * this.imgSprite.spriteW;
         var posSpriteY = (this.frame - (this.frame % this.imgSprite.frameNumberX)) / this.imgSprite.frameNumberX * this.imgSprite.spriteH;
         
