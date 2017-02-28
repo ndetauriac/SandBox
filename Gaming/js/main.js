@@ -165,7 +165,7 @@ function gameOver(){
         gameOverDiv.addClass("isGameOver");
         gameOverDiv.fadeIn();
         $("#gameOverCoin").html(mainPlayer.Score);
-        $("#gameOverKill").html(mainPlayer.Ammo); // TODO : replace with kills
+        $("#gameOverKill").html(mainPlayer.Kills); // TODO : replace with kills
     }
 }
 
@@ -294,7 +294,11 @@ function refreshGame() {
                             j--;
                         }
                         if(!enemies[i].isAlive)
+                        {
                             addEnemies();
+                            j = nShurikens;
+                            mainPlayer.Kills++;
+                        }
                     }
                 }
                 if (!enemies[i].updatePosition(platform, nPlatform))

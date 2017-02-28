@@ -4,8 +4,10 @@ class Player extends Characters{
         super(x, y, 100, "purple");
         this.score = 0;
         this.ammo = 20;
+        this.kills = 0;
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
+        $("#playerKill").text(this.kills);
     }
 
     hasCollectedCoin(coin)
@@ -20,6 +22,17 @@ class Player extends Characters{
         {
             return false;
         }
+    }
+
+    get Kills()
+    {
+        return parseInt(this.kills);
+    }
+
+    set Kills(value)
+    {
+        this.kills = value;
+        $("#playerKill").text(this.kills);
     }
 
     get Score()

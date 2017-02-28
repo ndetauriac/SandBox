@@ -49,6 +49,10 @@ body {
     background: url("../images/coinValue.png");
 }
 
+#playerKill {
+    background: url("../images/kills.png");
+}
+
 
 /**********************************************************************/
 
@@ -83,7 +87,7 @@ body {
 }
 
 #gameOverKill {
-    background: url("../images/ammoValue.png") no-repeat;
+    background: url("../images/kills.png") no-repeat;
 }
 
 #gameOverCoin {
