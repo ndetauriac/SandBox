@@ -89,7 +89,7 @@ class Enemy extends Characters{
                 tmpShuriken = new Shuriken(xThrow, yThrow, 0, 1, this.staminaX);
                 break;
         }
-        if (this.cadence == 0)
+        if (this.cadence === 0)
         {
             this.cadence = CADENCE;
             return tmpShuriken;

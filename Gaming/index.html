@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
@@ -7,7 +6,55 @@
     <meta charset="utf-8" />
     <title>Gaming</title>
     <link href="css/default.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="gamecontainer">
+        <canvas id="gameArea">
+                Votre navigateur ne supporte pas le Canvas HTML5
+            </canvas>
+
+
+        <div id="mainMenu" class="screen">
+            <div class="editor">
+                <div class="logo"><img src="./images/bataru.png" /></div>
+                <div class="name">Bataru Studio</div>
+            </div>
+            <div class="container">
+                <div class="mainTitle"><span class="fontRed">S</span><span>h</span><span>u</span><span>r</span><span>i</span><span class="fontRed">K</span><span>e</span><span>n</span></div>
+                <div class="buttons">
+                    <div id="startButton" class="button startButton">Start</div>
+                    <div id="profileButton" class="button">My ninja</div>
+                    <div id="optionsButton" class="button">Options</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="playerInfo" style="display:none">
+            <div id="playerAmmo" class="playerInfo"></div>
+            <div id="playerCoin" class="playerInfo"></div>
+            <div id="playerKill" class="playerInfo"></div>
+        </div>
+
+        <div id="profile" class="screen" style="display:none">
+            <div class="mainTitle"><span class="fontRed">M</span>y <span class="fontRed">N</span>inja</div>
+            <div class="button mainMenuButton">Go to main menu</div>
+        </div>
+
+        <div id="options" class="screen" style="display:none">
+            <div class="mainTitle"><span class="fontRed">O</span>ptions</div>
+            <div class="button mainMenuButton">Go to main menu</div>
+        </div>
+
+        <div id="gameOver" class="screen" style="display:none">
+            <div class="mainTitle"><span class="fontRed">G</span>ame <span class="fontRed">o</span>ver</div>
+            <div id="gameOverCoin" class="playerInfo gameOverInfo"></div>
+            <div id="gameOverKill" class="playerInfo gameOverInfo"></div>
+            <div id="gameOverMainMenu" class="playerInfo button mainMenuButton">Go to main menu</div>
+            <div class="button startButton">Restart !</div>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/Graphic/Damages.js"></script>
@@ -22,41 +69,12 @@
     <script src="js/StatusEffect.js"></script>
     <script src="js/Graphic/Enemies.js"></script>
     <script src="js/player.js"></script>
-
-
+    <script src="js/ui/ui.js"></script>
     <script type="text/javascript">
         <!--
-        window.onload = init;
+        idInterv = setInterval(refreshGame, 10);
         //-->
     </script>
-</head>
-
-<body>
-    <div id="gamecontainer">
-        <canvas id="gameArea">
-                Votre navigateur ne supporte pas le Canvas HTML5
-            </canvas>
-
-        <div id="ui">
-            <div id="playerAmmo" class="playerInfo"></div>
-            <div id="playerCoin" class="playerInfo"></div>
-            <div id="playerKill" class="playerInfo"></div>
-        </div>
-
-        <div id="gameOver" style="display:none">
-            <div id="gameOverTitle"><span class="fontRed">G</span>ame <span class="fontRed">o</span>ver</div>
-            <div id="gameOverCoin" class="playerInfo gameOverInfo"></div>
-            <div id="gameOverKill" class="playerInfo gameOverInfo"></div>
-            <div id="gameOverRestart" class="playerInfo">Restart !</div>
-        </div>
-
-        <script type="text/javascript">
-            <!--
-            idInterv = setInterval(refreshGame, 10);
-            //-->
-        </script>
-    </div>
-
 </body>
 
 </html>
