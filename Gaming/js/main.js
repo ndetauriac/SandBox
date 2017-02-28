@@ -165,7 +165,7 @@ function keyRight() {
     mainPlayer.moveRight();
 }
 
-function startGame(){
+function reStartGame(){
     init();
 
     var gameOverDiv = $("#gameOver");
@@ -184,7 +184,7 @@ function gameOver(){
 }
 
 $(document).on("click","#gameOverRestart", function(){
-    startGame();
+    reStartGame();
 });
 
 function refreshGame() {
