@@ -80,7 +80,7 @@ function init() {
                 }
                 break;*/
             case(KEY_E):
-                addSemiPlateform(mainPlayer.PosX - 100, mainPlayer.PosY + 100);
+                addSemiPlateform(mainPlayer.PosXMiddle - 100, mainPlayer.PosYMiddle + 100);
                 break;
             case (KEY_R):
                 if($("#gameOver").hasClass("isGameOver")){
@@ -347,7 +347,7 @@ function refreshGame() {
                 }
                 if (!enemies[i].updatePosition(platform, nPlatform))
                 {
-                    addCoin(enemies[i].PosX, enemies[i].PosY, true);
+                    addCoin(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
                     enemies[i] = enemies[--nEnemies];
                     i--;
                 }

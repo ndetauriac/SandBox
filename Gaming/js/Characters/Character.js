@@ -69,10 +69,20 @@ class Characters {
 
     get PosX()
     {
-        return this.posX + this.mapSprites[this.state].width / 2;
+        return this.posX;
     }
 
     get PosY()
+    {
+        return this.posY;
+    }
+
+    get PosXMiddle()
+    {
+        return this.posX + this.mapSprites[this.state].width / 2;
+    }
+
+    get PosYMiddle()
     {
         return this.posY + this.mapSprites[this.state].height / 2;
     }
@@ -351,7 +361,7 @@ class Characters {
         this.mapSprites[this.state].draw(this.posX, this.posY);
         if(this.damageIndicator !== null)
         {
-            if(!this.damageIndicator.draw(this.PosX, this.PosY))
+            if(!this.damageIndicator.draw(this.PosXMiddle, this.PosYMiddle))
             {
                 this.damageIndicator = null;
             }

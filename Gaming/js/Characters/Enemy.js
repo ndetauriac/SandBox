@@ -35,7 +35,7 @@ class Enemy extends Characters{
 
         if(distY > MAX_JUMP_HEIGHT)
         {
-            if(player.PosY < this.posY)
+            if(player.PosYMiddle < this.PosYMiddle)
             {
                 this.moveUp();
             }
@@ -45,14 +45,14 @@ class Enemy extends Characters{
 
         if(distY > distX)
         {
-            if(player.PosY < this.PosY)
+            if(player.PosYMiddle < this.PoPosYMiddlesY)
             {
                 throwDir = "UP";
             } else {
                 throwDir = "DOWN";
             }
         } else {
-            if(player.PosX > this.posX)
+            if(player.PosXMiddle > this.PosXMiddle)
             {
                 throwDir = "RIGHT";
             }
