@@ -1,143 +1,394 @@
 ﻿// Votre code ici.
 
-var clapi;
+var mainPlayer;
+var enemies = [];
+var nEnemies = 0;
 const ESCAPE_KEY = 27;
 const SPACE_BAR = 32;
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
+
+const KEY_Z = 90;
+const KEY_S = 83;
+const KEY_Q = 81;
+const KEY_D = 68;
+
+const KEY_R = 82;
+const KEY_E = 69;
+
 const LEFT_SHIFT = 16;
+const CTRL_LEFT = 17;
+const WIN_RATIO = 0.75;
+const WIN_WIDTH = window.innerWidth;
+const WIN_HEIGHT = window.innerHeight;
+
+var WORLD_WIDTH = WIN_WIDTH * 2;
+var WORLD_HEIGHT = WIN_HEIGHT * 2;
+
+var posWorldX = 0;
+var posWorldY = 0;
+
+var currentMap;
 
 function init() {
-    clapi = new Player();
-    addCoin(200, 10);
-    /*addPlateform(100,500);
-    addPlateform(500,500);
-    addPlateform(300,400);
-    addPlateform(100,300);
-    addPlateform(500,300);
-    addPlateform(300,200);*/
+    var canvas = document.getElementById('gameArea');
+    var context2D = canvas.getContext('2d');
+    currentMap = new Map();
+    /*
+    WORLD_WIDTH = currentMap.MapX;
+    WORLD_HEIGHT = currentMap.MapY;
+    */
+    canvas.width = WIN_WIDTH;
+    canvas.height = WIN_HEIGHT;
+    context2D.scale(WIN_RATIO, WIN_RATIO);
+    posWorldX = 0;
+    posWorldY = 0;
+    mainPlayer = new Player(600, 10);
+
+    enemies = [];
+    nEnemies = 0;
+    coin = [];
+    nCoin = 0;
+    shurikens = [];
+    nShurikens = 0;
+    shurikensEnemy = [];
+    nShurikensEnemy = 0;
+    platform = [];
+    nPlatform = 0;
+
+    addEnemies();
+
+    addPlateform(WORLD_WIDTH / 6, WORLD_HEIGHT - 200, 200, 3, "FULL");
+    addPlateform(WORLD_WIDTH / 2 - 100, WORLD_HEIGHT - 400, 200, 3, "FULL");
+    addPlateform(2 * WORLD_WIDTH / 3, WORLD_HEIGHT - 300, 200, 3, "FULL");
+
+    // Borders
+    // Left
+    addPlateform(-180, 0, 200, WORLD_HEIGHT);
+    // Right
+    addPlateform(WORLD_WIDTH - 20, 0, 200, WORLD_HEIGHT);
+    // Top
+    addPlateform(0, -180, WORLD_WIDTH, 200);
+    // Bottom
+    addPlateform(0, WORLD_HEIGHT - 20, WORLD_WIDTH, 200);
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
-            /*
-            case (ARROW_LEFT):
-                keyLeft();
-                break;
-            case (ARROW_UP):
-                keyUp();
-                break;
-            case (ARROW_RIGHT):
-                keyRight();
-                break;
-            case (ARROW_DOWN):
-                keyDown();
-                break;
-                */
             case (SPACE_BAR):
                 boucle = !boucle;
                 break;
+            /*case (CTRL_LEFT):
+                var tmpShuriken = mainPlayer.throwShuriken();
+                if (tmpShuriken != null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+                break;*/
+            case(KEY_E):
+                addSemiPlateform(mainPlayer.PosXMiddle - 100, mainPlayer.PosYMiddle + 100);
+                break;
+            case (KEY_R):
+                if($("#gameOver").hasClass("isGameOver")){
+                    startGame();
+                }
+                break;
+
             case (ESCAPE_KEY):
-                boucle = false;
+                mainPlayer.kill();
                 break;
         }
     });
     boucle = true;
-	
-	winWidth = document.getElementById('gameArea').width;
-	winHeight = document.getElementById('gameArea').height;
 }
 
-var winWidth;
-var winHeight;
-
-
-var coin = new Array();
+var coin = [];
 var nCoin = 0;
 
-var platform = new Array();
+var shurikens = [];
+var nShurikens = 0;
+
+var shurikensEnemy = [];
+var nShurikensEnemy = 0;
+
+var platform = [];
 var nPlatform = 0;
 
 var boucle = false;
+var frameCpt = 0;
 
 var map = {}; // You could also use an array
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
     map[e.keyCode] = e.type == 'keydown';
     /* insert conditional here */
+};
+
+function addEnemies()
+{
+    enemies[nEnemies] = new Enemy(10, WIN_HEIGHT - 290);
+    nEnemies ++;
 }
 
-function addCoin(x, y)
+function addCoin(x, y, stasis = false)
 {
-    coin[nCoin] = new Coin(x, y);
+    coin[nCoin] = new Coin(x, y, stasis);
     nCoin++;
 }
 
-function addPlateform(x, y)
+function addRandomCoin()
 {
-    platform[nPlatform] = new Plateform(x, y);
+    let x = Math.random()*WIN_WIDTH*0.9 + WIN_WIDTH*0.05;
+    let y = Math.random() * WIN_HEIGHT * 0.9 + WIN_HEIGHT * 0.05;
+    addCoin(x, y);
+}
+
+function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
+{
+    platform[nPlatform] = new Plateform(x / WIN_RATIO , y / WIN_RATIO , w / WIN_RATIO , h / WIN_RATIO , mode);
+    nPlatform++;
+}
+
+function addSemiPlateform(x, y, w = 200, h = 10)
+{
+    platform[nPlatform] = new Plateform(x, y, w, h, "TOP");
     nPlatform++;
 }
 
 function keyUp() {
-    clapi.moveUp();
+    mainPlayer.moveUp();
 }
 
 function keyDown() {
-    clapi.setMove("DOWN");
+    mainPlayer.setMove("DOWN");
 }
 
 function keyLeft() {
-    clapi.moveLeft();
+    mainPlayer.moveLeft();
 }
 
 function keyRight() {
-    clapi.moveRight();
+    mainPlayer.moveRight();
 }
+
+function reStartGame(){
+    init();
+
+    var gameOverDiv = $("#gameOver");
+    gameOverDiv.removeClass("isGameOver");
+    gameOverDiv.fadeOut();
+}
+
+function gameOver(){
+    var gameOverDiv = $("#gameOver");
+    if(!gameOverDiv.hasClass("isGameOver")){
+        gameOverDiv.addClass("isGameOver");
+        gameOverDiv.fadeIn();
+        $("#gameOverCoin").html(mainPlayer.Score);
+        $("#gameOverKill").html(mainPlayer.Kills); // TODO : replace with kills
+    }
+}
+
+$(document).on("click","#gameOverRestart", function(){
+    reStartGame();
+});
 
 function refreshGame() {
     if (boucle)
     {
-        if(map[ARROW_LEFT]){
-            clapi.moveLeft();
+        if(Math.floor(Math.random()*100) === 0)
+        {
+            //addRandomCoin();
         }
-        if(map[ARROW_UP]){
-            clapi.moveUp();
+        // Controls
+        if(mainPlayer.isPAlive)
+        {
+            if(map[ARROW_LEFT]){
+                mainPlayer.moveLeft();
+            }
+            if(map[ARROW_UP]){
+                mainPlayer.moveUp();
+            }
+            if(map[ARROW_RIGHT]){
+                mainPlayer.moveRight();
+            }
+            if(map[CTRL_LEFT]){
+            }
+            if(map[ARROW_DOWN]){
+                mainPlayer.playerSlide = true;
+            }
+            else{
+                mainPlayer.playerSlide = false;
+            }
+
+            if(map[KEY_Z])
+            {
+                let tmpShuriken = mainPlayer.throwShuriken("UP");
+                if (tmpShuriken !== null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[KEY_S])
+            {
+                let tmpShuriken = mainPlayer.throwShuriken("DOWN");
+                if (tmpShuriken !== null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[KEY_Q])
+            {
+                let tmpShuriken = mainPlayer.throwShuriken("LEFT");
+                if (tmpShuriken !== null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[KEY_D])
+            {
+                let tmpShuriken = mainPlayer.throwShuriken("RIGHT");
+                if (tmpShuriken !== null)
+                {
+                    shurikens[nShurikens] = tmpShuriken;
+                    nShurikens++;
+                }
+            }
+            if(map[LEFT_SHIFT]){
+                mainPlayer.run = 1;
+            }
+            else
+                mainPlayer.run = 0;
+        }else{
+          gameOver();
         }
-        if(map[ARROW_RIGHT]){
-            clapi.moveRight();
-        }
-        if(map[ARROW_DOWN]){
-            addCoin(Math.random()*winHeight, Math.random()*winHeight);
-        }
-        if(map[LEFT_SHIFT]){
-            clapi.run = 1;
-        }
-        else
-            clapi.run = 0;
-        
         // Clear sprites
-        clapi.clear();
+        mainPlayer.clear();
         for (i = 0; i < nCoin; i++)
             coin[i].clear();
         for (i = 0; i < nPlatform; i++)
             platform[i].clear();
-        
-        // Update sprites
-        clapi.updatePosition(platform, nPlatform);
-        for (i = 0; i < nCoin; i++)
+        for (i = 0; i < nShurikens; i++)
+            shurikens[i].clear();
+        for (i = 0; i < nShurikensEnemy; i++)
+            shurikensEnemy[i].clear();
+        for (i = 0; i < nEnemies; i++)
+            enemies[i].clear();
+
+        if (frameCpt%1 == 0)
         {
-            coin[i].updatePosition(platform, nPlatform);
-            if (clapi.hasCollectedCoin(coin[i]))
+            for (j = 0; j < nShurikens; j++)
             {
-                coin[i] = coin[--nCoin];
+                if (!shurikens[j].updatePosition(platform, nPlatform))
+                {
+                    shurikens[j] = shurikens[--nShurikens];
+                    j--;
+                }
+            }
+
+            for (i = 0; i < nShurikensEnemy; i++)
+            {
+                if(shurikensEnemy[i].updatePosition(platform, nPlatform))
+                {
+                    if(mainPlayer.isAlive && mainPlayer.hasBeenHit(shurikensEnemy[i]))
+                    {
+                        shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
+                    }
+                }
+                else {
+                    shurikensEnemy[i] = shurikensEnemy[--nShurikensEnemy];
+                }
             }
         }
-        
+
+        if (frameCpt++ == 2)
+        {
+            // Update sprites
+            if(mainPlayer.updatePosition(platform, nPlatform))
+            {
+                if (mainPlayer.PosX * WIN_RATIO < WIN_WIDTH / 2)
+                    posWorldX = 0;
+                else if(mainPlayer.PosX * WIN_RATIO > WORLD_WIDTH - WIN_WIDTH / 2)
+                    posWorldX = WORLD_WIDTH - WIN_WIDTH / WIN_RATIO / 2;
+                else
+                    posWorldX = mainPlayer.PosX - WIN_WIDTH / WIN_RATIO / 2;
+
+                if (mainPlayer.PosY * WIN_RATIO < WIN_HEIGHT / 2 )
+                    posWorldY = 0;
+                else if (mainPlayer.PosY * WIN_RATIO > WORLD_HEIGHT - WIN_HEIGHT / 2)
+                    posWorldY = WORLD_HEIGHT - WIN_HEIGHT / WIN_RATIO / 2;
+                else
+                    posWorldY = mainPlayer.PosY - WIN_HEIGHT / WIN_RATIO / 2;
+
+            }
+
+            for (i = 0; i < nEnemies; i++)
+            {
+                if(enemies[i].isAlive)
+                {
+                    let tmpShuriken = enemies[i].move(mainPlayer);
+                    if (tmpShuriken !== null)
+                    {
+                        shurikensEnemy[nShurikensEnemy] = tmpShuriken;
+                        nShurikensEnemy++;
+                    }
+
+                    for (j = 0; j < nShurikens; j++)
+                    {
+                        if(enemies[i].hasBeenHit(shurikens[j]))
+                        {
+                            shurikens[j] = shurikens[--nShurikens];
+                            j--;
+                        }
+                        if(!enemies[i].isAlive)
+                        {
+                            j = nShurikens;
+                        }
+                    }
+                }
+                if (!enemies[i].updatePosition(platform, nPlatform))
+                {
+                    addCoin(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
+                    enemies[i] = enemies[--nEnemies];
+                    i--;
+                    addEnemies();
+                    mainPlayer.Kills++;
+                }
+            }
+
+            for (i = 0; i < nCoin; i++)
+            {
+                if (coin[i].updatePosition(platform, nPlatform))
+                {
+                    if (mainPlayer.hasCollectedCoin(coin[i]))
+                    {
+                        coin[i] = coin[--nCoin];
+                    }
+                }
+                else
+                {
+                    coin[i] = coin[--nCoin];
+                }
+            }
+            frameCpt = 0;
+        }
+
+
         // Draw sprites
-        clapi.draw();
+        currentMap.draw();
         for (i = 0; i < nCoin; i++)
             coin[i].draw();
+        for (i = 0; i < nShurikens; i++)
+            shurikens[i].draw();
+        for (i = 0; i < nShurikensEnemy; i++)
+            shurikensEnemy[i].draw();
+        for (i = 0; i < nEnemies; i++)
+            enemies[i].draw();
+        mainPlayer.draw();
         for (i = 0; i < nPlatform; i++)
             platform[i].draw();
     }
