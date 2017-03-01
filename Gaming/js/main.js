@@ -24,15 +24,20 @@ const WIN_RATIO = 0.75;
 const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
 
-const WORLD_WIDTH = WIN_WIDTH * 2;
-const WORLD_HEIGHT = WIN_HEIGHT * 2;
+var WORLD_WIDTH = WIN_WIDTH * 2;
+var WORLD_HEIGHT = WIN_HEIGHT * 2;
 
 var posWorldX = 0;
 var posWorldY = 0;
 
+var currentMap;
+
 function init() {
     var canvas = document.getElementById('gameArea');
     var context2D = canvas.getContext('2d');
+    currentMap = new Map();
+    //WORLD_WIDTH = currentMap.MapX;
+    //WORLD_HEIGHT = currentMap.MapY;
     canvas.width = WIN_WIDTH;
     canvas.height = WIN_HEIGHT;
     context2D.scale(WIN_RATIO, WIN_RATIO);
@@ -372,6 +377,7 @@ function refreshGame() {
 
 
         // Draw sprites
+        currentMap.draw();
         for (i = 0; i < nCoin; i++)
             coin[i].draw();
         for (i = 0; i < nShurikens; i++)

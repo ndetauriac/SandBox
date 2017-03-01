@@ -1,4 +1,4 @@
-const SHURIKEN_SPEED = 20;
+const SHURIKEN_SPEED = 10;
 
 class Shuriken
 {
@@ -96,7 +96,7 @@ class Shuriken
     applyYPosition(){
         this.posY = this.previewPosY;
         if (!this.onTheFloor){
-            this.staminaY += GRAVITY / 10;
+            this.staminaY += GRAVITY / 100;
         }
         else{
             this.staminaY = 0;

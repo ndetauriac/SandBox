@@ -25,7 +25,7 @@ class Characters {
 
         this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft_"+ color +".png", 10, 1, false, 5);
         this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight_"+ color +".png", 10, 1, false, 5);
-        
+
         this.damageIndicator = [];
         this.statusEffect = [];
 
@@ -50,7 +50,7 @@ class Characters {
         this.lastState = "IDLE_RIGHT";
         this.winWidth = document.getElementById('gameArea').width;
         this.winHeight = document.getElementById('gameArea').height;
-        
+
 
         this.lifeTime = 100;
     }
@@ -118,7 +118,7 @@ class Characters {
     updatePosition(plateforms, nPlateform) {
         this.computeXPosition();
         this.computeYPosition();
-
+        var switchStateValue = this.switchState();
         var plat;
         var xContact = false;
         var yContact = false;
@@ -180,7 +180,7 @@ class Characters {
         if (this.statusEffect !== null && this.isAlive)
         {
         }
-        return this.switchState();
+        return switchStateValue;
     }
 
     computeXPosition(){
@@ -346,7 +346,7 @@ class Characters {
         else
         {
             this.lifeTime--;
-            if (this.lifeTime == 0)
+            if (this.lifeTime <= 0)
                 keep = false;
             if (this.lastDir == 1)
                 this.state = "DIE_RIGHT";
@@ -377,10 +377,12 @@ class Characters {
     kill()
     {
         this.isAlive = false;
+        /*
         if (this.lastDir == 1)
             this.state = "DIE_RIGHT";
         else
             this.state = "DIE_LEFT";
+        */
     }
 
     clear()
