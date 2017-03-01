@@ -16,6 +16,10 @@
             </canvas>
 
 
+        <div id="loader" class="screen">
+            <img src="./images/loader.gif"/>
+        </div>
+
         <div id="mainMenu" class="screen">
             <div class="editor">
                 <div class="logo"><img src="./images/bataru.png" /></div>
@@ -32,8 +36,10 @@
         </div>
 
         <div id="playerInfo" style="display:none">
-            <div id="playerAmmo" class="playerInfo"></div>
+            <div id="playerInfoBg"></div>
+            <div id="playerInfoBg2"></div>
             <div id="playerCoin" class="playerInfo"></div>
+            <div id="playerAmmo" class="playerInfo"></div>
             <div id="playerKill" class="playerInfo"></div>
         </div>
 
@@ -84,6 +90,12 @@
 
 <script src="http://localhost:35729/livereload.js"></script>
     <script type="text/javascript">
+
+        window.onload = function(){
+           setInterval(function(){
+                   $("#loader").fadeOut();
+           }, 1000);
+        };
         <!--
         // Main loop
         idInterv = setInterval(refreshGame, 10);
