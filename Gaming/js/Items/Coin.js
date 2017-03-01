@@ -2,7 +2,7 @@ class Coin
 {
     constructor(x, y, stasis = false)
     {
-        this.sprite = new Sprites("./images/coin.png", 10, 1, true, 3);
+        this.sprite = new Sprites("./images/shurikenItem.png", 10, 1, true, 3);
         this.value = 10;
         this.posX = x;
         this.posY = y;
@@ -32,7 +32,7 @@ class Coin
 
                 if (this.sprite.width != null && this.sprite.height != null) {
                     var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
-                    
+
                     if(gap.kill)
                     {
                         exist = false;
