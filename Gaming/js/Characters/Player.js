@@ -3,7 +3,7 @@ class Player extends Characters{
     {
         super(x, y, 100, "purple");
         this.score = 0;
-        this.ammo = 20;
+        this.ammo = 100;
         this.kills = 0;
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
@@ -62,26 +62,32 @@ class Player extends Characters{
         var tmpShuriken;
         var xThrow = this.posX;
         var yThrow = this.posY;
+        var directionX = this.lastDir;
+        var directionY = 0;
+        var statusEffects = [new StatusEffect("Fire"), new StatusEffect("Poison")];
         if (this.isAlive)
         {
             switch(direction)
             {
-                case "NONE":
-                    tmpShuriken = new Shuriken(xThrow, yThrow, this.lastDir, 0, this.staminaX);
-                    break;
                 case "LEFT":
-                    tmpShuriken = new Shuriken(xThrow, yThrow, -1, 0, this.staminaX);
+                    directionX = -1;
+                    directionY = 0;
                     break;
                 case "RIGHT":
-                    tmpShuriken = new Shuriken(xThrow, yThrow, 1, 0, this.staminaX);
+                    directionX = 1;
+                    directionY = 0;
                     break;
                 case "UP":
-                    tmpShuriken = new Shuriken(xThrow, yThrow, 0, -1, this.staminaX);
+                    directionX = 0;
+                    directionY = -1;
                     break;
                 case "DOWN":
-                    tmpShuriken = new Shuriken(xThrow, yThrow, 0, 1, this.staminaX);
+                    directionX = 0;
+                    directionY = 1;
                     break;
             }
+            tmpShuriken = new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, statusEffects);
+
             if ((this.Ammo > 0) && this.cadence === 0)
             {
                 this.Ammo --;

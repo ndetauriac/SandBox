@@ -332,16 +332,14 @@ function refreshGame() {
 
                     for (j = 0; j < nShurikens; j++)
                     {
-                        if(enemies[i].hasBeenHit(shurikens[j], "Fire"))
+                        if(enemies[i].hasBeenHit(shurikens[j]))
                         {
                             shurikens[j] = shurikens[--nShurikens];
                             j--;
                         }
                         if(!enemies[i].isAlive)
                         {
-                            addEnemies();
                             j = nShurikens;
-                            mainPlayer.Kills++;
                         }
                     }
                 }
@@ -350,6 +348,8 @@ function refreshGame() {
                     addCoin(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
                     enemies[i] = enemies[--nEnemies];
                     i--;
+                    addEnemies();
+                    mainPlayer.Kills++;
                 }
             }
 

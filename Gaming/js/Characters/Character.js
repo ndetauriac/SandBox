@@ -26,7 +26,8 @@ class Characters {
         this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft_"+ color +".png", 10, 1, false, 5);
         this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight_"+ color +".png", 10, 1, false, 5);
         
-        this.damageIndicator = null;
+        this.damageIndicator = [];
+        this.statusEffect = [];
 
         this.posX = x;
         this.posY = y;
@@ -50,7 +51,6 @@ class Characters {
         this.winWidth = document.getElementById('gameArea').width;
         this.winHeight = document.getElementById('gameArea').height;
         
-        this.statusEffect = null;
 
         this.lifeTime = 100;
     }
@@ -87,10 +87,8 @@ class Characters {
         return this.posY + this.mapSprites[this.state].height / 2;
     }
 
-    hasBeenHit(shuriken, statusEffect = "")
+    hasBeenHit(shuriken)
     {
-        if (statusEffect != "")
-            this.statusEffect = new StatusEffect("Fire");
         if (this.mapSprites[this.state].width === undefined || this.mapSprites[this.state].height === undefined)
         {
             return false;
@@ -100,8 +98,13 @@ class Characters {
             var damages = shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height);
             if (damages > 0)
             {
+
+                for(var i = 0; i < shuriken.statusEffects.length; i++)
+                {
+                    this.statusEffect.push(shuriken.statusEffects[i])
+                }
                 this.isAlive = this.healthBar.takeDamage(damages);
-                this.damageIndicator = new Damage(damages);
+                this.damageIndicator.push(new Damage(damages));
                 return true;
             }
             else
@@ -164,17 +167,18 @@ class Characters {
 
         this.cadence = Decr(this.cadence, 1, 0);
         var effectDamage = null;
+
+        for(var i = 0; i < this.statusEffect.length; i++)
+        {
+            effectDamage = this.statusEffect[i].ApplyEffect();
+            if(effectDamage > 0){
+                this.isAlive = this.healthBar.takeDamage(effectDamage);
+                this.damageIndicator.push(new Damage(effectDamage, this.statusEffect[i].Color));
+            }
+        }
+
         if (this.statusEffect !== null && this.isAlive)
         {
-            effectDamage = this.statusEffect.ApplyEffect();
-            if (effectDamage === null)
-            {
-                this.statusEffect = null;
-            }
-            else if(effectDamage > 0){
-                this.isAlive = this.healthBar.takeDamage(effectDamage);
-                this.damageIndicator = new Damage(effectDamage, "red");
-            }
         }
         return this.switchState();
     }
@@ -359,18 +363,14 @@ class Characters {
             this.healthBar.draw(this.posX, this.posY - 10);
         this.mapSprites[this.state].animate();
         this.mapSprites[this.state].draw(this.posX, this.posY);
-        if(this.damageIndicator !== null)
+        for(var i = 0; i < this.statusEffect.length; i ++)
         {
-            if(!this.damageIndicator.draw(this.PosXMiddle, this.PosYMiddle))
-            {
-                this.damageIndicator = null;
-            }
-            /*
-            for(i = 0; i < this.damageIndicator.length; i++)
-            {
-                this.damageIndicator[i].draw(this.posX, this.posY);
-            }
-            */
+            this.statusEffect[i].draw();
+        }
+        for (var i = 0; i < this.damageIndicator.length; i ++)
+        {
+            if (!this.damageIndicator[i].draw(this.PosXMiddle + i * 20, this.PosYMiddle))
+                this.damageIndicator.splice(i,1);
         }
     }
 
@@ -387,9 +387,13 @@ class Characters {
     {
         this.healthBar.clear();
         this.mapSprites[this.state].clear();
-        if(this.damageIndicator !== null)
+        for(var i = 0; i < this.statusEffect.length; i ++)
         {
-            this.damageIndicator.clear();
+            this.statusEffect[i].clear();
+        }
+        for(var i = 0; i < this.damageIndicator.length; i ++)
+        {
+            this.damageIndicator[i].clear();
         }
     }
 }

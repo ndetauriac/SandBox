@@ -2,7 +2,7 @@ const SHURIKEN_SPEED = 20;
 
 class Shuriken
 {
-    constructor(x, y, directionX, directionY, innerSpeed = 0)
+    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [])
     {
         this.sprite = new Sprites("./images/shuriken2.png", 4, 1, true, 1);
         this.value = 20;
@@ -18,6 +18,8 @@ class Shuriken
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
+        //this.statusEffects = [new StatusEffect("Fire"), new StatusEffect("Poison")];
+        this.statusEffects = statusEffects;
     }
 
     updatePosition(plateforms, nPlateform) {
