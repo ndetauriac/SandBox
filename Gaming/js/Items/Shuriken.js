@@ -5,6 +5,7 @@ class Shuriken
     constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [])
     {
         this.sprite = new Sprites("./images/shuriken3.png", 4, 1, true, 1);
+        // this.sprite = new Sprites("./images/fumaShuriken.png", 8, 1, true, 0);
         this.value = 20;
         this.posX = x;
         this.posY = y;
@@ -33,7 +34,7 @@ class Shuriken
         for (plat = 0; plat < nPlateform; plat++)
         {
 
-            if (this.sprite.width != null && this.sprite.height != null) {
+            if (this.sprite.width !== null && this.sprite.height !== null) {
                 var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
 
                 if (gap.isInContactLeft)
@@ -71,7 +72,7 @@ class Shuriken
         this.applyXPosition();
         this.applyYPosition();
 
-        if (this.staminaX == 0 && this.staminaY == 0)
+        if (this.staminaX === 0 && this.staminaY === 0)
         {
             this.value = 0;
             this.lifeTime--;
@@ -109,7 +110,7 @@ class Shuriken
         {
             return 0;
         }
-        else if (this.sprite.width != null && this.sprite.height != null) {
+        else if (this.sprite.width !== null && this.sprite.height !== null) {
             if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h / 3))
                 return 2 * this.value;
             else if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h))
@@ -130,7 +131,7 @@ class Shuriken
 
     draw()
     {
-        if (this.staminaX != 0 || this.staminaY != 0)
+        if (this.staminaX !== 0 || this.staminaY !== 0)
             this.sprite.animate();
         this.sprite.draw(this.posX, this.posY);
     }
