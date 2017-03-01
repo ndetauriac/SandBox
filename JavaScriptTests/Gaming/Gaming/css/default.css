@@ -1,4 +1,13 @@
-﻿canvas {
+@import url('https://fonts.googleapis.com/css?family=Bangers|Bubblegum+Sans');
+html {
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bangers', cursive;
+}
+
+canvas {
     display: block;
     position: absolute;
     top: 0;
@@ -6,22 +15,208 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 90%;
-    z-index: 1;
+    height: 100%;
+    z-index: -1;
+    background-color:grey;
+    font-weight: bold;
+    /*
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    -o-transform: scale(0.5);
+    transform: scale(0.5);
+    */
 }
 
-#gamecontainer {
-    width: 1200px;
-    height: 800px;
-    background-color: beige;
-    border: 1px solid black;
-    position: relative;
-    margin: 0 auto;
+body {
+  	overflow:hidden;
+    margin: 0;
 }
 
-#gamestartscreen {
+.playerInfo {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+
+#playerAmmo {
+    background: url("../images/ammoValue.png");
+}
+
+#playerCoin {
+    background: url("../images/coinValue.png");
+}
+
+#playerKill {
+    background: url("../images/kills.png");
+}
+
+
+/**********************************************************************/
+
+
+/**********************      GAME OVER    *****************************/
+
+
+/**********************************************************************/
+
+.mainTitle {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 10%;
+    font-family: 'Bangers', cursive;
+    font-size: 5.5em;
+    color: white;
+    text-shadow: 1px 4px 11px black;
+}
+
+.fontRed {
+    color: #d50000;
+}
+
+#gameOverKill {
+    background: url("../images/kills.png") no-repeat;
+}
+
+#gameOverCoin {
+    background: url("../images/coinValue.png") no-repeat;
+}
+
+.gameOverInfo {
+    font-size:1.3em;
+    display: block;
+    text-indent: 50px;
+    margin:10px auto;
+}
+
+.button {
+    width: auto;
+    display: block;
+    margin: auto;
+	text-align:center;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+
+    font-size: 2.0em;
+    cursor: pointer;
+	color:white;
+	text-shadow:1px 1px 1px black;
+}
+
+.button:hover {
+    font-size:2.2em;
+}
+
+.screen{
+	 position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.50);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#mainMenu{
+	background:url('http://st.gde-fon.com/wallpapers_original/411421_pejzazh_risunok_yaponiya_dom_xram_ozero_derevya_ca_1680x1050_www.Gde-Fon.com.jpg');
+	background-size:cover;
+}
+
+#mainMenu .container{
+	width: 800px;
+    margin: 7% auto;
+}
+
+#mainMenu .mainTitle{
+	width: 400px;
+    background: rgba(0, 0, 0, 0.50);
+	background-image:url('../images/ninjaTitle.png');
+	background-repeat:no-repeat;
+    height: 400px;
+    line-height: 650px;
+	float:left;
+	cursor:pointer;
+}
+
+#mainMenu .mainTitle:hover{
+	background-image:url('../images/ninjaTitleHover.png');
+}
+
+#mainMenu .mainTitle span:hover{
+	font-size:1.3em;
+}
+
+#mainMenu .buttons{
+	margin-top: 10%;
+    width: 400px;
+    height: 400px;
+    float: left;
+    background: none;
+}
+
+#mainMenu .button{
+	height: 130px;
+    line-height: 130px;
+    background: rgba(0, 0, 0, 0.70);
+    margin-left: 10px;
+}
+
+#mainMenu .button:hover{
+    background: rgba(0, 0, 0, 0.60);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+#mainMenu #startButton:hover{
+    background-image: url(../images/ninjaButtonStart.png);
+}
+
+#mainMenu #profileButton:hover{
+    background-image: url(../images/ninjaButtonProfile.png);
+}
+
+#mainMenu #optionsButton:hover{
+    background-image: url(../images/ninjaButtonOptions.png);
+}
+
+#mainMenu .button:nth-child(n+2){
+    margin-top: 5px;
+}
+
+#mainMenu .editor{
+	cursor:pointer;
+	position: absolute;
+    background: #d50000;
+    padding: 10px;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    bottom: -140px;
+    right: 20px;
+
+	-webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+#mainMenu .editor:before{
+    content: "";
     position: absolute;
-    margin: 0 auto;
-    z-index: 2;
-    text-align: right;
+    border-bottom: 25px solid rgb(213, 0, 0);
+    border-right: 51px solid transparent;
+    border-left: 51px solid transparent;
+    right: 0;
+    top: -25px;
+}
+
+#mainMenu .editor:hover{
+	bottom:0px;
+}
+
+#mainMenu .editor .logo img{
+    width: 80px;
 }

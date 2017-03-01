@@ -1,0 +1,91 @@
+
+Start screen
+- Title of the game
+- Two button :
+    - Start game
+    - My ninja
+    - Options
+        - Tab commands : set your entries
+    
+On profile, you can set you bonus.
+Each card have a bonus or a power (see below).
+Cards may spawn randomly (1-5% chance) by killing enemies and with a sure drop on bosses.
+Each card can spawn with different level (normal - uncommon - rare - legendary) wich give more or less bonuses.
+You can set 2 bonus and 1 power at a time.
+
+Saving data :
+- Cooking storage (in JSON format)
+- Add a functionnality to save a file, and load a file (further).
+
+Bonus ideas:
+- Move Speed (shoe ico)
+- Fire Rate (Moving Shuriken ico)
+- Jump Boost (Rabbit ico)
+- Jump Limit++ (Frog ico) 
+- Damage++ (Sword ico)
+- Piercing shot (Bore ico)
+- Fire (damage on time, fire ico)
+
+
+
+Powers :
+- Teleportation
+- Instant health
+- Area damage (push enemies away with little damages)
+- Invisibility / Smoke cloud
+- Dash (dash forward and is invulnerable during it)
+- Butt Slam (Because datz awesome !)
+- It's raining shurikens !
+- Screw Gravity (asdf reference ;) )
+
+Effects:
+- Poison (dot)
+- Fire (dot, can spread)
+- Stun (can't move)
+- Weakness (damage done --, damage receive ++)
+- Fear (Run away enemies)
+- Blind (Can't see more than XXpx from pos)
+- Confused (Reverse moves)
+- Kittenized (little damage, blocked for 1 seconds trying to put the cat away)
+- Slow
+- Sleep
+
+
+Level :
+- Dojo temple : no effect added to the characters.
+    - Boss : master ninja, with same power as you.
+- Skyscraper : you can mount on the plateform to attein the top of the building and beat the big flying boss. 
+    - Boss : Flying chinese dragon 
+- Igloo town : ice, you slide on the ground when you stop
+    - Polar bear, with Ivan on top of it (because references)
+- Cat Mansion 
+    - The old cat woman that throws cats on you (little damage, blocked for 1 seconds trying to put the cat away)
+- Lava : floor is lava, you can't walk on the ground without BUUUUURNING !
+    - The phoenix, that can attack from the bottom, swimming in lava !
+- Mirror palace :
+    - Boss : Doppelganger > Copy your moves
+
+
+Maps:
+- Add hidden rooms with stuffs
+- Add chest that open by throwing shurikens on it
+- Add traps (makibishi (chasse-trappes)) 
+
+Weapons :
+- CAC
+    - kusarigama : faux
+    - katana
+    - saï
+    - bô
+    - nunchaku
+    -  kyoketsu shoge : arme tranchante au bout d'une corde
+
+- Move
+    - kanigawa : grappin
+    - Claws (allow wall climbing / reduce slide)
+    
+-Distance
+    - makibishi (chasse-trappes) (only does damage if on the floor, and slows)
+    - kunai
+    - Fūma Shuriken (larger shuriken)
+    - fukumibari : fléchettes
