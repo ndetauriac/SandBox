@@ -36,10 +36,8 @@ function init() {
     var canvas = document.getElementById('gameArea');
     var context2D = canvas.getContext('2d');
     currentMap = new Map();
-    /*
-    WORLD_WIDTH = currentMap.MapX;
-    WORLD_HEIGHT = currentMap.MapY;
-    */
+    //WORLD_WIDTH = currentMap.MapX;
+    //WORLD_HEIGHT = currentMap.MapY;
     canvas.width = WIN_WIDTH;
     canvas.height = WIN_HEIGHT;
     context2D.scale(WIN_RATIO, WIN_RATIO);
