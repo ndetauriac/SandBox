@@ -73,7 +73,7 @@ function init() {
     addPlateform(0, WORLD_HEIGHT - 20, WORLD_WIDTH, 200);
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
-            case (SPACE_BAR):
+            /*case (SPACE_BAR):
                 boucle = !boucle;
                 break;
             /*case (CTRL_LEFT):
@@ -205,7 +205,7 @@ function refreshGame() {
             if(map[ARROW_LEFT]){
                 mainPlayer.moveLeft();
             }
-            if(map[ARROW_UP]){
+            if(map[ARROW_UP] || map[SPACE_BAR]){
                 mainPlayer.moveUp();
             }
             if(map[ARROW_RIGHT]){
