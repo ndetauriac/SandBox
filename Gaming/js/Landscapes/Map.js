@@ -7,8 +7,8 @@ class Map
         this.background.caller = this;
         this.background.onload = this.bgLoaded;
         this.background.src = "./images/dojo.png";
-        this.sizeMapX = WIN_WIDTH * 2;
-        this.sizeMapY = WIN_HEIGHT * 2;
+        this.sizeMapX = WIN_WIDTH * 3;
+        this.sizeMapY = WIN_HEIGHT * 3;
     }
 
     get MapX()

@@ -20,7 +20,7 @@ const KEY_E = 69;
 
 const LEFT_SHIFT = 16;
 const CTRL_LEFT = 17;
-const WIN_RATIO = 0.75;
+const WIN_RATIO = 0.60;
 const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
 
@@ -36,8 +36,8 @@ function init() {
     var canvas = document.getElementById('gameArea');
     var context2D = canvas.getContext('2d');
     currentMap = new Map();
-    //WORLD_WIDTH = currentMap.MapX;
-    //WORLD_HEIGHT = currentMap.MapY;
+    WORLD_WIDTH = currentMap.MapX;
+    WORLD_HEIGHT = currentMap.MapY;
     canvas.width = WIN_WIDTH;
     canvas.height = WIN_HEIGHT;
     context2D.scale(WIN_RATIO, WIN_RATIO);
@@ -265,6 +265,7 @@ function refreshGame() {
           gameOver();
         }
         // Clear sprites
+        /*
         mainPlayer.clear();
         for (i = 0; i < nCoin; i++)
             coin[i].clear();
@@ -276,7 +277,7 @@ function refreshGame() {
             shurikensEnemy[i].clear();
         for (i = 0; i < nEnemies; i++)
             enemies[i].clear();
-
+*/
         if (frameCpt%1 == 0)
         {
             for (j = 0; j < nShurikens; j++)
@@ -311,16 +312,16 @@ function refreshGame() {
                 if (mainPlayer.PosX * WIN_RATIO < WIN_WIDTH / 2)
                     posWorldX = 0;
                 else if(mainPlayer.PosX * WIN_RATIO > WORLD_WIDTH - WIN_WIDTH / 2)
-                    posWorldX = WORLD_WIDTH - WIN_WIDTH / WIN_RATIO / 2;
+                    posWorldX = (WORLD_WIDTH - WIN_WIDTH) / WIN_RATIO;
                 else
-                    posWorldX = mainPlayer.PosX - WIN_WIDTH / WIN_RATIO / 2;
+                    posWorldX = mainPlayer.PosX - (WIN_WIDTH / 2) / WIN_RATIO;
 
                 if (mainPlayer.PosY * WIN_RATIO < WIN_HEIGHT / 2 )
                     posWorldY = 0;
                 else if (mainPlayer.PosY * WIN_RATIO > WORLD_HEIGHT - WIN_HEIGHT / 2)
-                    posWorldY = WORLD_HEIGHT - WIN_HEIGHT / WIN_RATIO / 2;
+                    posWorldY = (WORLD_HEIGHT - WIN_HEIGHT) / WIN_RATIO;
                 else
-                    posWorldY = mainPlayer.PosY - WIN_HEIGHT / WIN_RATIO / 2;
+                    posWorldY = mainPlayer.PosY - (WIN_HEIGHT / 2) / WIN_RATIO;
 
             }
 

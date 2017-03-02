@@ -42,7 +42,6 @@ class Damage
         }
         else
         {
-            this.clear();
             return false;
         }
     }
