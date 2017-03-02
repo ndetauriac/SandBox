@@ -20,12 +20,12 @@ const KEY_E = 69;
 
 const LEFT_SHIFT = 16;
 const CTRL_LEFT = 17;
-const WIN_RATIO = 0.60;
+const WIN_RATIO = 0.5;
 const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
 
-var WORLD_WIDTH = WIN_WIDTH * 2;
-var WORLD_HEIGHT = WIN_HEIGHT * 2;
+var WORLD_WIDTH = WIN_WIDTH * 1;
+var WORLD_HEIGHT = WIN_HEIGHT * 0.5;
 
 var posWorldX = 0;
 var posWorldY = 0;
