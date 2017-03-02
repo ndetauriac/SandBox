@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>Shuriken - Bataru Studio</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="gamecontainer">
+        <canvas id="gameArea" style="height: 500px;width: 500px">
+                Votre navigateur ne supporte pas le Canvas HTML5
+            </canvas>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/Graphic/Sprites.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <script src="http://localhost:35729/livereload.js"></script>
+    <script type="text/javascript">
+
+
+        <!--
+        // Main loop
+
+        var sprite = new Sprites("./images/potion_red.png", 9, 1, true, 10);
+        idInterv = setInterval(refreshSprite, 10);
+        function refreshSprite(){
+            sprite.animate();
+            sprite.clear();
+            sprite.draw(10,10);
+        }
+        //-->
+    </script>
+</body>
+
+</html>
