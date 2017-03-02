@@ -9,15 +9,55 @@
 
     <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet" />
     <style>
+        #spriteForm {
+            padding: 10px 0px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: black;
+        }
 
+        #spriteForm input {
+            margin-left: 5px;
+            padding: 3px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        #spriteForm input.xy {
+            text-align: center;
+        }
+
+        #spriteForm button {
+            padding: 3px 10px;
+            ;
+            border: none;
+            margin-left: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        #spriteForm button:hover {
+            background: grey;
+        }
     </style>
 </head>
 
 <body>
     <div id="gamecontainer">
-        <canvas id="gameArea" >
+        <canvas id="gameArea">
                 Votre navigateur ne supporte pas le Canvas HTML5
             </canvas>
+    </div>
+    <div id="spriteForm">
+        <input id="path" type="text" class="" placeholder="path to file" />
+        <input id="x" type="text" class="xy" placeholder="x" size="2" />
+        <input id="y" type="text" class="xy" placeholder="y" size="2" />
+        <input id="refresh" type="text" class="xy" placeholder="refresh" size="3" />
+        <button onclick="reload()">Reload sprite</button>
+    </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/Graphic/Sprites.js"></script>
@@ -26,18 +66,56 @@
     <script src="http://localhost:35729/livereload.js"></script>
     <script type="text/javascript">
 
-
-        var sprite = new Sprites("./images/potion_red.png", 12, 1, true, 10);
+        // GLOBAL
         var posWorldX = 0;
         var posWorldY = 0;
         var canvas = document.getElementById('gameArea');
         var context2D = canvas.getContext('2d');
-        context2D.scale(1,1);
+        context2D.scale(1, 1);
 
-        function refreshSprite(){
-            sprite.animate();
-            sprite.clear();
-            sprite.draw(10,10);
+        // Functions
+        var path;
+        var x;
+        var y;
+        var refresh;
+        var sprite;
+
+        // INIT
+        path = localStorage.getItem("path");
+        x = localStorage.getItem("x");
+        y = localStorage.getItem("y");
+        refresh = localStorage.getItem("refresh");
+
+        $("#path").val(path);
+        $("#x").val(x);
+        $("#y").val(y);
+        $("#refresh").val(refresh);
+
+        if(path !== null){reload();}
+
+        // LISTENER
+        function reload() {
+            if(sprite != null) sprite.clear();
+
+            path = $("#path").val();
+            x = $("#x").val();
+            y = $("#y").val();
+            refresh = $("#refresh").val();
+            sprite = new Sprites(path, x, y, true, refresh);
+
+            localStorage.setItem("path", path);
+            localStorage.setItem("x", x);
+            localStorage.setItem("y", y);
+            localStorage.setItem("refresh", refresh);
+        }
+
+        // LOOP
+        function refreshSprite() {
+            if (sprite) {
+                sprite.animate();
+                sprite.clear();
+                sprite.draw(10, 10);
+            }
         }
         idInterv = setInterval(refreshSprite, 10);
 
