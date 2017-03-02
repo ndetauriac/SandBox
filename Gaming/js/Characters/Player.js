@@ -14,7 +14,7 @@ class Player extends Characters{
     {
         if (coin.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) !== null)
         {
-            this.score += coin.coinValue;
+            this.score += coin.Amount;
         $("#playerCoin").text(this.score);
             return true;
         }
