@@ -110,8 +110,11 @@ class Item
 
     draw()
     {
-        this.sprite.animate();
-        this.sprite.draw(this.posX, this.posY);
+        if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
+        {
+            this.sprite.animate();
+            this.sprite.draw(this.posX, this.posY);
+        }
     }
 
     gravity(level)

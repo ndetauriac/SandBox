@@ -131,9 +131,12 @@ class Shuriken
 
     draw()
     {
-        if (this.staminaX !== 0 || this.staminaY !== 0)
-            this.sprite.animate();
-        this.sprite.draw(this.posX, this.posY);
+        if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
+        {
+            if (this.staminaX !== 0 || this.staminaY !== 0)
+                this.sprite.animate();
+            this.sprite.draw(this.posX, this.posY);
+        }
     }
 
     gravity(level)

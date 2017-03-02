@@ -1,7 +1,7 @@
 class Player extends Characters{
     constructor(x, y)
     {
-        super(x, y, 100, "purple");
+        super(x, y, 1000, "purple");
         this.score = 0;
         this.ammo = 100;
         this.kills = 0;
@@ -10,13 +10,27 @@ class Player extends Characters{
         $("#playerKill").text(this.kills);
     }
 
-    hasCollectedCoin(coin)
+    hasCollectedItem(item)
     {
-        if (coin.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) !== null)
+        if (item.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) !== null)
         {
-            this.score += coin.Amount;
-        $("#playerCoin").text(this.score);
-            return true;
+            switch(item.itemType)
+            {
+                case "Coin":
+                    this.score += item.Amount;
+                    $("#playerCoin").text(this.score);
+                    return true;
+                    break;
+                case "Ammo":
+                    this.ammo += item.Amount;
+                    $("#playerAmmo").text(this.ammo);
+                    return true;
+                    break;
+                case "Potion":
+                    this.healthBar.heal(item.Amount);
+                    return true;
+                    break;
+            }
         }
         else
         {

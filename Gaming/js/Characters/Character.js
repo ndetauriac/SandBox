@@ -359,18 +359,24 @@ class Characters {
 
     draw()
     {
-        if (this.isAlive)
-            this.healthBar.draw(this.posX, this.posY - 10);
-        this.mapSprites[this.state].animate();
-        this.mapSprites[this.state].draw(this.posX, this.posY);
-        for(var i = 0; i < this.statusEffect.length; i ++)
+        if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
         {
-            this.statusEffect[i].draw();
+            if (this.isAlive)
+                this.healthBar.draw(this.posX, this.posY - 10);
+            this.mapSprites[this.state].animate();
+            this.mapSprites[this.state].draw(this.posX, this.posY);
+            for(var i = 0; i < this.statusEffect.length; i ++)
+            {
+                this.statusEffect[i].draw();
+            }
+            for (var i = 0; i < this.damageIndicator.length; i ++)
+            {
+                if (!this.damageIndicator[i].draw(this.PosXMiddle + i * 20, this.PosYMiddle))
+                    this.damageIndicator.splice(i,1);
+            }
         }
-        for (var i = 0; i < this.damageIndicator.length; i ++)
-        {
-            if (!this.damageIndicator[i].draw(this.PosXMiddle + i * 20, this.PosYMiddle))
-                this.damageIndicator.splice(i,1);
+        else{
+            var a = 0;
         }
     }
 

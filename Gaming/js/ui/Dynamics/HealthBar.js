@@ -22,6 +22,18 @@ class HealthBar
         }
             return isAlive;
     }
+
+    heal(value)
+    {
+        var isAlive = true;
+        this.currentHealth += value;
+        if (this.currentHealth >= this.healthMax)
+        {
+            this.currentHealth = this.healthMax;
+            isAlive = false;
+        }
+            return isAlive;
+    }
     
     draw(x, y)
     {
