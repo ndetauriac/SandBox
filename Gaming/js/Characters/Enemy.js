@@ -62,8 +62,8 @@ class Enemy extends Characters{
             }
         }
 
-        //return this.throwShuriken(throwDir, true);
-        return null;
+        return this.throwShuriken(throwDir, true);
+        //return null;
     }
 
     throwShuriken(direction = "NONE")

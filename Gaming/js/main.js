@@ -352,8 +352,8 @@ function refreshGame() {
                     {
                         if(enemies[i].hasBeenHit(shurikens[j]))
                         {
-                            //shurikens[j] = shurikens[--nShurikens];
-                            //j--;
+                            shurikens[j] = shurikens[--nShurikens];
+                            j--;
                         }
                         if(!enemies[i].isAlive)
                         {
