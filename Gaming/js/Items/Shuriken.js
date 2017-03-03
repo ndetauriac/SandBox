@@ -4,9 +4,9 @@ class Shuriken
 {
     constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [])
     {
-        this.sprite = new Sprites("./images/shuriken3.png", 4, 1, true, 1);
+        this.sprite = new Sprites("shuriken3", 4, 1, true, 1);
         // this.sprite = new Sprites("./images/fumaShuriken.png", 8, 1, true, 0);
-        this.value = 20;
+        this.value = 10;
         this.posX = x;
         this.posY = y;
         this.previewPosX = x;

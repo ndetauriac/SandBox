@@ -1,0 +1,21 @@
+ammoValueOld.png	  ninjaIdleLeft.png	     ninjaSlideRight.png
+ammoValue.png		  ninjaIdleLeft_purple.png   ninjaSlideRight_purple.png
+bataru.png		  ninjaIdleLeft_red.png      ninjaSlideRight_red.png
+coin.png		  ninjaIdleRight.png	     ninjaTitleHover.png
+coinValue.png		  ninjaIdleRight_purple.png  ninjaTitle.png
+dojo.jpg		  ninjaIdleRight_red.png     playerIdleLeft.png
+dojo.png		  ninjaJumpLeft.png	     playerIdleRight.png
+fumaShuriken.png	  ninjaJumpLeft_purple.png   playerRunLeft.png
+kills.png		  ninjaJumpLeft_red.png      playerRunRight.png
+lavaTexture.png		  ninjaJumpRight.png	     potion_red2.png
+listImage.txt		  ninjaJumpRight_purple.png  potion_red.png
+loader.gif		  ninjaJumpRight_red.png     shuriken2Original2.png
+ninjaButtonOptions.png	  ninjaRunLeft.png	     shuriken2Original.png
+ninjaButtonProfile.png	  ninjaRunLeft_purple.png    shuriken2.png
+ninjaButtonStart.png	  ninjaRunLeft_red.png	     shuriken3.png
+ninjaDieLeft.png	  ninjaRunRight.png	     shurikenItem.png
+ninjaDieLeft_purple.png   ninjaRunRight_purple.png   shurikenOriginal.png
+ninjaDieLeft_red.png	  ninjaRunRight_red.png      shuriken.png
+ninjaDieRight.png	  ninjaSlideLeft.png	     wallTexture.jpg
+ninjaDieRight_purple.png  ninjaSlideLeft_purple.png  woodTextures.png
+ninjaDieRight_red.png	  ninjaSlideLeft_red.png

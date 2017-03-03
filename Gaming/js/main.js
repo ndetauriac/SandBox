@@ -32,6 +32,53 @@ var posWorldY = 0;
 
 var currentMap;
 
+var bibliImages = [];
+var loadedImages = 0;
+
+function initImages()
+{
+    boucle = false;
+    var imageNames = ["coin",
+                        "shuriken3",
+                        "shurikenItem",
+                        "potion_red",
+                        "ninjaDieLeft_purple",
+                        "ninjaDieLeft_red",
+                        "ninjaDieRight_purple",
+                        "ninjaDieRight_red",
+                        "ninjaIdleLeft_purple",
+                        "ninjaIdleLeft_red",
+                        "ninjaIdleRight_purple",
+                        "ninjaIdleRight_red",
+                        "ninjaJumpLeft_purple",
+                        "ninjaJumpLeft_red",
+                        "ninjaJumpRight_purple",
+                        "ninjaJumpRight_red",
+                        "ninjaRunRight_purple",
+                        "ninjaRunRight_red",
+                        "ninjaRunLeft_purple",
+                        "ninjaRunLeft_red",
+                        "ninjaSlideLeft_purple",
+                        "ninjaSlideLeft_red",
+                        "ninjaSlideRight_purple",
+                        "ninjaSlideRight_red"];
+    var loaders = [];
+    imageNames.forEach(function(name) {
+        loaders.push(loadImage(name));
+    }, this);
+    $.when.apply(null, loaders).done(init2);
+}
+
+function loadImage(name) {
+    var deferred = $.Deferred();
+    bibliImages[name] = new Image();
+    bibliImages[name].onload = function() {
+        deferred.resolve();
+    };
+    bibliImages[name].src = "./images/" + name + ".png";
+    return deferred.promise();
+}
+
 function init() {
     var canvas = document.getElementById('gameArea');
     var context2D = canvas.getContext('2d');
@@ -43,6 +90,12 @@ function init() {
     context2D.scale(WIN_RATIO, WIN_RATIO);
     posWorldX = 0;
     posWorldY = 0;
+    initImages();
+
+}
+
+function init2()
+{
     mainPlayer = new Player(600, 10);
 
     enemies = [];
@@ -393,22 +446,6 @@ function refreshGame() {
                     items[i] = items[--nItem];
                 }
             }
-            /*
-            for (i = 0; i < nCoin; i++)
-            {
-                if (coin[i].updatePosition(platform, nPlatform))
-                {
-                    if (mainPlayer.hasCollectedCoin(coin[i]))
-                    {
-                        coin[i] = coin[--nCoin];
-                    }
-                }
-                else
-                {
-                    coin[i] = coin[--nCoin];
-                }
-            }
-            */
             frameCpt = 0;
         }
 

@@ -1,7 +1,7 @@
 class Enemy extends Characters{
     constructor(x, y)
     {
-        super(x, y, 40, "red");
+        super(x, y, 200, "red");
         this.cadence = CADENCE;
     }
 

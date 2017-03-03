@@ -1,4 +1,4 @@
-const FONT_DAMAGE = "20px Baloo";
+const FONT_DAMAGE = "25px Baloo";
 
 class Damage
 {
@@ -44,6 +44,10 @@ class Damage
         {
             return false;
         }
+    }
+
+    get Value(){
+        return this.value;
     }
     
     clear()

@@ -3,7 +3,7 @@ const MAX_JUMP_HEIGHT = 20;
 const GRIP = 1.5;
 const GRAVITY = 1;
 const MAX_JUMP = 2;
-const CADENCE = 40;
+const CADENCE = 30;
 
 const EFFECT_POISON = 0;
 
@@ -11,21 +11,22 @@ class Characters {
     constructor(x, y, startHealth, color) {
 
         this.mapSprites = {};
-        this.mapSprites["IDLE_LEFT"] = new Sprites("./images/ninjaIdleLeft_"+ color +".png", 10, 1, true, 3);
-        this.mapSprites["IDLE_RIGHT"] = new Sprites("./images/ninjaIdleRight_"+ color +".png", 10, 1, true, 3);
+        this.mapSprites["IDLE_LEFT"] = new Sprites("ninjaIdleLeft_"+ color, 10, 1, true, 3);
+        this.mapSprites["IDLE_RIGHT"] = new Sprites("ninjaIdleRight_"+ color, 10, 1, true, 3);
 
-        this.mapSprites["RUN_LEFT"] = new Sprites("./images/ninjaRunLeft_"+ color +".png", 10, 1, true, 3);
-        this.mapSprites["RUN_RIGHT"] = new Sprites("./images/ninjaRunRight_"+ color +".png", 10, 1, true, 3);
+        this.mapSprites["RUN_LEFT"] = new Sprites("ninjaRunLeft_"+ color, 10, 1, true, 3);
+        this.mapSprites["RUN_RIGHT"] = new Sprites("ninjaRunRight_"+ color, 10, 1, true, 3);
 
-        this.mapSprites["SLIDE_LEFT"] = new Sprites("./images/ninjaSlideLeft_"+ color +".png", 10, 1, true, 3);
-        this.mapSprites["SLIDE_RIGHT"] = new Sprites("./images/ninjaSlideRight_"+ color +".png", 10, 1, true, 3);
+        this.mapSprites["SLIDE_LEFT"] = new Sprites("ninjaSlideLeft_"+ color, 10, 1, true, 3);
+        this.mapSprites["SLIDE_RIGHT"] = new Sprites("ninjaSlideRight_"+ color, 10, 1, true, 3);
 
-        this.mapSprites["JUMP_LEFT"] = new Sprites("./images/ninjaJumpLeft_"+ color +".png", 10, 1, false, 2);
-        this.mapSprites["JUMP_RIGHT"] = new Sprites("./images/ninjaJumpRight_"+ color +".png", 10, 1, false, 2);
+        this.mapSprites["JUMP_LEFT"] = new Sprites("ninjaJumpLeft_"+ color, 10, 1, false, 2);
+        this.mapSprites["JUMP_RIGHT"] = new Sprites("ninjaJumpRight_"+ color, 10, 1, false, 2);
 
-        this.mapSprites["DIE_LEFT"] = new Sprites("./images/ninjaDieLeft_"+ color +".png", 10, 1, false, 5);
-        this.mapSprites["DIE_RIGHT"] = new Sprites("./images/ninjaDieRight_"+ color +".png", 10, 1, false, 5);
+        this.mapSprites["DIE_LEFT"] = new Sprites("ninjaDieLeft_"+ color, 10, 1, false, 5);
+        this.mapSprites["DIE_RIGHT"] = new Sprites("ninjaDieRight_"+ color, 10, 1, false, 5);
 
+        this.damageTaken = [];
         this.damageIndicator = [];
         this.statusEffect = [];
 
@@ -52,7 +53,7 @@ class Characters {
         this.winHeight = document.getElementById('gameArea').height;
 
 
-        this.lifeTime = 100;
+        this.lifeTime = 50;
     }
 
     get Health()
@@ -104,7 +105,7 @@ class Characters {
                     this.statusEffect.push(shuriken.statusEffects[i])
                 }
                 this.isAlive = this.healthBar.takeDamage(damages);
-                this.damageIndicator.push(new Damage(damages));
+                this.addDamage("white", damages);
                 return true;
             }
             else
@@ -113,6 +114,13 @@ class Characters {
             }
         }
 
+    }
+
+    addDamage(color, value){
+        if(color in this.damageTaken && this.damageTaken[color] !== null)
+            this.damageTaken[color] = new Damage(this.damageTaken[color].Value + value, color);
+        else
+            this.damageTaken[color] = new Damage(value, color);
     }
 
     updatePosition(plateforms, nPlateform) {
@@ -173,12 +181,8 @@ class Characters {
             effectDamage = this.statusEffect[i].ApplyEffect();
             if(effectDamage > 0){
                 this.isAlive = this.healthBar.takeDamage(effectDamage);
-                this.damageIndicator.push(new Damage(effectDamage, this.statusEffect[i].Color));
+                this.addDamage(this.statusEffect[i].Color, effectDamage);
             }
-        }
-
-        if (this.statusEffect !== null && this.isAlive)
-        {
         }
         return switchStateValue;
     }
@@ -369,10 +373,18 @@ class Characters {
             {
                 this.statusEffect[i].draw();
             }
-            for (var i = 0; i < this.damageIndicator.length; i ++)
+            
+            i = 0;
+            for (var color in this.damageTaken)
             {
-                if (!this.damageIndicator[i].draw(this.PosXMiddle + i * 20, this.PosYMiddle))
-                    this.damageIndicator.splice(i,1);
+                if (this.damageTaken[color] !== null)
+                {
+                    if (!this.damageTaken[color].draw(this.PosXMiddle + i * 30, this.PosYMiddle))
+                    {
+                        this.damageTaken[color] = null;
+                    }
+                    i++;
+                }
             }
         }
         else{
