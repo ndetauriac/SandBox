@@ -19,18 +19,16 @@ class Player extends Characters{
                 case "Coin":
                     this.score += item.Amount;
                     $("#playerCoin").text(this.score);
-                    return true;
                     break;
                 case "Ammo":
                     this.ammo += item.Amount;
                     $("#playerAmmo").text(this.ammo);
-                    return true;
                     break;
                 case "Potion":
                     this.healthBar.heal(item.Amount);
-                    return true;
                     break;
             }
+            return true;
         }
         else
         {

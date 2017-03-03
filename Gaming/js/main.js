@@ -57,6 +57,7 @@ function init() {
     nPlatform = 0;
 
     addEnemies();
+    addEnemies();
 
     addPlateform(WORLD_WIDTH / 6, WORLD_HEIGHT - 200, 200, 3, "FULL");
     addPlateform(WORLD_WIDTH / 2 - 100, WORLD_HEIGHT - 400, 200, 3, "FULL");
@@ -290,7 +291,7 @@ function refreshGame() {
         for (i = 0; i < nEnemies; i++)
             enemies[i].clear();
 */
-        if (frameCpt%1 == 0)
+        if (frameCpt%1 === 0)
         {
             for (j = 0; j < nShurikens; j++)
             {
@@ -364,13 +365,13 @@ function refreshGame() {
                 if (!enemies[i].updatePosition(platform, nPlatform))
                 {
                     let rnd = Math.floor(Math.random()*3);
-                    if(rnd == 0)
+                    if(rnd === 0)
                         addCoin(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
                     if(rnd == 1)
                         addShuriken(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
                     if(rnd == 2)
                         addPotion(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
-                                        
+
                     enemies[i] = enemies[--nEnemies];
                     i--;
                     addEnemies();
