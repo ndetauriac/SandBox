@@ -101,6 +101,8 @@ function init2()
     posWorldY = 0;
 
     mainPlayer = new Player(600, 10);
+    var ListCard = new Toxic();
+    mainPlayer.prepareLoadout(ListCard);
 
     enemies = [];
     nEnemies = 0;

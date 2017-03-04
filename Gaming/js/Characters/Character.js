@@ -30,6 +30,8 @@ class Characters {
         this.damageIndicator = [];
         this.statusEffect = [];
 
+        this.bonusEffects = [];
+
         this.posX = x;
         this.posY = y;
         this.previewPosX = x;
@@ -54,6 +56,11 @@ class Characters {
         this.lifeTime = 50;
         this.health = startHealth;
         this.maxHealth = startHealth;
+    }
+
+    prepareLoadout(cards)
+    {
+        cards.applyEffect(this);
     }
 
     get Health()

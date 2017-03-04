@@ -1,15 +1,15 @@
-class Card
+class Toxic
 {
     constructor()
     {
-        this.name = "Card";
+        this.name = "Toxic";
         this.picture = new Image();
-        this.description = "This is a card";
+        this.description = "Add poison damage on your weapons";
         this.level = "Common"; // Common, Unco, Rare, Legendary
     }
 
     applyEffect(player)
     {
-        
+        player.bonusEffects.push(new Poison());
     }
 }

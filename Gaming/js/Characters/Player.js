@@ -110,7 +110,8 @@ class Player extends Characters{
         var yThrow = this.posY;
         var directionX = this.lastDir;
         var directionY = 0;
-        var statusEffects = [new Slow()];
+        var effects = [];
+        effects = cloneObject(this.bonusEffects);
         if (this.isAlive)
         {
             switch(direction)
@@ -132,7 +133,7 @@ class Player extends Characters{
                     directionY = 1;
                     break;
             }
-            tmpShuriken = new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, statusEffects);
+            tmpShuriken = new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, effects);
 
             if ((this.Ammo > 0) && this.cadence === 0)
             {
