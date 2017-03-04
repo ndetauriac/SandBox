@@ -40,13 +40,34 @@
         <div id="playerInfo" style="display:none">
             <div id="playerInfoBg"></div>
             <div id="playerInfoBg2"></div>
+            <div id="playerHealthBg"><div id="playerHealth" class="health"></div></div>
+            <div id="playerUltiBg"><div id="playerUlti" class="health"></div></div>
             <div id="playerCoin" class="playerInfo"></div>
             <div id="playerAmmo" class="playerInfo"></div>
             <div id="playerKill" class="playerInfo"></div>
         </div>
 
+        <div id="bossInfo" style="display:none">
+            <div id="bossInfoBg"></div>
+            <div id="bossInfoBg2"></div>
+            <div id="bossHealthBg"><div id="bossHealth" class="health"></div></div>
+            <div id="bossUltiBg"><div id="bossUlti" class="health"></div></div>
+        </div>
+
         <div id="profile" class="screen" style="display:none">
             <div class="mainTitle"><span class="fontRed">M</span>y <span class="fontRed">N</span>inja</div>
+            <div id="bonusCards">
+                <div class="card">
+                    <div class="title">Hackerman</div>
+                    <div class="illustration"><img src="https://cdn.pixabay.com/photo/2013/07/13/09/38/ninja-155848_960_720.png"/></div>
+                    <div class="capacity">+1 en furtivité, mais que sur le net.. Donc useless !</div>
+                </div>
+                <div class="card">
+                    <div class="title">Kiwi</div>
+                    <div class="illustration"><img src="http://www.pngall.com/wp-content/uploads/2016/04/Kiwi-PNG-File.png"/></div>
+                    <div class="capacity">Mais si, c'est possible avec la caaaarte kiiwi !</div>
+                </div>
+            </div>
             <div class="button mainMenuButton">Go to main menu</div>
         </div>
 
@@ -57,14 +78,15 @@
 
         <div id="gameOver" class="screen" style="display:none">
             <div class="mainTitle"><span class="fontRed">G</span>ame <span class="fontRed">o</span>ver</div>
-            <div id="gameOverCoin" class="playerInfo gameOverInfo"></div>
-            <div id="gameOverKill" class="playerInfo gameOverInfo"></div>
-            <div id="gameOverMainMenu" class="playerInfo button mainMenuButton">Go to main menu</div>
+            <div id="gameOverCoin" class="gameOverInfo"></div>
+            <div id="gameOverKill" class="gameOverInfo"></div>
+            <div id="gameOverMainMenu" class="button mainMenuButton">Go to main menu</div>
             <div class="button startButton">Restart !</div>
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Characters -->
     <script src="js/Characters/Character.js"></script>

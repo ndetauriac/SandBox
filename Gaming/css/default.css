@@ -43,52 +43,56 @@ body {
         margin-top: 20%;
 }
 
+/**********************************************************************/
+/******************************* PLAYER UI ****************************/
+/**********************************************************************/
+
 #playerInfo{
     margin:15px;
     z-index:10;
 }
 
+/*TODO set background for ui*/
 #playerInfoBg {
     margin: 0;
     padding: 0;
     position: absolute;
-    width: 470px;
-    height: 180px;
-    background: black;
+    width: 80%;
+    height: 170px;
     z-index: -1;
-    transform: rotateZ(160deg);
+    transform: rotateZ(175deg);
     top: -130px;
     left: -100px;
-    background: rgba(255, 0, 0, 0.8);
+    /*background: rgba(99, 0, 101, 0.8);*/
 }
 
 #playerInfoBg2 {
     margin: 0;
     padding: 0;
     position: absolute;
-    width: 450px;
-    height: 180px;
-    background: black;
+    width: 85%;
+    height: 110px;
     z-index: -1;
-    transform: rotateZ(170deg);
-    top: -140px;
+    transform: rotateZ(177deg);
+    top: -70px;
     left: -100px;
-    background: rgba(0, 0, 0, 0.8);
+    /*background: rgba(0, 0, 0, 0.8);*/
 }
 
 .playerInfo {
     display: inline-block;
-    height: 40px;
+    height: 30px;
     font-size: 15px;
     text-align: center;
-    line-height: 30px;
+    line-height: 20px;
     font-weight: bold;
     color: white;
     text-shadow: 1px 1px 1px black;
-    background-size: 30px;
+    background-size: 20px;
     padding-right: 10px;
     min-width: 50px;
     padding-left: 20px;
+    margin-left:15px;
 }
 
 #playerAmmo {
@@ -106,13 +110,133 @@ body {
     background-repeat: no-repeat;
 }
 
+#playerHealthBg{
+    box-shadow:0px 0px 35px grey;
+    border:2px solid black;
+    margin:10px 10px 5px 10px;
+    height:10px;
+    width:40%;
+    background: -webkit-linear-gradient(top, #4c4c4c 0%,#111111 78%,#131313 100%);
+}
+
+#playerHealth{
+    height:100%;
+    width:50%;
+
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s;
+}
+
+#playerUltiBg{
+    border:2px solid black;
+    margin:5px 10px;
+    height:5px;
+    width:30%;
+    background: -webkit-linear-gradient(top, #4c4c4c 0%,#111111 78%,#131313 100%);
+}
+
+#playerUlti{
+    height:100%;
+    width:50%;
+    background: -webkit-linear-gradient(top, #fcf297 0%,#fce519 45%,#f1da36 83%);
+
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s;
+}
+
+.health.low{
+    background: -webkit-linear-gradient(top, #961e1e 0%,#e87d7d 0%,#e50000 60%,#ea2c2c 100%);
+}
+
+.health.medium{
+    background: -webkit-linear-gradient(top, #ffca85 0%,#ffa800 36%,#ff9100 100%); /* Chrome10-25,Safari5.1-6 */
+}
+
+.health.normal{
+     background: -webkit-linear-gradient(top, #a1ff84 0%,#4cff00 36%,#00ff0c 100%);
+}
 
 /**********************************************************************/
+/******************************* BOSS UI ****************************/
+/**********************************************************************/
 
+/*TODO set background for ui*/
+#bossInfoBg {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 80%;
+    height: 170px;
+    z-index: -1;
+    transform: rotateZ(186deg);
+    top: -130px;
+    right: -100px;
+    /*background: rgba(99, 0, 101, 0.8);*/
+}
 
+#bossInfoBg2 {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 85%;
+    height: 110px;
+    z-index: -1;
+    transform: rotateZ(184deg);
+    top: -70px;
+    right: -100px;
+    /*background: rgba(0, 0, 0, 0.8);*/
+}
+
+#bossInfo{
+    position:absolute;
+    top:0;
+    width:100%;
+}
+
+#bossHealthBg{
+    box-shadow:0px 0px 35px grey;
+    position:absolute;
+    top:0;
+    right:0;
+    border:2px solid black;
+    margin:15px 10px 5px 10px;
+    height:10px;
+    width:40%;
+    background: -webkit-linear-gradient(top, #4c4c4c 0%,#111111 78%,#131313 100%);
+}
+
+#bossHealth{
+    height:100%;
+    width:50%;
+
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s;
+
+    background: -webkit-linear-gradient(top, #961e1e 0%,#e87d7d 0%,#e50000 60%,#ea2c2c 100%);
+}
+
+#bossUltiBg{
+    position:absolute;
+    right:0;
+    border:2px solid black;
+    margin:35px 10px 5px 10px;
+    height:5px;
+    width:30%;
+    background: -webkit-linear-gradient(top, #4c4c4c 0%,#111111 78%,#131313 100%);
+}
+
+#bossUlti{
+    height:100%;
+    width:50%;
+
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s;
+
+    background: -webkit-linear-gradient(top, #fcf297 0%,#fce519 45%,#f1da36 83%);
+}
+
+/**********************************************************************/
 /**********************      GAME OVER    *****************************/
-
-
 /**********************************************************************/
 
 .mainTitle {
@@ -140,11 +264,20 @@ body {
 }
 
 .gameOverInfo {
+    color:white;
+    text-shadow: 1px 1px 1px black;
+    height:40px;
+    line-height: 40px;
     font-size: 1.3em;
     display: block;
     text-indent: 50px;
     margin: 10px auto;
 }
+
+
+/**********************************************************************/
+/**********************      MAIN MENU    *****************************/
+/**********************************************************************/
 
 .button {
     width: auto;
@@ -269,4 +402,36 @@ body {
 
 #mainMenu .editor .logo img {
     width: 80px;
+}
+
+/**********************************************************************/
+/**********************      MY PROFILE   *****************************/
+/**********************************************************************/
+#bonusCards{
+
+}
+
+#bonusCards .card{
+    color:white;
+    margin:10px;
+    width:150px;
+    height:200px;
+    padding:10px;
+    border-radius:3px;
+    box-shadow : 1px 1px 15px black;
+    background:rgb(47, 47, 47);
+    cursor: -webkit-grab;
+}
+
+#bonusCards .title{
+    text-transform:uppercase;
+}
+
+#bonusCards .card .illustration{
+    text-align:center;
+    padding:10px 0px;
+}
+
+#bonusCards .card .illustration img{
+    width:100px;
 }

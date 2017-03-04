@@ -463,5 +463,8 @@ function refreshGame() {
         mainPlayer.draw();
         for (i = 0; i < nPlatform; i++)
             platform[i].draw();
+
+        // Update Health
+        setPlayerHealth(mainPlayer.healthBar.currentHealth);
     }
 }

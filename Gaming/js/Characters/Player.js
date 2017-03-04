@@ -1,7 +1,9 @@
+const PLAYER_HEALTH_MAX = 1000;
+
 class Player extends Characters{
     constructor(x, y)
     {
-        super(x, y, 500, "purple");
+        super(x, y, PLAYER_HEALTH_MAX, "purple");
         this.score = 0;
         this.ammo = 100;
         this.kills = 0;
