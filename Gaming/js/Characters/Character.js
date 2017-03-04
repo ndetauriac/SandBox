@@ -106,9 +106,8 @@ class Characters {
 
                 for(var i = 0; i < shuriken.statusEffects.length; i++)
                 {
-                    this.statusEffect.push(shuriken.statusEffects[i])
+                    this.statusEffect.push(shuriken.statusEffects[i]);
                 }
-                this.Health -= damages;
                 this.addDamage("white", damages);
                 return true;
             }
@@ -125,6 +124,7 @@ class Characters {
             this.damageTaken[color] = new Damage(this.damageTaken[color].Value + value, color);
         else
             this.damageTaken[color] = new Damage(value, color);
+        this.Health -= value;
     }
 
     updatePosition(plateforms, nPlateform) {
@@ -182,10 +182,11 @@ class Characters {
 
         for(var i = 0; i < this.statusEffect.length; i++)
         {
-            effectDamage = this.statusEffect[i].ApplyEffect();
-            if(effectDamage > 0){
-                this.Health -= effectDamage;
-                this.addDamage(this.statusEffect[i].Color, effectDamage);
+            if (this.statusEffect[i].ApplyEffect(this) === null)
+            {
+                console.log("Remove");
+                //this.statusEffect.splice(i, 1);
+                //i++;
             }
         }
         return switchStateValue;
@@ -371,12 +372,8 @@ class Characters {
         {
             this.mapSprites[this.state].animate();
             this.mapSprites[this.state].draw(this.posX, this.posY);
-            for(var i = 0; i < this.statusEffect.length; i ++)
-            {
-                this.statusEffect[i].draw();
-            }
             
-            i = 0;
+            var i = 0;
             for (var color in this.damageTaken)
             {
                 if (this.damageTaken[color] !== null)
@@ -403,10 +400,6 @@ class Characters {
     {
         this.healthBar.clear();
         this.mapSprites[this.state].clear();
-        for(var i = 0; i < this.statusEffect.length; i ++)
-        {
-            this.statusEffect[i].clear();
-        }
         for(var i = 0; i < this.damageIndicator.length; i ++)
         {
             this.damageIndicator[i].clear();

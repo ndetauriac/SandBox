@@ -2,23 +2,10 @@ const STATUS_REFRESH_RATE = 20;
 
 class StatusEffect
 {
-    constructor(effectType)
+    constructor()
     {
-        switch (effectType)
-        {
-            case "Poison":
-                this.color = "green";
-                break;
-            case "Fire":
-                this.color = "red";
-                break;
-            default:
-                this.color = "white";
-                break;
-        }
+        this.color = "white";
         this.refreshRate = STATUS_REFRESH_RATE;
-        this.damage = 3;
-        this.duration = 100;
     }
     
     ApplyEffect()
@@ -29,12 +16,12 @@ class StatusEffect
             if (this.refreshRate > 0)
             {
                 this.refreshRate --;
-                return 0;
+                return false;
             }
             else
             {
                 this.refreshRate = STATUS_REFRESH_RATE;
-                return this.damage;
+                return true;
             }
         }
         else

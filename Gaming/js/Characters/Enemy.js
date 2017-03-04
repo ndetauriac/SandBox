@@ -118,5 +118,6 @@ class Enemy extends Characters{
         super.draw();
         if (this.isAlive)
             this.healthBar.draw(this.posX, this.posY - 10);
+            
     }
 }
