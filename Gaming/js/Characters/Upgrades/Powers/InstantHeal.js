@@ -13,9 +13,4 @@ class InstantHeal extends Power{
                 player.Health += this.healValue;
         }
     }
-
-    refreshPower()
-    {
-        super.refreshPower();
-    }
 }

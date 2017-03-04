@@ -138,7 +138,6 @@ body {
 #playerUlti{
     height:100%;
     width:50%;
-    background: -webkit-linear-gradient(top, #fcf297 0%,#fce519 45%,#f1da36 83%);
 
     -webkit-transition: width 0.5s;
     transition: width 0.5s;
@@ -154,6 +153,14 @@ body {
 
 .health.normal{
      background: -webkit-linear-gradient(top, #a1ff84 0%,#4cff00 36%,#00ff0c 100%);
+}
+
+.health.disabled{
+    background: -webkit-linear-gradient(top, #888888 0%,#888888 45%,#888888 83%);
+}
+
+.health.enabled{
+    background: -webkit-linear-gradient(top, #fcf297 0%,#fce519 45%,#f1da36 83%);
 }
 
 /**********************************************************************/

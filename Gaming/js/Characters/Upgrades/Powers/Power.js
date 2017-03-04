@@ -21,6 +21,18 @@ class Power
 
     refreshPower()
     {
-        this.cooldown = Decr(this.cooldown, 1, 0);
+        var powerRecovered = false;
+        if(this.cooldown > 0)
+        {
+            this.cooldown--;
+            if(this.cooldown == 0)
+                powerRecovered = true;
+        }
+        return powerRecovered;
+    }
+
+    isAvailable(energy)
+    {
+        return (this.cooldown <= 0 && energy >= this.energyCost);
     }
 }

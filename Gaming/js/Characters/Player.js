@@ -13,10 +13,9 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
+        this.power = new SkyWalker();
         this.Health = this.health;
         this.Energy = this.energy;
-        
-        this.power = new SkyWalker();
     }
 
     hasCollectedItem(item)
@@ -79,7 +78,7 @@ class Player extends Characters{
             this.energy = 0;
         if (this.energy > this.maxEnergy)
             this.energy = this.maxEnergy;
-        setPlayerUlti(this.Energy);
+        setPlayerUlti(this.Energy, this.power.isAvailable(value));
     }
 
     get Score()
@@ -154,7 +153,8 @@ class Player extends Characters{
 
     updatePosition(plateforms, nPlateform)
     {
-        this.power.refreshPower();
+        if(this.power.refreshPower())
+            this.Energy = this.energy;
         return super.updatePosition(plateforms, nPlateform);
     }
 

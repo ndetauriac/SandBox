@@ -10,9 +10,4 @@ class SkyWalker extends Power
         if(super.applyPower(player))
             addSemiPlateform(player.PosXMiddle - 100, player.PosYMiddle + 100);
     }
-
-    refreshPower()
-    {
-        super.refreshPower();
-    }
 }

@@ -76,7 +76,13 @@ function setPlayerHealth(value){
 		 $("#playerHealth").css("width", value +"%");
 }
 
-function setPlayerUlti(value){
+function setPlayerUlti(value, canUseIt){
+		 $("#playerUlti").removeClass("enabled disabled");
+		if(canUseIt){
+				 $("#playerUlti").addClass("enabled");
+		 }else{
+				 $("#playerUlti").addClass("disabled");
+		 }
 		$("#playerUlti").css("width", value +"%");
 }
 
