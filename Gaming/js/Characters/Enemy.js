@@ -1,7 +1,7 @@
 class Enemy extends Characters{
-    constructor(x, y)
+    constructor(x, y, lifePoint = 40)
     {
-        super(x, y, 40, "red");
+        super(x, y, lifePoint, "red");
         this.healthBar = new HealthBar(this.maxHealth);
         this.cadence = CADENCE;
         this.Health = this.health;
@@ -15,7 +15,7 @@ class Enemy extends Characters{
     set Health(value)
     {
         super.Health = value;
-        this.healthBar.setHealth(value);
+        this.healthBar.setHealth(super.Health);
     }
 
     move(player)

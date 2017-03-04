@@ -25,4 +25,7 @@ function cloneObject(obj) {
     }
  
     return temp;
+    /*
+    return JSON.parse(JSON.stringify(obj));
+    */
 }

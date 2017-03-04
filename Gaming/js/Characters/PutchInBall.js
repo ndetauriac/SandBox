@@ -1,7 +1,7 @@
 class PutchInBall extends Enemy{
     constructor(x, y)
     {
-        super(x, y, 10000, "red");
+        super(x, y, 1000, "red");
         this.cadence = CADENCE;
     }
  
@@ -16,7 +16,7 @@ class PutchInBall extends Enemy{
         {
             this.lastDir = -1;
         }
-        this.healthBar.heal(5);
+        this.Health += 5;
         return null;
     }
 }
