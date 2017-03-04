@@ -23,6 +23,11 @@ class HealthBar
             return isAlive;
     }
 
+    setHealth(value)
+    {
+        this.currentHealth = value;
+    }
+
     heal(value)
     {
         var isAlive = true;

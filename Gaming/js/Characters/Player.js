@@ -10,6 +10,7 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
+        this.Health = this.health;
     }
 
     hasCollectedItem(item)
@@ -27,7 +28,7 @@ class Player extends Characters{
                     $("#playerAmmo").text(this.ammo);
                     break;
                 case "Potion":
-                    this.healthBar.heal(item.Amount);
+                    this.Health += item.Amount;
                     break;
             }
             return true;
@@ -41,6 +42,17 @@ class Player extends Characters{
     get Kills()
     {
         return parseInt(this.kills);
+    }
+
+    get Health()
+    {
+        return super.Health;
+    }
+
+    set Health(value)
+    {
+        super.Health = value;
+        setPlayerHealth(value);
     }
 
     set Kills(value)

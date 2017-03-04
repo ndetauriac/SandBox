@@ -44,16 +44,14 @@ class Characters {
         this.onTheFloor = false;
         this.cadence = 0;
         this.boost = 0;
-        this.healthBar = new HealthBar(startHealth);
         this.isAlive = true;
         this.slide = false;
         this.state = "IDLE_RIGHT";
         this.lastState = "IDLE_RIGHT";
         this.winWidth = document.getElementById('gameArea').width;
         this.winHeight = document.getElementById('gameArea').height;
-
-
         this.lifeTime = 50;
+        this.health = startHealth;
     }
 
     get Health()
@@ -65,7 +63,10 @@ class Characters {
     {
         this.health = value;
         if (this.health <= 0)
+        {
+            this.health = 0;
             this.isAlive = false;
+        }
     }
 
     get PosX()
@@ -104,7 +105,7 @@ class Characters {
                 {
                     this.statusEffect.push(shuriken.statusEffects[i])
                 }
-                this.isAlive = this.healthBar.takeDamage(damages);
+                this.Health -= damages;
                 this.addDamage("white", damages);
                 return true;
             }
@@ -180,7 +181,7 @@ class Characters {
         {
             effectDamage = this.statusEffect[i].ApplyEffect();
             if(effectDamage > 0){
-                this.isAlive = this.healthBar.takeDamage(effectDamage);
+                this.Health -= effectDamage;
                 this.addDamage(this.statusEffect[i].Color, effectDamage);
             }
         }
@@ -365,8 +366,6 @@ class Characters {
     {
         if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
         {
-            if (this.isAlive)
-                this.healthBar.draw(this.posX, this.posY - 10);
             this.mapSprites[this.state].animate();
             this.mapSprites[this.state].draw(this.posX, this.posY);
             for(var i = 0; i < this.statusEffect.length; i ++)

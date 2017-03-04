@@ -2,7 +2,20 @@ class Enemy extends Characters{
     constructor(x, y)
     {
         super(x, y, 200, "red");
+        this.healthBar = new HealthBar(200);
         this.cadence = CADENCE;
+        this.Health = this.health;
+    }
+
+    get Health()
+    {
+        return super.Health;
+    }
+
+    set Health(value)
+    {
+        super.Health = value;
+        this.healthBar.setHealth(value);
     }
 
     move(player)
@@ -98,5 +111,12 @@ class Enemy extends Characters{
         {
             return null;
         }
+    }
+
+    draw()
+    {
+        super.draw();
+        if (this.isAlive)
+            this.healthBar.draw(this.posX, this.posY - 10);
     }
 }
