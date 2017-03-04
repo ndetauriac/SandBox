@@ -42,6 +42,7 @@ function initImages()
                         "shuriken3",
                         "shurikenItem",
                         "potion_red",
+                        "potion_yellow",
                         "ninjaDieLeft_purple",
                         "ninjaDieLeft_red",
                         "ninjaDieRight_purple",
@@ -192,6 +193,20 @@ function addShuriken(x, y, stasis = false)
 function addCoin(x, y, stasis = false)
 {
     items[nItem] = new Coin(x, y, stasis);
+    nItem++;
+}
+
+function addLoot(x, y)
+{
+    let rnd = Math.floor(Math.random()*4);
+    if(rnd === 0)
+        items[nItem] = new Ammo(x, y, true);
+    if(rnd == 1)
+        items[nItem] = new Coin(x, y, true);
+    if(rnd == 2)
+        items[nItem] = new HealthPotion(x, y, true);
+    if(rnd == 3)
+        items[nItem] = new EnergyPotion(x, y, true);
     nItem++;
 }
 
@@ -430,14 +445,7 @@ function refreshGame() {
                 }
                 if (!enemies[i].updatePosition(platform, nPlatform))
                 {
-                    let rnd = Math.floor(Math.random()*3);
-                    if(rnd === 0)
-                        addCoin(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
-                    if(rnd == 1)
-                        addShuriken(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
-                    if(rnd == 2)
-                        addPotion(enemies[i].PosXMiddle, enemies[i].PosYMiddle, true);
-
+                    addLoot(enemies[i].PosXMiddle, enemies[i].PosYMiddle);
                     enemies[i] = enemies[--nEnemies];
                     i--;
                     addEnemies();

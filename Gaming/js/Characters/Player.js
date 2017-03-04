@@ -28,8 +28,11 @@ class Player extends Characters{
                     this.ammo += item.Amount;
                     $("#playerAmmo").text(this.ammo);
                     break;
-                case "Potion":
+                case "HealthPotion":
                     this.Health += item.Amount;
+                    break;
+                case "EnergyPotion":
+                    this.Energy += item.Amount;
                     break;
             }
             return true;
