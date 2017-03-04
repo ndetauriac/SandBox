@@ -8,10 +8,13 @@ class Player extends Characters{
         this.ammo = 100;
         this.kills = 0;
         this.energy = 0;
+        this.maxEnergy = 100;
+        this.cooldown = 100;
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
         this.Health = this.health;
+        this.Energy = this.energy;
     }
 
     hasCollectedItem(item)
@@ -63,7 +66,7 @@ class Player extends Characters{
     set Health(value)
     {
         super.Health = value;
-        setPlayerHealth(value * 100 / this.maxHealth);
+        setPlayerHealth(this.Health * 100 / this.maxHealth);
     }
 
     get Energy()
@@ -73,8 +76,12 @@ class Player extends Characters{
 
     set Energy(value)
     {
-        super.energy = value;
-        setPlayerUlti(value);
+        this.energy = value;
+        if (this.energy < 0)
+            this.energy = 0;
+        if (this.energy > this.maxEnergy)
+            this.energy = this.maxEnergy;
+        setPlayerUlti(this.Energy);
     }
 
     get Score()
@@ -147,13 +154,20 @@ class Player extends Characters{
         }
     }
 
+    updatePosition(plateforms, nPlateform)
+    {
+        this.cooldown --;
+        return super.updatePosition(plateforms, nPlateform);
+    }
+
     usePower()
     {
-        if (this.Energy > 50)
+        if (this.Energy >= 50 && this.cooldown <= 0)
         {
             //this.power.Activate();
             this.Health += 100;
             this.Energy -= 50;
+            this.cooldown = 100;
         }
     }
 }
