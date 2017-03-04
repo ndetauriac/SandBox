@@ -52,6 +52,7 @@ class Characters {
         this.winHeight = document.getElementById('gameArea').height;
         this.lifeTime = 50;
         this.health = startHealth;
+        this.maxHealth = startHealth;
     }
 
     get Health()
@@ -67,6 +68,8 @@ class Characters {
             this.health = 0;
             this.isAlive = false;
         }
+        if(this.health >= this.maxHealth)
+            this.health = this.maxHealth;
     }
 
     get PosX()
@@ -394,12 +397,6 @@ class Characters {
     kill()
     {
         this.isAlive = false;
-        /*
-        if (this.lastDir == 1)
-            this.state = "DIE_RIGHT";
-        else
-            this.state = "DIE_LEFT";
-        */
     }
 
     clear()

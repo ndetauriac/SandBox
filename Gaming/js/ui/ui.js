@@ -65,25 +65,19 @@ $(document).on("click", ".mainMenuButton", function(){
 
 // UI
 function setPlayerHealth(value){
-		 let displayedHealth = value / PLAYER_HEALTH_MAX * 100;
 		 $("#playerHealth").removeClass("normal medium low");
-		 if(displayedHealth < 20){
+		 if(value < 20){
 				 $("#playerHealth").addClass("low");
-		 }else if(displayedHealth < 40){
+		 }else if(value < 40){
 				 $("#playerHealth").addClass("medium");
 		 }else{
 				 $("#playerHealth").addClass("normal");
 		 }
-		 $("#playerHealth").css("width", displayedHealth +"%");
-
-		 // TODO : link setPlayerUlti to real ulti
-		 setPlayerUlti(displayedHealth);
+		 $("#playerHealth").css("width", value +"%");
 }
 
 function setPlayerUlti(value){
-		//TODO : set real ulti value
-		let displayedUlti = 100 - value;
-		$("#playerUlti").css("width", displayedUlti +"%");
+		$("#playerUlti").css("width", value +"%");
 }
 
 // my profile

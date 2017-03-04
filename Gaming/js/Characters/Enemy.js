@@ -1,8 +1,8 @@
 class Enemy extends Characters{
     constructor(x, y)
     {
-        super(x, y, 200, "red");
-        this.healthBar = new HealthBar(200);
+        super(x, y, 40, "red");
+        this.healthBar = new HealthBar(this.maxHealth);
         this.cadence = CADENCE;
         this.Health = this.health;
     }

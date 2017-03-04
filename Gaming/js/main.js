@@ -138,9 +138,9 @@ function init2()
                     nShurikens++;
                 }
                 break;*/
-            case(KEY_E):
+            /*case(KEY_E):
                 addSemiPlateform(mainPlayer.PosXMiddle - 100, mainPlayer.PosYMiddle + 100);
-                break;
+                break;*/
             case (KEY_R):
                 if($("#gameOver").hasClass("isGameOver")){
                     startGame();
@@ -321,6 +321,10 @@ function refreshGame() {
                     shurikens[nShurikens] = tmpShuriken;
                     nShurikens++;
                 }
+            }
+            if(map[KEY_E])
+            {
+                mainPlayer.usePower();
             }
             if(map[LEFT_SHIFT]){
                 mainPlayer.run = 1;

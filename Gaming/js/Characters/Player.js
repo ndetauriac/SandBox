@@ -1,4 +1,4 @@
-const PLAYER_HEALTH_MAX = 1000;
+const PLAYER_HEALTH_MAX = 300;
 
 class Player extends Characters{
     constructor(x, y)
@@ -7,6 +7,7 @@ class Player extends Characters{
         this.score = 0;
         this.ammo = 100;
         this.kills = 0;
+        this.energy = 0;
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
@@ -44,6 +45,13 @@ class Player extends Characters{
         return parseInt(this.kills);
     }
 
+    set Kills(value)
+    {
+        this.kills = value;
+        this.Energy += 10;
+        $("#playerKill").text(this.kills);
+    }
+
     get Health()
     {
         return super.Health;
@@ -52,13 +60,18 @@ class Player extends Characters{
     set Health(value)
     {
         super.Health = value;
-        setPlayerHealth(value);
+        setPlayerHealth(value * 100 / this.maxHealth);
     }
 
-    set Kills(value)
+    get Energy()
     {
-        this.kills = value;
-        $("#playerKill").text(this.kills);
+        return this.energy;
+    }
+
+    set Energy(value)
+    {
+        super.energy = value;
+        setPlayerUlti(value);
     }
 
     get Score()
@@ -128,6 +141,16 @@ class Player extends Characters{
         else
         {
             return null;
+        }
+    }
+
+    usePower()
+    {
+        if (this.Energy > 50)
+        {
+            //this.power.Activate();
+            this.Health += 100;
+            this.Energy -= 50;
         }
     }
 }
