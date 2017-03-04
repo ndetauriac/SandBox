@@ -7,8 +7,11 @@ class InstantHeal extends Power{
 
     applyPower(player)
     {
-        if(super.applyPower(player))
-            player.Health += this.healValue;
+        if(!player.HasMaxHealth)
+        {
+            if(super.applyPower(player))
+                player.Health += this.healValue;
+        }
     }
 
     refreshPower()
