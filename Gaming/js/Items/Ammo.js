@@ -12,4 +12,10 @@ class Ammo extends Item
     {
         return this.amount;
     }
+
+    onPick(player)
+    {
+        player.Ammo += this.amount;
+        return true;
+    }
 }

@@ -12,4 +12,17 @@ class EnergyPotion extends Potion
     {
         return this.amount;
     }
+
+    onPick(player)
+    {
+        if (!player.HasMaxEnergy)
+        {
+            player.Energy += this.amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

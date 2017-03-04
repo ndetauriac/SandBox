@@ -12,4 +12,17 @@ class HealthPotion extends Potion
     {
         return this.amount;
     }
+
+    onPick(player)
+    {
+        if (!player.HasMaxHealth)
+        {
+            player.Health += this.amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

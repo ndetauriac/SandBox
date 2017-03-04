@@ -15,30 +15,18 @@ class Player extends Characters{
         $("#playerKill").text(this.kills);
         this.Health = this.health;
         this.Energy = this.energy;
+        
+        this.power = new InstantHeal();
     }
 
     hasCollectedItem(item)
     {
         if (item.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) !== null)
         {
-            switch(item.itemType)
-            {
-                case "Coin":
-                    this.score += item.Amount;
-                    $("#playerCoin").text(this.score);
-                    break;
-                case "Ammo":
-                    this.ammo += item.Amount;
-                    $("#playerAmmo").text(this.ammo);
-                    break;
-                case "HealthPotion":
-                    this.Health += item.Amount;
-                    break;
-                case "EnergyPotion":
-                    this.Energy += item.Amount;
-                    break;
-            }
-            return true;
+            if(item.onPick(this))
+                return true;
+            else
+                return false;
         }
         else
         {
@@ -56,6 +44,16 @@ class Player extends Characters{
         this.kills = value;
         this.Energy += 10;
         $("#playerKill").text(this.kills);
+    }
+
+    get HasMaxHealth()
+    {
+        return this.health == this.maxHealth;
+    }
+
+    get HasMaxEnergy()
+    {
+        return this.energy == this.maxEnergy;
     }
 
     get Health()
@@ -162,12 +160,6 @@ class Player extends Characters{
 
     usePower()
     {
-        if (this.Energy >= 50 && this.cooldown <= 0)
-        {
-            //this.power.Activate();
-            this.Health += 100;
-            this.Energy -= 50;
-            this.cooldown = 100;
-        }
+        this.power.applyPower(this);
     }
 }

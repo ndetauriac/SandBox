@@ -12,4 +12,10 @@ class Coin extends Item
     {
         return this.amount;
     }
+
+    onPick(player)
+    {
+        player.Score += this.amount;
+        return true;
+    }
 }
