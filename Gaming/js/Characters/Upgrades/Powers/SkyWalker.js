@@ -1,14 +1,14 @@
-class InstantHeal extends Power{
+class SkyWalker extends Power
+{
     constructor()
     {
-        super(50, 50);
-        this.healValue = 50;
+        super(20,50);
     }
 
     applyPower(player)
     {
         if(super.applyPower(player))
-            player.Health += this.healValue;
+            addSemiPlateform(player.PosXMiddle - 100, player.PosYMiddle + 100);
     }
 
     refreshPower()

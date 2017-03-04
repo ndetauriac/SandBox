@@ -16,7 +16,7 @@ class Player extends Characters{
         this.Health = this.health;
         this.Energy = this.energy;
         
-        this.power = new InstantHeal();
+        this.power = new SkyWalker();
     }
 
     hasCollectedItem(item)
@@ -154,7 +154,7 @@ class Player extends Characters{
 
     updatePosition(plateforms, nPlateform)
     {
-        this.cooldown --;
+        this.power.refreshPower();
         return super.updatePosition(plateforms, nPlateform);
     }
 
