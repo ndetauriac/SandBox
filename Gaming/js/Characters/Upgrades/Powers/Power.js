@@ -8,7 +8,7 @@ class Power
 
     applyPower(player)
     {
-        if(this.cooldown <= 0 && this.energyCost < player.Energy)
+        if(this.cooldown <= 0 && this.energyCost <= player.Energy)
         {
             player.Energy -= this.energyCost;
             return true;
