@@ -1,3 +1,5 @@
+const PLATEFORM_LIFETIME = 50;
+
 class Plateform
 {
     constructor(x, y, w, h, mode = "FULL")
@@ -17,6 +19,8 @@ class Plateform
         this.leftSide = false;
         this.rightSide = false;
         this.kill = false;
+        this.lifeTime = -1;
+        this.mode = mode;
         
         switch(mode)
         {
@@ -45,6 +49,13 @@ class Plateform
                 var ctx = this.context2D;
                 this.texture.src = "./images/lavaTexture.png";
                 this.texture.onload = function() {this.color = ctx.createPattern(this, 'repeat');}
+                break;
+            case "FADE":
+                this.bottomSide = true;
+                this.topSide = true;
+                this.leftSide = true;
+                this.rightSide = true;
+                this.texture.color = "#000000";
                 break;
             default:
                 this.bottomSide = true;
@@ -82,6 +93,8 @@ class Plateform
             {
                 isInContactTop = true;
                 newPosY = Math.floor(this.rectY - nextH) - GRAVITY;
+                if(this.mode == "FADE" && this.lifeTime < 0)
+                    this.lifeTime = PLATEFORM_LIFETIME;
             }
             else if(this.bottomContact(prevY, nextY) && this.bottomSide)
             {
@@ -121,14 +134,32 @@ class Plateform
         return (prevY > this.rectY + this.rectH && nextY <= this.rectY + this.rectH);
     }
 
+    updatePosition()
+    {
+        var keep = true;
+        if (this.lifeTime > 0)
+        {
+            this.lifeTime--;
+        }
+        else if (this.lifeTime == 0)
+        {
+            keep = false;
+        }
+
+        return keep;
+    }
+
     draw()
     {
+        if (this.lifeTime >= 0)
+            this.context2D.globalAlpha = this.lifeTime / PLATEFORM_LIFETIME;
         this.previousRectX = this.posX;
         this.previousRectY = this.posY;
         this.context2D.fillStyle = this.texture.color;
         this.posX = Math.floor(this.rectX - posWorldX);
         this.posY = Math.floor(this.rectY - posWorldY);
         this.context2D.fillRect(this.posX, this.posY, this.rectW, this.rectH);
+        this.context2D.globalAlpha = 1.0;
     }
 
     clear()

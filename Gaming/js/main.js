@@ -216,7 +216,7 @@ function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
 
 function addSemiPlateform(x, y, w = 200, h = 10)
 {
-    platform[nPlatform] = new Plateform(x, y, w, h, "TOP");
+    platform[nPlatform] = new Plateform(x, y, w, h, "FADE");
     nPlatform++;
 }
 
@@ -373,6 +373,15 @@ function refreshGame() {
         if (frameCpt++ == 2)
         {
             // Update sprites
+            for (i = 0; i < nPlatform; i++)
+            {
+                if(!platform[i].updatePosition())
+                {
+                    platform[i] = platform[--nPlatform];
+                    i--;
+                }
+            }
+
             if(mainPlayer.updatePosition(platform, nPlatform))
             {
                 if (mainPlayer.PosX * WIN_RATIO < WIN_WIDTH / 2)
