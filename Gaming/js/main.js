@@ -38,7 +38,9 @@ var loadedImages = 0;
 function initImages()
 {
     boucle = false;
-    var imageNames = ["coin",
+    var imageNames = ["dojo",
+                        "game-background",
+                        "coin",
                         "shuriken3",
                         "shurikenItem",
                         "potion_red",
@@ -83,20 +85,21 @@ function loadImage(name) {
 function init() {
     var canvas = document.getElementById('gameArea');
     var context2D = canvas.getContext('2d');
-    currentMap = new Map();
-    WORLD_WIDTH = currentMap.MapX;
-    WORLD_HEIGHT = currentMap.MapY;
     canvas.width = WIN_WIDTH;
     canvas.height = WIN_HEIGHT;
     context2D.scale(WIN_RATIO, WIN_RATIO);
-    posWorldX = 0;
-    posWorldY = 0;
     initImages();
 
 }
 
 function init2()
 {
+    currentMap = new Map();
+    WORLD_WIDTH = currentMap.MapX;
+    WORLD_HEIGHT = currentMap.MapY;
+    posWorldX = 0;
+    posWorldY = 0;
+
     mainPlayer = new Player(600, 10);
 
     enemies = [];
@@ -276,10 +279,6 @@ $(document).on("click","#gameOverRestart", function(){
 function refreshGame() {
     if (boucle)
     {
-        if(Math.floor(Math.random()*100) === 0)
-        {
-            //addRandomCoin();
-        }
         // Controls
         if(mainPlayer.isPAlive)
         {

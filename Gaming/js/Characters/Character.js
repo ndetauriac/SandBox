@@ -397,9 +397,6 @@ class Characters {
                 }
             }
         }
-        else{
-            var a = 0;
-        }
     }
 
     kill()

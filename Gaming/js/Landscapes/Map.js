@@ -4,15 +4,12 @@ class Map
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         
-        this.sizeMapX = WIN_WIDTH * 2;
-        this.sizeMapY = WIN_HEIGHT * 2;
+        this.sizeMapX = WIN_WIDTH * 4;
+        this.sizeMapY = WIN_HEIGHT * 1;
         this.width = Math.min(this.sizeMapX, WIN_WIDTH);
         this.height = Math.min(this.sizeMapY, WIN_HEIGHT);
-        
-        this.background = new Image();
-        this.background.caller = this;
-        this.background.onload = this.bgLoaded;
-        this.background.src = "./images/dojo.png";
+        this.background = bibliImages["game-background"];
+        this.initMap();
     }
 
     get MapX()
@@ -27,26 +24,33 @@ class Map
 
     draw()
     {
-        var posX = posWorldX * this.background.factorX;
-        var posY = posWorldY * this.background.factorY;
+        var posX = posWorldX * this.factorX;
+        var posY = posWorldY * this.factorY;
         
         this.context2D.drawImage(this.background, posX, posY, this.bgW, this.bgH, 0, 0, this.width/WIN_RATIO, this.height/WIN_RATIO);
         //this.context2D.drawImage(this.background, posX, posY, this.background.width, this.background.height, 0, 0, this.background.width/WIN_RATIO, this.background.height/WIN_RATIO);
     }
 
-    bgLoaded()
+    initMap()
     {
-        this.factorX = (this.width - WIN_WIDTH) / (this.caller.sizeMapX - WIN_WIDTH) * WIN_RATIO;
-        this.factorY = (this.height - WIN_HEIGHT) / (this.caller.sizeMapY - WIN_HEIGHT) * WIN_RATIO;
-        
-        if(this.width > this.caller.sizeMapX)
-            this.caller.bgW = this.width;
+        if (this.sizeMapX != WIN_WIDTH)
+            this.factorX = (this.background.width - WIN_WIDTH) / (this.sizeMapX - WIN_WIDTH) * WIN_RATIO;
         else
-            this.caller.bgW = this.caller.width;
-        
-        if(this.height > this.caller.sizeMapY)
-            this.caller.bgH = this.height;
+            this.factorX = 0;
+
+        if (this.sizeMapY != WIN_HEIGHT)
+            this.factorY = (this.background.height - WIN_HEIGHT) / (this.sizeMapY - WIN_HEIGHT) * WIN_RATIO;
         else
-            this.caller.bgH = this.caller.height;
+            this.factorY = 0;
+        
+        if(this.width > this.sizeMapX)
+            this.bgW = this.width;
+        else
+            this.bgW = this.width;
+        
+        if(this.height > this.sizeMapY)
+            this.bgH = this.height;
+        else
+            this.bgH = this.height;
     }
 }
