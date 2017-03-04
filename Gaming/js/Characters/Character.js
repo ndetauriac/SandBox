@@ -154,7 +154,7 @@ class Characters {
             var damages = shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height);
             if (damages > 0)
             {
-
+                damages = Math.floor(damages * 100 / this.strength);
                 for(var i = 0; i < shuriken.statusEffects.length; i++)
                 {
                     this.statusEffect.push(shuriken.statusEffects[i]);

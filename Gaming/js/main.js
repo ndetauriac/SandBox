@@ -185,7 +185,7 @@ onkeydown = onkeyup = function(e){
 
 function addEnemies()
 {
-    enemies[nEnemies] = new PutchInBall(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
+    enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
     nEnemies ++;
 }
 
@@ -390,7 +390,7 @@ function refreshGame() {
             }
         }
 
-        if (frameCpt++ == 2)
+        if (frameCpt++ >= 2)
         {
             // Update sprites
             for (i = 0; i < nPlatform; i++)

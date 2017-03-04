@@ -1,4 +1,4 @@
-const FONT_DAMAGE = "25px Baloo";
+const FONT_DAMAGE = "30px Baloo";
 
 class Damage
 {
@@ -25,7 +25,7 @@ class Damage
         this.posY = Math.floor(y + this.upSpeed - posWorldY);
         this.context2D.font = FONT_DAMAGE;
         this.context2D.fillStyle = this.color;
-        this.context2D.strokeStyle = 'white';
+        this.context2D.strokeStyle = 'black';
         //this.context2D.shadowBlur=5;
         //this.context2D.shadowColor="black";
         this.context2D.fillText("- " + this.value,this.posX,this.posY);

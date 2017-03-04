@@ -5,6 +5,7 @@ class Enemy extends Characters{
         this.healthBar = new HealthBar(this.maxHealth);
         this.cadence = CADENCE;
         this.Health = this.health;
+        this.strength = 100;
     }
 
     get Health()

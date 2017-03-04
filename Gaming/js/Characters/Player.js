@@ -10,11 +10,11 @@ class Player extends Characters{
         this.energy = 0;
         this.maxEnergy = 100;
         this.cooldown = 100;
-        this.strength = 200;
+        this.strength = 100;
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
-        this.power = new SkyWalker();
+        this.power = new InstantHeal();
         this.Health = this.health;
         this.Energy = this.energy;
     }
