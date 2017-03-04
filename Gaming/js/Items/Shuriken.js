@@ -2,11 +2,11 @@ const SHURIKEN_SPEED = 10;
 
 class Shuriken
 {
-    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [])
+    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100)
     {
         this.sprite = new Sprites("shuriken3", 4, 1, true, 1);
         // this.sprite = new Sprites("./images/fumaShuriken.png", 8, 1, true, 0);
-        this.value = 10;
+        this.value = 10 * dmgBonus / 100;
         this.posX = x;
         this.posY = y;
         this.previewPosX = x;

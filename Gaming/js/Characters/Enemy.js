@@ -81,31 +81,10 @@ class Enemy extends Characters{
 
     throwShuriken(direction = "NONE")
     {
-        var tmpShuriken;
-        var xThrow = this.posX;
-        var yThrow = this.posY;
-        switch(direction)
-        {
-            case "NONE":
-                tmpShuriken = new Shuriken(xThrow, yThrow, this.lastDir, 0, this.staminaX);
-                break;
-            case "LEFT":
-                tmpShuriken = new Shuriken(xThrow, yThrow, -1, 0, this.staminaX);
-                break;
-            case "RIGHT":
-                tmpShuriken = new Shuriken(xThrow, yThrow, 1, 0, this.staminaX);
-                break;
-            case "UP":
-                tmpShuriken = new Shuriken(xThrow, yThrow, 0, -1, this.staminaX);
-                break;
-            case "DOWN":
-                tmpShuriken = new Shuriken(xThrow, yThrow, 0, 1, this.staminaX);
-                break;
-        }
         if (this.cadence === 0)
         {
             this.cadence = CADENCE;
-            return tmpShuriken;
+            return super.throwShuriken(direction);
         }
         else
         {

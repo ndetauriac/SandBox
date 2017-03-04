@@ -31,6 +31,8 @@ class Characters {
         this.statusEffect = [];
 
         this.bonusEffects = [];
+        
+        this.strength = 100;
 
         this.posX = x;
         this.posY = y;
@@ -108,6 +110,37 @@ class Characters {
     get PosYMiddle()
     {
         return this.posY + this.mapSprites[this.state].height / 2;
+    }
+
+    throwShuriken(direction)
+    {
+        var xThrow = this.posX;
+        var yThrow = this.posY;
+        var effects = [];
+        effects = cloneObject(this.bonusEffects);
+        var directionX = this.lastDir;
+        var directionY = 0;
+
+        switch(direction)
+        {
+            case "LEFT":
+                directionX = -1;
+                directionY = 0;
+                break;
+            case "RIGHT":
+                directionX = 1;
+                directionY = 0;
+                break;
+            case "UP":
+                directionX = 0;
+                directionY = -1;
+                break;
+            case "DOWN":
+                directionX = 0;
+                directionY = 1;
+                break;
+        }
+        return new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, effects, this.strength);
     }
 
     hasBeenHit(shuriken)
@@ -286,6 +319,8 @@ class Characters {
         {
             if (this.jumpPower < MAX_JUMP_HEIGHT / 2 && this.jumped < MAX_JUMP)
             {
+                this.mapSprites["JUMP_LEFT"].resetAnimation();
+                this.mapSprites["JUMP_RIGHT"].resetAnimation();
                 this.jumpPower = MAX_JUMP_HEIGHT;
                 this.jumped++;
             }

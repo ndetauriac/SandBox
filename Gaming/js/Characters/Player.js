@@ -10,6 +10,7 @@ class Player extends Characters{
         this.energy = 0;
         this.maxEnergy = 100;
         this.cooldown = 100;
+        this.strength = 200;
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
@@ -105,41 +106,14 @@ class Player extends Characters{
 
     throwShuriken(direction = "NONE")
     {
-        var tmpShuriken;
-        var xThrow = this.posX;
-        var yThrow = this.posY;
-        var directionX = this.lastDir;
-        var directionY = 0;
-        var effects = [];
-        effects = cloneObject(this.bonusEffects);
         if (this.isAlive)
         {
-            switch(direction)
-            {
-                case "LEFT":
-                    directionX = -1;
-                    directionY = 0;
-                    break;
-                case "RIGHT":
-                    directionX = 1;
-                    directionY = 0;
-                    break;
-                case "UP":
-                    directionX = 0;
-                    directionY = -1;
-                    break;
-                case "DOWN":
-                    directionX = 0;
-                    directionY = 1;
-                    break;
-            }
-            tmpShuriken = new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, effects);
 
             if ((this.Ammo > 0) && this.cadence === 0)
             {
                 this.Ammo --;
                 this.cadence = CADENCE/4;
-                return tmpShuriken;
+                return super.throwShuriken(direction);
             }
             else
             {
