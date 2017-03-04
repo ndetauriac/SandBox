@@ -111,7 +111,7 @@ class Player extends Characters{
         var yThrow = this.posY;
         var directionX = this.lastDir;
         var directionY = 0;
-        var statusEffects = [new Poison(), new Fire()];
+        var statusEffects = [new Slow()];
         if (this.isAlive)
         {
             switch(direction)

@@ -44,6 +44,7 @@ class Characters {
         this.onTheFloor = false;
         this.cadence = 0;
         this.boost = 0;
+        this.slow = 0;
         this.isAlive = true;
         this.slide = false;
         this.state = "IDLE_RIGHT";
@@ -70,6 +71,16 @@ class Characters {
         }
         if(this.health >= this.maxHealth)
             this.health = this.maxHealth;
+    }
+
+    get Slow()
+    {
+        return this.slow;
+    }
+
+    set Slow(value)
+    {
+        this.slow = value;
     }
 
     get PosX()
@@ -179,21 +190,21 @@ class Characters {
 
         this.cadence = Decr(this.cadence, 1, 0);
         var effectDamage = null;
-
+        this.Slow = 0;
         for(var i = 0; i < this.statusEffect.length; i++)
         {
             if (this.statusEffect[i].ApplyEffect(this) === null)
             {
                 console.log("Remove");
-                //this.statusEffect.splice(i, 1);
-                //i++;
+                this.statusEffect.splice(i, 1);
+                i++;
             }
         }
         return switchStateValue;
     }
 
     computeXPosition(){
-        this.previewPosX = Math.floor(this.posX + this.staminaX);
+        this.previewPosX = Math.floor(this.posX + this.staminaX * (100 - this.Slow) / 100);
         //this.previewPosX += this.staminaX;
     }
 
