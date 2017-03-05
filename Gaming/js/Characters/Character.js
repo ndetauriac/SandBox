@@ -139,7 +139,7 @@ class Characters {
                 directionY = 1;
                 break;
         }
-        return new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, effects, this.strength);
+        return new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, effects, this.strength, this);
     }
 
     hasBeenHit(shuriken)

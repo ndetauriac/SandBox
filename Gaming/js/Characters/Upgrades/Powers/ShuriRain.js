@@ -3,12 +3,12 @@ class ShuriRain extends Power
     constructor()
     {
         super(80, 15 * SECOND);
-        this.damage = 100;
+        this.damage = 150;
         this.duration = 0;
         this.posX = 0;
         this.posY = 0;
-        this.refreshRate = 0.05 * SECOND;
-        this.range = 300 / WIN_RATIO;
+        this.refreshRate = 0.01 * SECOND;
+        this.range = 100 / WIN_RATIO;
     }
 
     applyPower(player)
@@ -16,7 +16,7 @@ class ShuriRain extends Power
         if(super.applyPower(player))
         {
             this.posX = player.PosXMiddle;
-            this.posY = player.PosYMiddle - 300/WIN_RATIO;
+            this.posY = 0;
             this.duration = 5 * SECOND;
         }
     }

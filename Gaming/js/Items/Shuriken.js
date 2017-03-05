@@ -1,8 +1,8 @@
-const SHURIKEN_SPEED = 10;
+const SHURIKEN_SPEED = 20;
 
 class Shuriken
 {
-    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100)
+    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100, character = null)
     {
         this.sprite = new Sprites("shuriken3", 4, 1, true, 1);
         // this.sprite = new Sprites("./images/fumaShuriken.png", 8, 1, true, 0);
@@ -14,13 +14,15 @@ class Shuriken
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = false;
-        this.staminaX = (directionX * SHURIKEN_SPEED + innerSpeed) / 2;
+        this.staminaX = (directionX * SHURIKEN_SPEED + innerSpeed/2) / 2;
         this.staminaY = (directionY * SHURIKEN_SPEED)/2;
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
         //this.statusEffects = [new StatusEffect("Fire"), new StatusEffect("Poison")];
         this.statusEffects = statusEffects;
+        this.lifeLink = 0;
+        this.owner = character;
     }
 
     updatePosition(plateforms, nPlateform) {
@@ -106,22 +108,19 @@ class Shuriken
 
     contact(x, y, w, h)
     {
-        if (this.sprite.width === undefined && this.sprite.height === undefined)
-        {
-            return 0;
+        var damageValue = 0;
+        if (!(this.sprite.width === undefined && this.sprite.height === undefined))
+        {   
+            if (this.sprite.width !== null && this.sprite.height !== null) {
+                if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h / 3))
+                    damageValue = 2 * this.value;
+                else if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h))
+                    damageValue = this.value;
+            }
         }
-        else if (this.sprite.width !== null && this.sprite.height !== null) {
-            if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h / 3))
-                return 2 * this.value;
-            else if (!(x > this.posX + this.sprite.width || x < this.posX - w || y > this.posY + this.sprite.height || y < this.posY - h))
-                return this.value;
-            else
-                return 0;
-        }
-        else
-        {
-            return 0;
-        }
+        if (this.lifeLink > 0 && this.owner !== null)
+            this.owner.Health += damageValue * this.lifeLink / 100;
+        return damageValue;
     }
 
     get shurikenDamage()
