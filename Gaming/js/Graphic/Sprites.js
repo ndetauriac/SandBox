@@ -63,7 +63,7 @@
     
     }
     
-    draw(x, y)
+    draw(x, y, visible = true)
     {
         var posX = Math.floor(x - posWorldX);
         var posY = Math.floor(y - posWorldY);
@@ -72,7 +72,17 @@
         
         if (this.imgSprite !== undefined)
         {
-            this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.spriteW, this.spriteH, posX, posY, this.spriteW, this.spriteH);
+            if (visible)
+            {
+                this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.spriteW, this.spriteH, posX, posY, this.spriteW, this.spriteH);
+            }
+            else
+            {
+                this.context2D.globalAlpha = 0.3;
+                this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.spriteW, this.spriteH, posX, posY, this.spriteW, this.spriteH);
+                this.context2D.globalAlpha = 1;
+            }
+        
         }
         this.lastPosX = posX;
         this.lastPosY = posY;

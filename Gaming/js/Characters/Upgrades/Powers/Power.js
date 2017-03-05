@@ -19,7 +19,7 @@ class Power
         }
     }
 
-    refreshPower()
+    refreshPower(player)
     {
         var powerRecovered = false;
         if(this.cooldown > 0)

@@ -5,8 +5,6 @@ const GRAVITY = 1;
 const MAX_JUMP = 2;
 const CADENCE = 30;
 
-const EFFECT_POISON = 0;
-
 class Characters {
     constructor(x, y, startHealth, color) {
 
@@ -56,6 +54,7 @@ class Characters {
         this.winWidth = document.getElementById('gameArea').width;
         this.winHeight = document.getElementById('gameArea').height;
         this.lifeTime = 50;
+        this.visible = true;
         this.health = startHealth;
         this.maxHealth = startHealth;
     }
@@ -424,7 +423,7 @@ class Characters {
         if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
         {
             this.mapSprites[this.state].animate();
-            this.mapSprites[this.state].draw(this.posX, this.posY);
+            this.mapSprites[this.state].draw(this.posX, this.posY, this.visible);
             
             var i = 0;
             for (var color in this.damageTaken)

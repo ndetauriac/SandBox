@@ -24,6 +24,9 @@ const WIN_RATIO = 0.5;
 const WIN_WIDTH = window.innerWidth;
 const WIN_HEIGHT = window.innerHeight;
 
+const REFRESH_RATE = 10;
+const SECOND = 1000 / REFRESH_RATE;
+
 var WORLD_WIDTH = WIN_WIDTH * 1;
 var WORLD_HEIGHT = WIN_HEIGHT * 0.5;
 

@@ -21,63 +21,70 @@ class Enemy extends Characters{
 
     move(player)
     {
-        var throwDir = "NONE";
-        var distX = Math.abs(player.PosX - this.PosX);
-        var distY = Math.abs(player.PosY - this.PosY);
-
-        // Move
-        if(distX < 200) {
-            if(this.lastDir > 0)
-            {
-                this.moveRight();
-            }
-            else if(this.lastDir < 0)
-            {
-                this.moveLeft();
-            }
-
-        } else {
-            if(player.PosX > this.posX)
-            {
-                this.moveRight();
-            }
-            else if(player.PosX < this.posX)
-            {
-                this.moveLeft();
-            }
-        }
-
-        if(distY > MAX_JUMP_HEIGHT)
+        if(player.IsInvisible)
         {
-            if(player.PosYMiddle < this.PosYMiddle)
-            {
-                this.moveUp();
-            }
+            return null;
         }
-
-        // Shoot
-
-        if(distY > distX)
+        else
         {
-            if(player.PosYMiddle < this.PoPosYMiddlesY)
-            {
-                throwDir = "UP";
+            var throwDir = "NONE";
+            var distX = Math.abs(player.PosX - this.PosX);
+            var distY = Math.abs(player.PosY - this.PosY);
+
+            // Move
+            if(distX < 200) {
+                if(this.lastDir > 0)
+                {
+                    this.moveRight();
+                }
+                else if(this.lastDir < 0)
+                {
+                    this.moveLeft();
+                }
+
             } else {
-                throwDir = "DOWN";
+                if(player.PosX > this.posX)
+                {
+                    this.moveRight();
+                }
+                else if(player.PosX < this.posX)
+                {
+                    this.moveLeft();
+                }
             }
-        } else {
-            if(player.PosXMiddle > this.PosXMiddle)
-            {
-                throwDir = "RIGHT";
-            }
-            else if(player.PosX < this.posX)
-            {
-                throwDir = "LEFT";
-            }
-        }
 
-        return this.throwShuriken(throwDir, true);
-        //return null;
+            if(distY > MAX_JUMP_HEIGHT)
+            {
+                if(player.PosYMiddle < this.PosYMiddle)
+                {
+                    this.moveUp();
+                }
+            }
+
+            // Shoot
+
+            if(distY > distX)
+            {
+                if(player.PosYMiddle < this.PoPosYMiddlesY)
+                {
+                    throwDir = "UP";
+                } else {
+                    throwDir = "DOWN";
+                }
+            } else {
+                if(player.PosXMiddle > this.PosXMiddle)
+                {
+                    throwDir = "RIGHT";
+                }
+                else if(player.PosX < this.posX)
+                {
+                    throwDir = "LEFT";
+                }
+            }
+
+            return this.throwShuriken(throwDir, true);
+            //return null;
+        }
     }
 
     throwShuriken(direction = "NONE")

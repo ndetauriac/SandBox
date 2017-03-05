@@ -14,7 +14,7 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
-        this.power = new InstantHeal();
+        this.power = new Invisibility();
         this.Health = this.health;
         this.Energy = this.energy;
     }
@@ -54,6 +54,16 @@ class Player extends Characters{
     get HasMaxEnergy()
     {
         return this.energy == this.maxEnergy;
+    }
+
+    get IsInvisible()
+    {
+        return !this.visible;
+    }
+
+    set IsInvisible(value)
+    {
+        this.visible = !value;
     }
 
     get Health()
@@ -128,7 +138,7 @@ class Player extends Characters{
 
     updatePosition(plateforms, nPlateform)
     {
-        if(this.power.refreshPower())
+        if(this.power.refreshPower(this))
             this.Energy = this.energy;
         return super.updatePosition(plateforms, nPlateform);
     }
