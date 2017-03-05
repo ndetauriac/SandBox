@@ -7,13 +7,21 @@ class Power
         this.energyCost = energyCost;
     }
 
-    applyPower(player)
+    applyPower(player, forFree = false)
     {
-        if(this.cooldown <= 0 && this.energyCost <= player.Energy)
+        if(this.cooldown <= 0)
         {
-            this.cooldown = this.cooldownTime;
-            player.Energy -= this.energyCost;
-            return true;
+            if (forFree)
+            {
+                this.cooldown = this.cooldownTime;
+                return true;
+            }
+            else if (this.energyCost <= player.Energy)
+            {
+                this.cooldown = this.cooldownTime;
+                player.Energy -= this.energyCost;
+                return true;
+            }
         } else {
             return false;
         }
