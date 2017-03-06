@@ -47,7 +47,6 @@ function gameOver(){
 
 // LISTENER
 $(document).on("click", "#profileButton", function(){
-	console.log("test");
 	showProfile();
 });
 
@@ -64,30 +63,113 @@ $(document).on("click", ".mainMenuButton", function(){
 });
 
 // UI
+
 function setPlayerHealth(value){
-		 $("#playerHealth").removeClass("normal medium low");
+		 $("#currentHealth").removeClass("normal medium low");
 		 if(value < 20){
-				 $("#playerHealth").addClass("low");
+				 $("#currentHealth").addClass("low");
 		 }else if(value < 40){
-				 $("#playerHealth").addClass("medium");
+				 $("#currentHealth").addClass("medium");
 		 }else{
-				 $("#playerHealth").addClass("normal");
+				 $("#currentHealth").addClass("normal");
 		 }
-		 $("#playerHealth").css("width", value +"%");
+		 $("#currentHealth").css("width", value +"%");
 }
 
 function setPlayerUlti(value, canUseIt){
-		 $("#playerUlti").removeClass("enabled disabled");
-		if(canUseIt){
-				 $("#playerUlti").addClass("enabled");
-		 }else{
-				 $("#playerUlti").addClass("disabled");
-		 }
-		$("#playerUlti").css("width", value +"%");
+		progressBarUpdate(value, 100);
+		if(value === 100){
+			 enableUlti();
+		}else{
+				disableUlti();
+		}
+		//  $("#playerUlti").removeClass("enabled disabled");
+		// if(canUseIt){
+		// 		 $("#playerUlti").addClass("enabled");
+		//  }else{
+		// 		 $("#playerUlti").addClass("disabled");
+		//  }
+		// $("#playerUlti").css("width", value +"%");
+}
+
+function enableUlti(){
+	$("#playerUlti").removeClass("disabled");
+}
+
+function disableUlti(){
+	$("#playerUlti").addClass("disabled");
+}
+
+function rotate(element, degree) {
+    element.css({
+        '-webkit-transform': 'rotate(' + degree + 'deg)',
+            '-moz-transform': 'rotate(' + degree + 'deg)',
+            '-ms-transform': 'rotate(' + degree + 'deg)',
+            '-o-transform': 'rotate(' + degree + 'deg)',
+            'transform': 'rotate(' + degree + 'deg)',
+            'zoom': 1
+    });
+}
+var currentUlti = 10;
+var ultiMax = 100;
+function progressBarUpdate(x, outOf) {
+    var firstHalfAngle = 180;
+    var secondHalfAngle = 0;
+
+    // caluclate the angle
+    var drawAngle = x / outOf * 360;
+
+    // calculate the angle to be displayed if each half
+    if (drawAngle <= 180) {
+        firstHalfAngle = drawAngle;
+    } else {
+        secondHalfAngle = drawAngle - 180;
+    }
+
+    // set the transition
+    rotate($(".slice1"), firstHalfAngle);
+    rotate($(".slice2"), secondHalfAngle);
 }
 
 // my profile
+initCards();
+function initCards(){
+	for(let card of cards){
+		let divCard = "<div class='card' data='"+ card +"'>" +
+							"<div class='title'>"+ card.title +"</div>" +
+							"<div class='illustration'><img src='"+ card.illustration +"'/></div>" +
+							"<div class='capacity'>"+ card.capacity +"</div>" +
+							"</div>";
+		$("#bonusCards").append(divCard);
+	}
 
-$( function() {
-    $(".card").draggable();
+// Gestion du drag and drop
+$(".card").draggable({
+		snap:".selectedCard"
 	});
+}
+
+let decalage = 0;
+$(".card").each(function(){
+	$(this).css("left",decalage);
+	decalage += 100;
+});
+
+$(".card").on("mouseover",function(){
+	$(this).css("z-index","11");
+});
+
+$(".card").on("mouseout",function(){
+	$(this).css("z-index","10");
+});
+
+$('.selectedCard').droppable({
+	accept:'.card',
+	drop : function(event, ui){
+		console.log("drop");
+		console.log(event);
+		console.log(ui);
+	}
+});
+
+var selectedCards = [];

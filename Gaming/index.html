@@ -38,35 +38,37 @@
         </div>
 
         <div id="playerInfo" style="display:none">
-            <div id="playerInfoBg"></div>
-            <div id="playerInfoBg2"></div>
-            <div id="playerHealthBg"><div id="playerHealth" class="health"></div></div>
-            <div id="playerUltiBg"><div id="playerUlti" class="health"></div></div>
-            <div id="playerCoin" class="playerInfo"></div>
-            <div id="playerAmmo" class="playerInfo"></div>
-            <div id="playerKill" class="playerInfo"></div>
-        </div>
-
-        <div id="bossInfo" style="display:none">
-            <div id="bossInfoBg"></div>
-            <div id="bossInfoBg2"></div>
-            <div id="bossHealthBg"><div id="bossHealth" class="health"></div></div>
-            <div id="bossUltiBg"><div id="bossUlti" class="health"></div></div>
+            <div id="playerInfoContainer">
+              <div id="health"><div id="currentHealth" class="health"></div><div id="currentHealthBg"></div></div>
+                <div class="pieBg"></div>
+              <div class="pie">
+                  <div class="clip1">
+                      <div class="slice1"></div>
+                  </div>
+                  <div class="clip2">
+                      <div class="slice2"></div>
+                  </div>
+                  <div id="playerUlti" class="status">
+                      <img src="./images/bonus_health.png"/>
+                  </div>
+              </div>
+                <div id="playerItemInfo">
+                  <div id="playerCoin" class="playerInfo"></div>
+                  <div id="playerAmmo" class="playerInfo"></div>
+                  <div id="playerKill" class="playerInfo"></div>
+              </div>
+            </div>
         </div>
 
         <div id="profile" class="screen" style="display:none">
             <div class="mainTitle"><span class="fontRed">M</span>y <span class="fontRed">N</span>inja</div>
+            <div id="selectedCards">
+                <div id="selectedBonus1" class="selectedBonus selectedCard"></div>
+                <div id="selectedBonus2" class="selectedBonus selectedCard"></div>
+                <div id="selectedPower" class="selectedPower selectedCard"></div>
+            </div>
             <div id="bonusCards">
-                <div class="card">
-                    <div class="title">Hackerman</div>
-                    <div class="illustration"><img src="https://cdn.pixabay.com/photo/2013/07/13/09/38/ninja-155848_960_720.png"/></div>
-                    <div class="capacity">+1 en furtivité, mais que sur le net.. Donc useless !</div>
-                </div>
-                <div class="card">
-                    <div class="title">Kiwi</div>
-                    <!--div class="illustration"><img src="http://www.pngall.com/wp-content/uploads/2016/04/Kiwi-PNG-File.png"/></div-->
-                    <div class="capacity">Mais si, c'est possible avec la caaaarte kiiwi !</div>
-                </div>
+
             </div>
             <div class="button mainMenuButton">Go to main menu</div>
         </div>
@@ -88,6 +90,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <!-- Utils -->
+    <script src="js/Utils.js"></script>
+
     <!-- Characters -->
     <script src="js/Characters/Character.js"></script>
     <script src="js/Characters/Enemy.js"></script>
@@ -105,10 +110,11 @@
     <script src="js/Characters/Upgrades/Status/Poison.js"></script>
     <script src="js/Characters/Upgrades/Status/Fire.js"></script>
     <script src="js/Characters/Upgrades/Status/Slow.js"></script>
-    
+
     <!-- Cards -->
     <script src="js/Cards/Card.js"></script>
     <script src="js/Cards/BonusCards/Toxic.js"></script>
+    <script src="assets/cards.js"></script>
 
     <!-- Landscapes -->
     <script src="js/Landscapes/Map.js"></script>
@@ -132,7 +138,6 @@
     <script src="js/ui/ui.js"></script>
 
     <script src="js/main.js"></script>
-    <script src="js/Utils.js"></script>
 
 <script src="http://localhost:35729/livereload.js"></script>
     <script type="text/javascript">
