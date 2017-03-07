@@ -3,7 +3,7 @@ class Enemy extends Characters{
     {
         super(x, y, lifePoint, "red");
         this.healthBar = new HealthBar(this.maxHealth);
-        this.cadence = CADENCE;
+        this.cadence = 2 * SECOND;
         this.Health = this.health;
         this.strength = 100;
         this.slow = 50;
@@ -92,9 +92,9 @@ class Enemy extends Characters{
 
     throwShuriken(direction = "NONE")
     {
-        if (this.cadence === 0)
+        if (this.fireTime <= 0)
         {
-            this.cadence = CADENCE;
+            this.fireTime = this.cadence;
             return super.throwShuriken(direction);
         }
         else

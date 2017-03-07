@@ -46,6 +46,7 @@ class Characters {
         this.lastDir = 1;
         this.onTheFloor = false;
         this.cadence = CADENCE;
+        this.fireTime = this.cadence;
         this.boost = 0;
         this.slow = 0;
         this.isAlive = true;
@@ -234,7 +235,7 @@ class Characters {
         this.applyXPosition();
         this.applyYPosition();
 
-        this.cadence = Decr(this.cadence, 1, 0);
+        this.fireTime = Decr(this.fireTime, 1, 0);
         var effectDamage = null;
         for(var i = 0; i < this.statusEffect.length; i++)
         {

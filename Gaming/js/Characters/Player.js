@@ -120,10 +120,10 @@ class Player extends Characters{
         if (this.isAlive)
         {
 
-            if ((this.Ammo > 0) && this.cadence === 0)
+            if ((this.Ammo > 0) && this.fireTime <= 0)
             {
                 this.Ammo --;
-                this.cadence = CADENCE/4;
+                this.fireTime = this.cadence;
                 return super.throwShuriken(direction);
             }
             else
@@ -141,6 +141,8 @@ class Player extends Characters{
     {
         if(this.power.refreshPower(this))
             this.Energy = this.energy;
+        if(!this.isAlive)
+            this.stopMoving();
         return super.updatePosition(plateforms, nPlateform);
     }
 
