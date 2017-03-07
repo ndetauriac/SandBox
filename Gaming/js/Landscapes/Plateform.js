@@ -87,7 +87,7 @@ class Plateform
             else if(this.rightContact(prevX, nextX) && this.rightSide)
             {
                 isInContactRight = true;
-                newPosX = Math.floor(this.rectX + this.rectW) + GRAVITY;
+                newPosX = Math.floor(this.rectX + this.rectW) + 1 + GRAVITY;
             }
             if(this.topContact(prevY + prevH, nextY + nextH) && this.topSide)
             {
@@ -99,7 +99,7 @@ class Plateform
             else if(this.bottomContact(prevY, nextY) && this.bottomSide)
             {
                 isInContactBot = true;
-                newPosY = Math.floor(this.rectY + this.rectH) + GRAVITY;
+                newPosY = Math.floor(this.rectY + this.rectH) + 1 + GRAVITY;
             }
         }
 

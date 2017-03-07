@@ -1,7 +1,7 @@
 class InstantHeal extends Power{
     constructor()
     {
-        super(50, 50);
+        super(50, 20 * SECOND, "bonus_health.png");
         this.healValue = 50;
     }
 

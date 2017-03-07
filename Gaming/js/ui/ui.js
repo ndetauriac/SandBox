@@ -78,25 +78,20 @@ function setPlayerHealth(value){
 
 function setPlayerUlti(value, canUseIt){
 		progressBarUpdate(value, 100);
-		if(value === 100){
+		if(canUseIt){
 			 enableUlti();
 		}else{
 				disableUlti();
 		}
-		//  $("#playerUlti").removeClass("enabled disabled");
-		// if(canUseIt){
-		// 		 $("#playerUlti").addClass("enabled");
-		//  }else{
-		// 		 $("#playerUlti").addClass("disabled");
-		//  }
-		// $("#playerUlti").css("width", value +"%");
 }
 
 function enableUlti(){
 	$("#playerUlti").removeClass("disabled");
+	$("#playerUlti").addClass("enadble");
 }
 
 function disableUlti(){
+	$("#playerUlti").removeClass("enabled");
 	$("#playerUlti").addClass("disabled");
 }
 

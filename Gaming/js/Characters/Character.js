@@ -1,9 +1,10 @@
-const MAX_SPEED_X = 20;
-const MAX_JUMP_HEIGHT = 20;
-const GRIP = 1.5;
-const GRAVITY = 1;
-const MAX_JUMP = 2;
-const CADENCE = 30;
+const MAX_SPEED_X = 400 / WIN_RATIO / SECOND;
+const PIXEL_PER_SECOND = 10;
+const GRIP = 100; // % of break
+const GRAVITY = 10 / WIN_RATIO / SECOND;
+const MAX_JUMP = 1;
+const MAX_JUMP_HEIGHT = 450  / WIN_RATIO / SECOND;
+const CADENCE = 1 * SECOND;
 
 class Characters {
     constructor(x, y, startHealth, color) {
@@ -44,7 +45,7 @@ class Characters {
         this.jumped = 0;
         this.lastDir = 1;
         this.onTheFloor = false;
-        this.cadence = 0;
+        this.cadence = CADENCE;
         this.boost = 0;
         this.slow = 0;
         this.isAlive = true;
@@ -57,6 +58,7 @@ class Characters {
         this.visible = true;
         this.health = startHealth;
         this.maxHealth = startHealth;
+        this.wallGrip = 0;
     }
 
     prepareLoadout(cards)
@@ -153,7 +155,6 @@ class Characters {
             var damages = shuriken.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height);
             if (damages > 0)
             {
-                damages = Math.floor(damages * 100 / this.strength);
                 for(var i = 0; i < shuriken.statusEffects.length; i++)
                 {
                     this.statusEffect.push(shuriken.statusEffects[i]);
@@ -170,11 +171,12 @@ class Characters {
     }
 
     addDamage(color, value){
+        var damage = Math.floor(value * 100 / this.strength);
         if(color in this.damageTaken && this.damageTaken[color] !== null)
-            this.damageTaken[color] = new Damage(this.damageTaken[color].Value + value, color);
+            this.damageTaken[color] = new Damage(this.damageTaken[color].Value + damage, color);
         else
-            this.damageTaken[color] = new Damage(value, color);
-        this.Health -= value;
+            this.damageTaken[color] = new Damage(damage, color);
+        this.Health -= damage;
     }
 
     updatePosition(plateforms, nPlateform) {
@@ -190,6 +192,7 @@ class Characters {
         var prevWidth = this.mapSprites[this.lastState].width;
         var prevHeight = this.mapSprites[this.lastState].height;
         this.onTheFloor = false;
+        this.wallGrip = 0;
         for (plat = 0; plat < nPlateform; plat++)
         {
             if (sWidth != null && sHeight != null) {
@@ -202,11 +205,15 @@ class Characters {
                 {
                     this.previewPosX = gap.gapX;
                     this.staminaX = 0;
+                    this.wallGrip = 8 / WIN_RATIO / SECOND;
+                    this.jumped = 0;
                 }
                 if (gap.isInContactLeft)
                 {
                     this.previewPosX = gap.gapX;
                     this.staminaX = 0;
+                    this.wallGrip = 8 / WIN_RATIO / SECOND;
+                    this.jumped = 0;
                 }
 
                 if (gap.isInContactTop)
@@ -229,14 +236,12 @@ class Characters {
 
         this.cadence = Decr(this.cadence, 1, 0);
         var effectDamage = null;
-        this.Slow = 0;
         for(var i = 0; i < this.statusEffect.length; i++)
         {
             if (this.statusEffect[i].ApplyEffect(this) === null)
             {
-                console.log("Remove");
                 this.statusEffect.splice(i, 1);
-                i++;
+                i--;
             }
         }
         return switchStateValue;
@@ -254,19 +259,17 @@ class Characters {
 
     applyXPosition(){
         this.posX = this.previewPosX;
+    }
+
+    stopMoving()
+    {
         if (this.staminaX > 0)
         {
-            if(!(!this.onTheFloor && this.slide))
-            {
-                this.staminaX = Decr(this.staminaX, GRIP/(1+this.slide*2), 0);
-            }
+            this.staminaX = Decr(this.staminaX, GRIP/10 * MAX_SPEED_X/(1+this.boost*2)/SECOND, 0);
         }
         else if (this.staminaX < 0)
         {
-            if(!(!this.onTheFloor && this.slide))
-            {
-                this.staminaX = Incr(this.staminaX, GRIP/(1+this.slide*2), 0);
-            }
+            this.staminaX = Incr(this.staminaX, GRIP/10 * MAX_SPEED_X/(1+this.boost*2)/SECOND, 0);
         }
         else
         {
@@ -282,13 +285,11 @@ class Characters {
             this.jumpPower = Decr(this.jumpPower, GRAVITY, 0);
         }
         else if (!this.onTheFloor){
-            this.staminaY += GRAVITY;
+            this.staminaY += GRAVITY - this.wallGrip;
         }
         else{
             this.staminaY = GRAVITY;
             this.jumped = 0;
-            this.mapSprites["JUMP_LEFT"].resetAnimation();
-            this.mapSprites["JUMP_RIGHT"].resetAnimation();
         }
     }
 
@@ -297,26 +298,10 @@ class Characters {
         return this.isAlive;
     }
 
-    gravity()
-    {
-        this.previewPosY += this.staminaY;
-        if (this.posY < (level - this.mapSprites[this.state].height)){
-            this.staminaY += GRAVITY;
-            this.onTheFloor = false;
-        }
-        else{
-            this.staminaY = 0;
-            this.onTheFloor = true;
-            this.jumped = 0;
-            this.mapSprites["JUMP_LEFT"].resetAnimation();
-            this.mapSprites["JUMP_RIGHT"].resetAnimation();
-        }
-    }
-
     moveUp() {
         if(this.isAlive)
         {
-            if (this.jumpPower < MAX_JUMP_HEIGHT / 2 && this.jumped < MAX_JUMP)
+            if (this.jumpPower < MAX_JUMP_HEIGHT / 3 && this.jumped < MAX_JUMP)
             {
                 this.mapSprites["JUMP_LEFT"].resetAnimation();
                 this.mapSprites["JUMP_RIGHT"].resetAnimation();
@@ -326,18 +311,11 @@ class Characters {
         }
     }
 
-    moveDown() {
-        if(this.isAlive)
-        {
-            this.previewPosY += this.staminaY;
-        }
-    }
-
     moveLeft() {
         if(this.isAlive)
         {
             if (this.staminaX > -MAX_SPEED_X - this.boost * MAX_SPEED_X && !this.slide)
-                this.staminaX -= 2;
+                this.staminaX = Decr(this.staminaX, MAX_SPEED_X * 10 / SECOND, -MAX_SPEED_X * (1 + this.boost));
         }
     }
 
@@ -345,7 +323,7 @@ class Characters {
         if(this.isAlive)
         {
             if (this.staminaX < MAX_SPEED_X + this.boost * MAX_SPEED_X && !this.slide)
-                this.staminaX +=2;
+                this.staminaX = Incr(this.staminaX, MAX_SPEED_X * 10 / SECOND, MAX_SPEED_X * (1 + this.boost));
         }
     }
 
@@ -357,7 +335,10 @@ class Characters {
 
     set run(value)
     {
-        this.boost = value;
+        if(Math.abs(this.staminaX) > MAX_SPEED_X)
+            this.boost = true;
+        else
+            this.boost = value;
     }
 
     switchState()

@@ -211,6 +211,10 @@ transition: all 0.3s ease;
     opacity:0.3;
 }
 
+#playerInfoContainer .status.enabled img{
+    opacity:1;
+}
+
 #playerInfoContainer #health{
   width:50%;
   max-width:510px;

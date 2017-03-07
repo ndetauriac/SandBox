@@ -2,8 +2,7 @@ class Slow extends StatusEffect
 {
     constructor()
     {
-        super();
-        this.duration = 100;
+        super(5);
         this.value = 50;
     }
 

@@ -1,11 +1,12 @@
-const STATUS_REFRESH_RATE = 20;
+const STATUS_REFRESH_RATE = SECOND / 2;
 
 class StatusEffect
 {
-    constructor()
+    constructor(duration, refreshRate = STATUS_REFRESH_RATE) // Duration in second
     {
         this.color = "white";
-        this.refreshRate = STATUS_REFRESH_RATE;
+        this.refreshRate = refreshRate;
+        this.duration = duration * SECOND  + refreshRate;
     }
     
     ApplyEffect()
@@ -13,15 +14,13 @@ class StatusEffect
         this.duration--;
         if (this.duration > 0)
         {
-            if (this.refreshRate > 0)
+            if (this.duration % this.refreshRate == 0)
             {
-                this.refreshRate --;
-                return false;
+                return true;
             }
             else
             {
-                this.refreshRate = STATUS_REFRESH_RATE;
-                return true;
+                return false;
             }
         }
         else

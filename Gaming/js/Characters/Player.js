@@ -14,7 +14,8 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
-        this.power = new ShuriRain();
+        this.power = new Invisibility();
+        this.cadence = SECOND / 4;
         this.Health = this.health;
         this.Energy = this.energy;
     }
@@ -89,7 +90,7 @@ class Player extends Characters{
             this.energy = 0;
         if (this.energy > this.maxEnergy)
             this.energy = this.maxEnergy;
-        setPlayerUlti(this.Energy, this.power.isAvailable(value));
+        setPlayerUlti(this.Energy, this.power.isAvailable(this.energy));
     }
 
     get Score()

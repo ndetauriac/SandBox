@@ -121,9 +121,8 @@ function init2()
     addEnemies();
     addEnemies();
 
-    addPlateform(WORLD_WIDTH / 6, WORLD_HEIGHT - 200, 200, 3, "FULL");
-    addPlateform(WORLD_WIDTH / 2 - 100, WORLD_HEIGHT - 400, 200, 3, "FULL");
-    addPlateform(2 * WORLD_WIDTH / 3, WORLD_HEIGHT - 300, 200, 3, "FULL");
+    addPlateform(200, WORLD_HEIGHT - 100, 20, 100, "FULL");
+    addPlateform(200, WORLD_HEIGHT - 120, 200, 20, "FULL");
 
     // Borders
     // Left
@@ -188,6 +187,7 @@ onkeydown = onkeyup = function(e){
 
 function addEnemies()
 {
+    // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
     enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
     nEnemies ++;
 }
@@ -298,6 +298,10 @@ function refreshGame() {
             }
             if(map[CTRL_LEFT]){
             }
+            if(!map[ARROW_LEFT] && !map[ARROW_RIGHT])
+            {
+                mainPlayer.stopMoving();
+            }
             if(map[ARROW_DOWN]){
                 mainPlayer.playerSlide = true;
             }
@@ -346,7 +350,7 @@ function refreshGame() {
                 mainPlayer.usePower();
             }
             if(map[LEFT_SHIFT]){
-                mainPlayer.run = 1;
+                mainPlayer.run = 0.5;
             }
             else
                 mainPlayer.run = 0;
@@ -393,7 +397,7 @@ function refreshGame() {
             }
         }
 
-        if (frameCpt++ >= 2)
+        if (frameCpt++ >= 0)
         {
             // Update sprites
             for (i = 0; i < nPlatform; i++)

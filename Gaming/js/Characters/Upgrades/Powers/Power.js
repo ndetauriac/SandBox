@@ -1,7 +1,8 @@
 class Power
 {
-    constructor(energyCost, cooldown = 0)
+    constructor(energyCost, cooldown = 0, ico = null)
     {
+        document.getElementById("icoPower").src = "./images/" + ico;
         this.cooldownTime = cooldown;
         this.cooldown = 0;
         this.energyCost = energyCost;

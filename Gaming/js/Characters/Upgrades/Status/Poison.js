@@ -2,10 +2,9 @@ class Poison extends StatusEffect
 {
     constructor()
     {
-        super();
+        super(5);
         this.color = "purple";
         this.damage = 5;
-        this.duration = 100;
     }
 
     ApplyEffect(character)
@@ -13,6 +12,7 @@ class Poison extends StatusEffect
         if(super.ApplyEffect())
         {
             character.addDamage(this.color, this.damage);
+            this.damage = this.damage * 1.2;
         }
     }
 }

@@ -2,12 +2,12 @@ class ShuriRain extends CanalisedPower
 {
     constructor()
     {
-        super(15, 5);
-        this.damage = 150;
+        super(15, 5, 0.05 * SECOND);
+        this.damage = 100;
         this.duration = 0;
         this.posX = 0;
         this.posY = 0;
-        this.range = 600 / WIN_RATIO;
+        this.range = 300 / WIN_RATIO;
     }
 
     applyPower(player)

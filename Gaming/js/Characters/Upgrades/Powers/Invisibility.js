@@ -2,7 +2,7 @@ class Invisibility extends Power
 {
     constructor()
     {
-        super(15, 10 * SECOND);
+        super(20, 10 * SECOND, "bonus_invisible.png");
         this.duration = 5 * SECOND;
     }
 
@@ -20,8 +20,10 @@ class Invisibility extends Power
         if (this.duration > 0)
             this.duration --;
         else
+        {
             player.IsInvisible = false;
+            return super.refreshPower();
+        }
 
-        super.refreshPower();
     }
 }

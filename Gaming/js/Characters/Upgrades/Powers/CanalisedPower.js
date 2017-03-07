@@ -1,10 +1,10 @@
 class CanalisedPower extends Power
 {
-    constructor(initialCost, costPerSecond)
+    constructor(initialCost, costPerSecond, refreshRate)
     {
         super(initialCost, 10);
         this.isActivated = false;
-        this.refreshRate = 0.01 * SECOND;
+        this.refreshRate = refreshRate;
         this.activationTime = 0;
         this.energyCostPerSec = costPerSecond;
     }
@@ -37,7 +37,7 @@ class CanalisedPower extends Power
             {
                 this.powerEffect(player);
             }
-            if(this.activationTime >= SECOND/2)
+            if(this.activationTime >= SECOND)
             {
                 if (player.Energy >= this.energyCostPerSec)
                     player.Energy -= this.energyCostPerSec;

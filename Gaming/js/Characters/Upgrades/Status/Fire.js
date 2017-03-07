@@ -2,10 +2,9 @@ class Fire extends StatusEffect
 {
     constructor()
     {
-        super();
+        super(5);
         this.color = "red";
         this.damage = 4;
-        this.duration = 100;
     }
 
     ApplyEffect(character)
@@ -13,6 +12,7 @@ class Fire extends StatusEffect
         if(super.ApplyEffect())
         {
             character.addDamage(this.color, this.damage);
+            //SPREAD
         }
         else
             return false;

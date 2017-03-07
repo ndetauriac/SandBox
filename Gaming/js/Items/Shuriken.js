@@ -1,4 +1,4 @@
-const SHURIKEN_SPEED = 20;
+const SHURIKEN_SPEED = 300 / WIN_RATIO / SECOND;
 
 class Shuriken
 {
@@ -14,8 +14,8 @@ class Shuriken
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = false;
-        this.staminaX = (directionX * SHURIKEN_SPEED + innerSpeed/2) / 2;
-        this.staminaY = (directionY * SHURIKEN_SPEED)/2;
+        this.staminaX = directionX * SHURIKEN_SPEED + innerSpeed*0.1;
+        this.staminaY = directionY * SHURIKEN_SPEED;
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;

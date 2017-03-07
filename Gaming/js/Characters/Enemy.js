@@ -1,11 +1,12 @@
 class Enemy extends Characters{
-    constructor(x, y, lifePoint = 40)
+    constructor(x, y, lifePoint = 50)
     {
         super(x, y, lifePoint, "red");
         this.healthBar = new HealthBar(this.maxHealth);
         this.cadence = CADENCE;
         this.Health = this.health;
         this.strength = 100;
+        this.slow = 50;
     }
 
     get Health()
@@ -41,6 +42,8 @@ class Enemy extends Characters{
                 {
                     this.moveLeft();
                 }
+                else
+                this.stopMoving();
 
             } else {
                 if(player.PosX > this.posX)
