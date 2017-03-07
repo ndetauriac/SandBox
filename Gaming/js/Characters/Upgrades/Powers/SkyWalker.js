@@ -2,7 +2,7 @@ class SkyWalker extends Power
 {
     constructor()
     {
-        super(20,50);
+        super(20,50, "bonus_health.png");
     }
 
     applyPower(player)

@@ -2,7 +2,7 @@ class CanalisedPower extends Power
 {
     constructor(initialCost, costPerSecond, refreshRate)
     {
-        super(initialCost, 10);
+        super(initialCost, 10, "bonus_health.png");
         this.isActivated = false;
         this.refreshRate = refreshRate;
         this.activationTime = 0;

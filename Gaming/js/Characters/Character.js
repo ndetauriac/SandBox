@@ -114,7 +114,7 @@ class Characters {
         return this.posY + this.mapSprites[this.state].height / 2;
     }
 
-    throwShuriken(direction)
+    throwShuriken(direction, nShuriken = 1)
     {
         var xThrow = this.posX;
         var yThrow = this.posY;
@@ -122,6 +122,7 @@ class Characters {
         effects = cloneObject(this.bonusEffects);
         var directionX = this.lastDir;
         var directionY = 0;
+        var sentShurikens = [];
 
         switch(direction)
         {
@@ -142,7 +143,23 @@ class Characters {
                 directionY = 1;
                 break;
         }
-        return new Shuriken(xThrow, yThrow, directionX, directionY, this.staminaX, effects, this.strength, this);
+        for (var i = 0; i < nShuriken; i++)
+        {
+            let dirX = directionX;
+            let dirY = directionY;
+            if(directionX == 0)
+            {
+                dirX = (i - (nShuriken - 1) / 2) * 0.1;
+                dirY += Math.abs((i - (nShuriken - 1) / 2) * 0.05) * -Math.abs(directionY) / directionY; 
+            }
+            if(directionY == 0)
+            {
+                dirY = (i - (nShuriken - 1) / 2) * 0.1;
+                dirX += Math.abs((i - (nShuriken - 1) / 2) * 0.05) * -Math.abs(directionX) / directionX; 
+            }
+            sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, this.staminaX, effects, this.strength, this));
+        }
+        return sentShurikens;
     }
 
     hasBeenHit(shuriken)

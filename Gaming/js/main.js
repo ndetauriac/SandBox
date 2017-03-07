@@ -314,8 +314,10 @@ function refreshGame() {
                 let tmpShuriken = mainPlayer.throwShuriken("UP");
                 if (tmpShuriken !== null)
                 {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
+                    tmpShuriken.forEach(function(element){
+                        shurikens[nShurikens] = element;
+                        nShurikens++;
+                    });
                 }
             }
             if(map[KEY_S])
@@ -323,8 +325,10 @@ function refreshGame() {
                 let tmpShuriken = mainPlayer.throwShuriken("DOWN");
                 if (tmpShuriken !== null)
                 {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
+                    tmpShuriken.forEach(function(element){
+                        shurikens[nShurikens] = element;
+                        nShurikens++;
+                    });
                 }
             }
             if(map[KEY_Q])
@@ -332,8 +336,10 @@ function refreshGame() {
                 let tmpShuriken = mainPlayer.throwShuriken("LEFT");
                 if (tmpShuriken !== null)
                 {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
+                    tmpShuriken.forEach(function(element){
+                        shurikens[nShurikens] = element;
+                        nShurikens++;
+                    });
                 }
             }
             if(map[KEY_D])
@@ -341,8 +347,10 @@ function refreshGame() {
                 let tmpShuriken = mainPlayer.throwShuriken("RIGHT");
                 if (tmpShuriken !== null)
                 {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
+                    tmpShuriken.forEach(function(element){
+                        shurikens[nShurikens] = element;
+                        nShurikens++;
+                    });
                 }
             }
             if(map[KEY_E])
@@ -434,8 +442,10 @@ function refreshGame() {
                     let tmpShuriken = enemies[i].move(mainPlayer);
                     if (tmpShuriken !== null)
                     {
-                        shurikensEnemy[nShurikensEnemy] = tmpShuriken;
-                        nShurikensEnemy++;
+                        tmpShuriken.forEach(function(element){
+                            shurikensEnemy[nShurikensEnemy] = element;
+                            nShurikensEnemy++;
+                        });
                     }
 
                     for (j = 0; j < nShurikens; j++)

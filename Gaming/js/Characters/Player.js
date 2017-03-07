@@ -14,7 +14,7 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
-        this.power = new Invisibility();
+        this.power = new ShuriRain();
         this.cadence = SECOND / 4;
         this.Health = this.health;
         this.Energy = this.energy;
@@ -117,14 +117,15 @@ class Player extends Characters{
 
     throwShuriken(direction = "NONE")
     {
+        let row = 3;
         if (this.isAlive)
         {
 
-            if ((this.Ammo > 0) && this.fireTime <= 0)
+            if ((this.Ammo >= row) && this.fireTime <= 0)
             {
-                this.Ammo --;
+                this.Ammo -= row;
                 this.fireTime = this.cadence;
-                return super.throwShuriken(direction);
+                return super.throwShuriken(direction, row);
             }
             else
             {
