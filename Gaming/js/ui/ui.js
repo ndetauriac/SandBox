@@ -127,44 +127,110 @@ function progressBarUpdate(x, outOf) {
 }
 
 // my profile
+// Set horizontal scroll for cards
+$(function() {
+   $("#bonusCards").mousewheel(function(event, delta) {
+      this.scrollLeft -= (delta * 30);
+      event.preventDefault();
+   });
+});
+
+// init cards
 initCards();
 function initCards(){
 	for(let card of cards){
-		let divCard = "<div class='card' data='"+ card +"'>" +
+		let divCard = "<div id='card-"+ card.id +"' class='card "+ card.level +"' draggable='true' data='"+ card +"'>" +
 							"<div class='title'>"+ card.title +"</div>" +
-							"<div class='illustration'><img src='"+ card.illustration +"'/></div>" +
-							"<div class='capacity'>"+ card.capacity +"</div>" +
+							"<div class='illustration'><img src='"+ card.picture +"'/></div>" +
+							"<div class='text'>"+ card.capacity +"</div>" +
+							"<div class='level'>"+ card.level +"</div>" +
 							"</div>";
 		$("#bonusCards").append(divCard);
 	}
-
-// Gestion du drag and drop
-$(".card").draggable({
-		snap:".selectedCard"
-	});
 }
 
-let decalage = 0;
-$(".card").each(function(){
-	$(this).css("left",decalage);
-	decalage += 100;
-});
+// Drag and Drop
+var selectedBonus = {};
+var cardState = {};
+var draggingCard;
+function handleDragStart(e) {
+	console.log(e);
+	draggingCard = e.target.id;
+}
 
-$(".card").on("mouseover",function(){
-	$(this).css("z-index","11");
-});
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault(); // Necessary. Allows us to drop.
+  }
+  e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+  return false;
+}
 
-$(".card").on("mouseout",function(){
-	$(this).css("z-index","10");
-});
+function handleDragEnter(e) {
+  // this / e.target is the current hover target.
+  this.classList.add('over');
+}
 
-$('.selectedCard').droppable({
-	accept:'.card',
-	drop : function(event, ui){
-		console.log("drop");
-		console.log(event);
-		console.log(ui);
+function handleDragLeave(e) {
+  this.classList.remove('over');  // this / e.target is previous target element.
+}
+
+function handleDragEnd(e) {
+  // this/e.target is the source node.
+  [].forEach.call(cardAreas, function (cardArea) {
+    cardArea.classList.remove('over');
+  });
+}
+
+function handleDrop(e) {
+  // this / e.target is current target element.
+  if (e.stopPropagation) {
+    e.stopPropagation(); // stops the browser from redirecting.
+  }
+  // See the section on the DataTransfer object.
+	console.log(e.target.id);
+	console.log(draggingCard);
+	if(!e.target.id.startsWith("card")) e.target.id = e.target.offsetParent.id;
+	if(e.target.id.startsWith("cardArea")){
+		var currentValueForArea = selectedBonus[e.target.id];
+		if(currentValueForArea == null){
+			selectedBonus[e.target.id] = draggingCard;
+			cardState[draggingCard] = e.target.id;
+			$("#"+ draggingCard).appendTo("#"+ e.target.id);
+		}else{
+			$("#"+ currentValueForArea).appendTo("#bonusCards");
+			selectedBonus[e.target.id] = draggingCard;
+			cardState[draggingCard] = e.target.id;
+			$("#"+ draggingCard).appendTo("#"+ e.target.id);
+		}
+	}else{
+		var currentAreaForCard = cardState[e.target.id];
+		if(currentAreaForCard != null){
+			// Enlever la carte en cours
+			$("#"+ e.target.id).appendTo("#bonusCards");
+			cardState[e.target.id] = null;
+
+			selectedBonus[currentAreaForCard] = draggingCard;
+			cardState[draggingCard] = currentAreaForCard;
+			$("#"+ draggingCard).appendTo("#"+ currentAreaForCard);
+		}
 	}
+
+  return false;
+}
+
+var cards = document.querySelectorAll('.card');
+[].forEach.call(cards, function(card) {
+  card.addEventListener('dragstart', handleDragStart, false);
 });
 
-var selectedCards = [];
+var cardAreas = document.querySelectorAll('.cardArea');
+[].forEach.call(cardAreas, function(cardArea) {
+  cardArea.addEventListener('dragenter', handleDragEnter, false);
+  cardArea.addEventListener('dragover', handleDragOver, false);
+  cardArea.addEventListener('dragleave', handleDragLeave, false);
+  cardArea.addEventListener('dragend', handleDragEnd, false);
+  cardArea.addEventListener('drop', handleDrop, false);
+});
+
+$('img').on('dragstart', function(event) { event.preventDefault(); });

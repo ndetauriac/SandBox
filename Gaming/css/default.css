@@ -320,7 +320,7 @@ position:absolute;
     position: absolute;
     top: 0;
     left: 0;
-    //background: rgba(0, 0, 0, 0.50);
+    background: rgba(0, 0, 0, 0.50);
     width: 100%;
     height: 100%;
     z-index: 10;
@@ -428,51 +428,141 @@ position:absolute;
 /**********************      MY PROFILE   *****************************/
 /**********************************************************************/
 #bonusCards{
-
+    position:absolute;
+    bottom:0;
+    background:none;
+    width: 100%;
+    margin:auto;
+    padding:50px 0px 40px 0;
+    height:250px;
+     white-space: nowrap;
+    overflow-y:hidden;
+    overflow-x: scroll;
 }
 
-#bonusCards .card{
-    position:absolute;
-    bottom:10px;;
-    left:100px;
+.card{
+    display:inline-block;
     color:white;
     margin:10px;
-    width:150px;
-    height:200px;
-    padding:10px;
+    width:160px;
+    height:210px;
+    padding:5px;
     border-radius:3px;
     box-shadow : 1px 1px 15px black;
-    background:rgb(47, 47, 47);
     cursor: -webkit-grab;
     z-index:10;
+    white-space: normal;
 
+    -webkit-transition: transform 0.3s;
+    transition: transform 0.3s;
 }
 
-#bonusCards .title{
+.card.common{
+    background: linear-gradient(135deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
+}
+.card.uncommon{
+    background: linear-gradient(135deg, rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%);
+}
+.card.rare{
+    background: linear-gradient(135deg, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(251,223,147,1) 100%);
+}
+.card.legendary{
+    background: linear-gradient(135deg, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%);
+}
+.card.bataru{
+    background: linear-gradient(135deg, rgba(255,0,0,1) 1%,rgba(252,252,0,1) 17%,rgba(4,255,0,1) 31%,rgba(0,255,246,1) 50%,rgba(38,0,255,1) 72%,rgba(233,0,255,1) 100%);
+}
+
+.card:hover {
+    z-index:11;
+   -webkit-transform: scale(1.4);
+   -moz-transform: scale(1.4);
+   -ms-transform: scale(1.4);
+   -o-transform: scale(1.4);
+   transform: scale(1.4);
+}
+
+.card .title{
     text-transform:uppercase;
+    background: black;
+
+    padding:5px;
 }
 
-#bonusCards .card .illustration{
+.card .illustration{
     text-align:center;
-    padding:10px 0px;
+    width:160px;
+    background:black;
+    padding:5px 0px;
 }
 
-#bonusCards .card .illustration img{
-    width:100px;
+.card .illustration img{
+    height:75px;
 }
 
-#selectedCards{
-    width:600px;
+.card .text{
+    text-align:center;
+    height:80px;
+    padding:5px;
+    background:black;
+}
+
+.card .level{
+    display:none;
+    position:absolute;
+    margin-top:-20px;
+    font-size:8px;
+    padding:10px 5px;
+}
+
+#cardsArea .card{
+    margin:0;
+}
+
+#cardsArea{
+    width:1030px;
     height:240px;
     margin: 10px auto;
 }
 
-#selectedCards .selectedCard{
-    width:149px;
-    height:199px;
-    padding:10px;
-    background:grey;
+#cardsArea .cardArea{
+    z-index:15;
+    width:170px;
+    height:220px;
+    padding:2px;
+    background:rgba(0, 0, 0, 0.5);
     margin:10px 14px;
     float:left;
     border:1px dotted white;
+}
+
+.cardArea:hover{
+    border:2px solid orange !important;
+}
+
+.cardArea.over{
+    border:2px solid red  !important;
+}
+
+
+/* SCROLLBAR */
+/*
+ *  STYLE 3
+ */
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    height:5px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
 }
