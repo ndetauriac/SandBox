@@ -127,44 +127,115 @@ function progressBarUpdate(x, outOf) {
 }
 
 // my profile
+// Set horizontal scroll for cards
+$(function() {
+   $("#bonusCards").mousewheel(function(event, delta) {
+      this.scrollLeft -= (delta * 30);
+      event.preventDefault();
+   });
+});
+
+// init cards
 initCards();
 function initCards(){
 	for(let card of cards){
-		let divCard = "<div class='card' data='"+ card +"'>" +
-							"<div class='title'>"+ card.title +"</div>" +
-							"<div class='illustration'><img src='"+ card.illustration +"'/></div>" +
-							"<div class='capacity'>"+ card.capacity +"</div>" +
+		let divCard = "<div id='card-"+ card.id +"' class='card "+ card.level +"' draggable='true' data='"+ card +"'>" +
+							"<div id='title-"+ card.id +"' class='title' draggable='false'>"+ card.title +"</div>" +
+							"<div id='illustration-"+ card.id +"' class='illustration' draggable='false'><img id='img-"+ card.id +"' src='"+ card.picture +"' draggable='false'/></div>" +
+							"<div id='text-"+ card.id +"' class='text' draggable='false'>"+ card.capacity +"</div>" +
+							"<div id='level-"+ card.id +"' class='level' draggable='false'>"+ card.level +"</div>" +
 							"</div>";
 		$("#bonusCards").append(divCard);
 	}
-
-// Gestion du drag and drop
-$(".card").draggable({
-		snap:".selectedCard"
-	});
 }
 
-let decalage = 0;
-$(".card").each(function(){
-	$(this).css("left",decalage);
-	decalage += 100;
-});
+// Drag and Drop
+var selectedBonus = {};
+var cardState = {};
+var draggingCard;
+function handleDragStart(e) {
+	draggingCard = e.target.id;
+}
 
-$(".card").on("mouseover",function(){
-	$(this).css("z-index","11");
-});
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault(); // Necessary. Allows us to drop.
+  }
+  e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+  return false;
+}
 
-$(".card").on("mouseout",function(){
-	$(this).css("z-index","10");
-});
+function handleDragEnter(e) {
+  // this / e.target is the current hover target.
+  this.classList.add('over');
+}
 
-$('.selectedCard').droppable({
-	accept:'.card',
-	drop : function(event, ui){
-		console.log("drop");
-		console.log(event);
-		console.log(ui);
+function handleDragLeave(e) {
+  this.classList.remove('over');  // this / e.target is previous target element.
+}
+
+function handleDragEnd(e) {
+  // this/e.target is the source node.
+  [].forEach.call(cardAreas, function (cardArea) {
+    cardArea.classList.remove('over');
+  });
+}
+
+function handleDrop(e) {
+	// Je bloque l'evenement natif du navigateur
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+
+	// Je récupère l'id de la div sur laquelle je drop
+	let droppedDiv = e.target.id;
+	// S'il s'agit d'une carte, je vais chercher l'area la plus proche
+	// TODO : BUG RARE ET INCOMPREHENSIBLE, UNE CARTE SE MET EN DESSOUS DE L'AUTRE.. FUUUUCK IT !!! ><
+	if(!droppedDiv.startsWith("cardArea")) droppedDiv = $("#"+ e.target.id).closest('div[class="cardArea"]')[0].id;
+	// Je vérifie si une carte est déjà posée sur cette area
+	var currentValueForArea = selectedBonus[droppedDiv];
+
+	// Avant de continuer le traitement, pour éviter qu'il y ai deux fois le même bonus, je supprime des bonus la carte dragging
+	if(cardState[draggingCard] != null){
+		delete selectedBonus[cardState[draggingCard]];
+		cardState[draggingCard] = null;
 	}
+
+	if(currentValueForArea == null){
+		// Si ce n'est pas le cas, j'ajoute le bonus
+		selectedBonus[droppedDiv] = draggingCard;
+		// Je set le tableau de status des cartes
+		cardState[draggingCard] = droppedDiv;
+		// Et je fais le déplacement de carte
+		$("#"+ draggingCard).appendTo("#"+ droppedDiv);
+	}else{
+		// Sinon, j'ajoute la carte déjà présente aux autres cartes bonus
+		$("#"+ currentValueForArea).appendTo("#bonusCards");
+		// Je set le nouveau bonus
+		selectedBonus[droppedDiv] = draggingCard;
+		// Je set le statut de la carte
+		cardState[draggingCard] = droppedDiv;
+		// Et je finis par déplacer la carte
+		$("#"+ draggingCard).appendTo("#"+ droppedDiv);
+	}
+
+console.log(selectedBonus);
+
+  return false;
+}
+
+var cards = document.querySelectorAll('.card');
+[].forEach.call(cards, function(card) {
+  card.addEventListener('dragstart', handleDragStart, false);
 });
 
-var selectedCards = [];
+var cardAreas = document.querySelectorAll('.cardArea');
+[].forEach.call(cardAreas, function(cardArea) {
+  cardArea.addEventListener('dragenter', handleDragEnter, false);
+  cardArea.addEventListener('dragover', handleDragOver, false);
+  cardArea.addEventListener('dragleave', handleDragLeave, false);
+  cardArea.addEventListener('dragend', handleDragEnd, false);
+  cardArea.addEventListener('drop', handleDrop, false);
+});
+
+$('img').on('dragstart', function(event) { event.preventDefault(); });
