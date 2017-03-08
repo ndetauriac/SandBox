@@ -140,10 +140,10 @@ initCards();
 function initCards(){
 	for(let card of cards){
 		let divCard = "<div id='card-"+ card.id +"' class='card "+ card.level +"' draggable='true' data='"+ card +"'>" +
-							"<div class='title'>"+ card.title +"</div>" +
-							"<div class='illustration'><img src='"+ card.picture +"'/></div>" +
-							"<div class='text'>"+ card.capacity +"</div>" +
-							"<div class='level'>"+ card.level +"</div>" +
+							"<div id='title-"+ card.id +"' class='title' draggable='false'>"+ card.title +"</div>" +
+							"<div id='illustration-"+ card.id +"' class='illustration' draggable='false'><img id='img-"+ card.id +"' src='"+ card.picture +"' draggable='false'/></div>" +
+							"<div id='text-"+ card.id +"' class='text' draggable='false'>"+ card.capacity +"</div>" +
+							"<div id='level-"+ card.id +"' class='level' draggable='false'>"+ card.level +"</div>" +
 							"</div>";
 		$("#bonusCards").append(divCard);
 	}
@@ -154,7 +154,6 @@ var selectedBonus = {};
 var cardState = {};
 var draggingCard;
 function handleDragStart(e) {
-	console.log(e);
 	draggingCard = e.target.id;
 }
 
@@ -183,38 +182,44 @@ function handleDragEnd(e) {
 }
 
 function handleDrop(e) {
-  // this / e.target is current target element.
+	// Je bloque l'evenement natif du navigateur
   if (e.stopPropagation) {
-    e.stopPropagation(); // stops the browser from redirecting.
+    e.stopPropagation();
   }
-  // See the section on the DataTransfer object.
-	console.log(e.target.id);
-	console.log(draggingCard);
-	if(!e.target.id.startsWith("card")) e.target.id = e.target.offsetParent.id;
-	if(e.target.id.startsWith("cardArea")){
-		var currentValueForArea = selectedBonus[e.target.id];
-		if(currentValueForArea == null){
-			selectedBonus[e.target.id] = draggingCard;
-			cardState[draggingCard] = e.target.id;
-			$("#"+ draggingCard).appendTo("#"+ e.target.id);
-		}else{
-			$("#"+ currentValueForArea).appendTo("#bonusCards");
-			selectedBonus[e.target.id] = draggingCard;
-			cardState[draggingCard] = e.target.id;
-			$("#"+ draggingCard).appendTo("#"+ e.target.id);
-		}
-	}else{
-		var currentAreaForCard = cardState[e.target.id];
-		if(currentAreaForCard != null){
-			// Enlever la carte en cours
-			$("#"+ e.target.id).appendTo("#bonusCards");
-			cardState[e.target.id] = null;
 
-			selectedBonus[currentAreaForCard] = draggingCard;
-			cardState[draggingCard] = currentAreaForCard;
-			$("#"+ draggingCard).appendTo("#"+ currentAreaForCard);
-		}
+	// Je récupère l'id de la div sur laquelle je drop
+	let droppedDiv = e.target.id;
+	// S'il s'agit d'une carte, je vais chercher l'area la plus proche
+	// TODO : BUG RARE ET INCOMPREHENSIBLE, UNE CARTE SE MET EN DESSOUS DE L'AUTRE.. FUUUUCK IT !!! ><
+	if(!droppedDiv.startsWith("cardArea")) droppedDiv = $("#"+ e.target.id).closest('div[class="cardArea"]')[0].id;
+	// Je vérifie si une carte est déjà posée sur cette area
+	var currentValueForArea = selectedBonus[droppedDiv];
+
+	// Avant de continuer le traitement, pour éviter qu'il y ai deux fois le même bonus, je supprime des bonus la carte dragging
+	if(cardState[draggingCard] != null){
+		delete selectedBonus[cardState[draggingCard]];
+		cardState[draggingCard] = null;
 	}
+
+	if(currentValueForArea == null){
+		// Si ce n'est pas le cas, j'ajoute le bonus
+		selectedBonus[droppedDiv] = draggingCard;
+		// Je set le tableau de status des cartes
+		cardState[draggingCard] = droppedDiv;
+		// Et je fais le déplacement de carte
+		$("#"+ draggingCard).appendTo("#"+ droppedDiv);
+	}else{
+		// Sinon, j'ajoute la carte déjà présente aux autres cartes bonus
+		$("#"+ currentValueForArea).appendTo("#bonusCards");
+		// Je set le nouveau bonus
+		selectedBonus[droppedDiv] = draggingCard;
+		// Je set le statut de la carte
+		cardState[draggingCard] = droppedDiv;
+		// Et je finis par déplacer la carte
+		$("#"+ draggingCard).appendTo("#"+ droppedDiv);
+	}
+
+console.log(selectedBonus);
 
   return false;
 }
