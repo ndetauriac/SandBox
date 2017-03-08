@@ -1,4 +1,4 @@
-const MAX_SPEED_X = 400 / WIN_RATIO / SECOND;
+const MAX_SPEED_X = 350 / WIN_RATIO / SECOND;
 const PIXEL_PER_SECOND = 10;
 const GRIP = 100; // % of break
 const GRAVITY = 10 / WIN_RATIO / SECOND;

@@ -2,7 +2,7 @@ class ShuriRain extends CanalisedPower
 {
     constructor()
     {
-        super(15, 5, 0.05 * SECOND);
+        super(15, 10, 0.05 * SECOND);
         this.damage = 100;
         this.duration = 0;
         this.posX = 0;

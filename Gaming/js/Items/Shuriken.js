@@ -1,4 +1,4 @@
-const SHURIKEN_SPEED = 300 / WIN_RATIO / SECOND;
+const SHURIKEN_SPEED = 450 / WIN_RATIO / SECOND;
 
 class Shuriken
 {

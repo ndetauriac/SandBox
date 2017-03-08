@@ -14,7 +14,7 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
-        this.power = new ShuriRain();
+        this.power = new Invisibility();
         this.cadence = SECOND / 4;
         this.Health = this.health;
         this.Energy = this.energy;
@@ -117,7 +117,7 @@ class Player extends Characters{
 
     throwShuriken(direction = "NONE")
     {
-        let row = 3;
+        let row = 1;
         if (this.isAlive)
         {
 
