@@ -358,10 +358,8 @@ function refreshGame() {
                 mainPlayer.usePower();
             }
             if(map[LEFT_SHIFT]){
-                mainPlayer.run = 0.5;
+                mainPlayer.dash();
             }
-            else
-                mainPlayer.run = 0;
         }else{
           gameOver();
         }

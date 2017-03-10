@@ -47,7 +47,6 @@ class Characters {
         this.onTheFloor = false;
         this.cadence = CADENCE;
         this.fireTime = this.cadence;
-        this.boost = 0;
         this.slow = 0;
         this.isAlive = true;
         this.slide = false;
@@ -60,6 +59,7 @@ class Characters {
         this.health = startHealth;
         this.maxHealth = startHealth;
         this.wallGrip = 0;
+        this.dashTimer = 5 * SECOND;
     }
 
     prepareLoadout(cards)
@@ -262,6 +262,7 @@ class Characters {
                 i--;
             }
         }
+        this.dashTimer = Decr(this.dashTimer, 1, 0);
         return switchStateValue;
     }
 
@@ -283,11 +284,11 @@ class Characters {
     {
         if (this.staminaX > 0)
         {
-            this.staminaX = Decr(this.staminaX, GRIP/10 * MAX_SPEED_X/(1+this.boost*2)/SECOND, 0);
+            this.staminaX = Decr(this.staminaX, GRIP/10 * Math.max(MAX_SPEED_X, this.staminaX)/SECOND, 0);
         }
         else if (this.staminaX < 0)
         {
-            this.staminaX = Incr(this.staminaX, GRIP/10 * MAX_SPEED_X/(1+this.boost*2)/SECOND, 0);
+            this.staminaX = Incr(this.staminaX, GRIP/10 * Math.max(MAX_SPEED_X, -this.staminaX)/SECOND, 0);
         }
         else
         {
@@ -332,16 +333,24 @@ class Characters {
     moveLeft() {
         if(this.isAlive)
         {
-            if (this.staminaX > -MAX_SPEED_X - this.boost * MAX_SPEED_X && !this.slide)
-                this.staminaX = Decr(this.staminaX, MAX_SPEED_X * 10 / SECOND, -MAX_SPEED_X * (1 + this.boost));
+            if (this.staminaX > -MAX_SPEED_X && !this.slide)
+                this.staminaX = Decr(this.staminaX, MAX_SPEED_X * 10 / SECOND, -MAX_SPEED_X);
+            else if (this.staminaX < -MAX_SPEED_X)
+            {
+                this.stopMoving();
+            }
         }
     }
 
     moveRight() {
         if(this.isAlive)
         {
-            if (this.staminaX < MAX_SPEED_X + this.boost * MAX_SPEED_X && !this.slide)
-                this.staminaX = Incr(this.staminaX, MAX_SPEED_X * 10 / SECOND, MAX_SPEED_X * (1 + this.boost));
+            if (this.staminaX < MAX_SPEED_X && !this.slide)
+                this.staminaX = Incr(this.staminaX, MAX_SPEED_X * 10 / SECOND, MAX_SPEED_X);
+            else
+            {
+                this.stopMoving();
+            }
         }
     }
 
@@ -349,14 +358,6 @@ class Characters {
     {
         if (this.staminaX > MAX_SPEED_X / 2 || this.staminaX < -MAX_SPEED_X / 2)
             this.slide = value;
-    }
-
-    set run(value)
-    {
-        if(Math.abs(this.staminaX) > MAX_SPEED_X)
-            this.boost = true;
-        else
-            this.boost = value;
     }
 
     switchState()
@@ -451,6 +452,15 @@ class Characters {
         for(var i = 0; i < this.damageIndicator.length; i ++)
         {
             this.damageIndicator[i].clear();
+        }
+    }
+
+    dash()
+    {
+        if(this.dashTimer == 0)
+        {
+            this.dashTimer = 5 * SECOND;
+            this.staminaX = this.lastDir * 50;
         }
     }
 }
