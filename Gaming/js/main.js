@@ -38,6 +38,7 @@ var currentMap;
 var bibliImages = [];
 var loadedImages = 0;
 
+
 function initImages()
 {
     boucle = false;
@@ -48,26 +49,26 @@ function initImages()
                         "shurikenItem",
                         "potion_red",
                         "potion_yellow",
-                        "ninjaDieLeft_purple",
-                        "ninjaDieLeft_red",
-                        "ninjaDieRight_purple",
-                        "ninjaDieRight_red",
-                        "ninjaIdleLeft_purple",
-                        "ninjaIdleLeft_red",
-                        "ninjaIdleRight_purple",
-                        "ninjaIdleRight_red",
-                        "ninjaJumpLeft_purple",
-                        "ninjaJumpLeft_red",
-                        "ninjaJumpRight_purple",
-                        "ninjaJumpRight_red",
-                        "ninjaRunRight_purple",
-                        "ninjaRunRight_red",
-                        "ninjaRunLeft_purple",
-                        "ninjaRunLeft_red",
-                        "ninjaSlideLeft_purple",
-                        "ninjaSlideLeft_red",
-                        "ninjaSlideRight_purple",
-                        "ninjaSlideRight_red"];
+                        "/Characters/NinjaPurple/DieLeft",
+                        "/Characters/NinjaRed/DieLeft",
+                        "/Characters/NinjaPurple/DieRight",
+                        "/Characters/NinjaRed/DieRight",
+                        "/Characters/NinjaPurple/IdleLeft",
+                        "/Characters/NinjaRed/IdleLeft",
+                        "/Characters/NinjaPurple/IdleRight",
+                        "/Characters/NinjaRed/IdleRight",
+                        "/Characters/NinjaPurple/JumpLeft",
+                        "/Characters/NinjaRed/JumpLeft",
+                        "/Characters/NinjaPurple/JumpRight",
+                        "/Characters/NinjaRed/JumpRight",
+                        "/Characters/NinjaPurple/RunRight",
+                        "/Characters/NinjaRed/RunRight",
+                        "/Characters/NinjaPurple/RunLeft",
+                        "/Characters/NinjaRed/RunLeft",
+                        "/Characters/NinjaPurple/SlideLeft",
+                        "/Characters/NinjaRed/SlideLeft",
+                        "/Characters/NinjaPurple/SlideRight",
+                        "/Characters/NinjaRed/SlideRight"];
     var loaders = [];
     imageNames.forEach(function(name) {
         loaders.push(loadImage(name));
@@ -135,20 +136,6 @@ function init2()
     addPlateform(0, WORLD_HEIGHT - 20, WORLD_WIDTH, 200);
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
-            /*case (SPACE_BAR):
-                boucle = !boucle;
-                break;
-            /*case (CTRL_LEFT):
-                var tmpShuriken = mainPlayer.throwShuriken();
-                if (tmpShuriken != null)
-                {
-                    shurikens[nShurikens] = tmpShuriken;
-                    nShurikens++;
-                }
-                break;*/
-            /*case(KEY_E):
-                addSemiPlateform(mainPlayer.PosXMiddle - 100, mainPlayer.PosYMiddle + 100);
-                break;*/
             case (KEY_R):
                 if($("#gameOver").hasClass("isGameOver")){
                     startGame();

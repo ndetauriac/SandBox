@@ -3,7 +3,7 @@ const PLAYER_HEALTH_MAX = 300;
 class Player extends Characters{
     constructor(x, y)
     {
-        super(x, y, PLAYER_HEALTH_MAX, "purple");
+        super(x, y, PLAYER_HEALTH_MAX, "NinjaPurple");
         this.score = 0;
         this.ammo = 100;
         this.kills = 0;

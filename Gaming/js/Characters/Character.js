@@ -7,23 +7,23 @@ const MAX_JUMP_HEIGHT = 450  / WIN_RATIO / SECOND;
 const CADENCE = 1 * SECOND;
 
 class Characters {
-    constructor(x, y, startHealth, color) {
+    constructor(x, y, startHealth, name) {
 
         this.mapSprites = {};
-        this.mapSprites["IDLE_LEFT"] = new Sprites("ninjaIdleLeft_"+ color, 10, 1, true, 3);
-        this.mapSprites["IDLE_RIGHT"] = new Sprites("ninjaIdleRight_"+ color, 10, 1, true, 3);
+        this.mapSprites["IDLE_LEFT"] = new Sprites("/Characters/" + name + "/IdleLeft", 10, 1, true, 3);
+        this.mapSprites["IDLE_RIGHT"] = new Sprites("/Characters/" + name + "/IdleRight", 10, 1, true, 3);
 
-        this.mapSprites["RUN_LEFT"] = new Sprites("ninjaRunLeft_"+ color, 10, 1, true, 3);
-        this.mapSprites["RUN_RIGHT"] = new Sprites("ninjaRunRight_"+ color, 10, 1, true, 3);
+        this.mapSprites["RUN_LEFT"] = new Sprites("/Characters/" + name + "/RunLeft", 10, 1, true, 3);
+        this.mapSprites["RUN_RIGHT"] = new Sprites("/Characters/" + name + "/RunRight", 10, 1, true, 3);
 
-        this.mapSprites["SLIDE_LEFT"] = new Sprites("ninjaSlideLeft_"+ color, 10, 1, true, 3);
-        this.mapSprites["SLIDE_RIGHT"] = new Sprites("ninjaSlideRight_"+ color, 10, 1, true, 3);
+        this.mapSprites["SLIDE_LEFT"] = new Sprites("/Characters/" + name + "/SlideLeft", 10, 1, true, 3);
+        this.mapSprites["SLIDE_RIGHT"] = new Sprites("/Characters/" + name + "/SlideRight", 10, 1, true, 3);
 
-        this.mapSprites["JUMP_LEFT"] = new Sprites("ninjaJumpLeft_"+ color, 10, 1, false, 2);
-        this.mapSprites["JUMP_RIGHT"] = new Sprites("ninjaJumpRight_"+ color, 10, 1, false, 2);
+        this.mapSprites["JUMP_LEFT"] = new Sprites("/Characters/" + name + "/JumpLeft", 10, 1, false, 2);
+        this.mapSprites["JUMP_RIGHT"] = new Sprites("/Characters/" + name + "/JumpRight", 10, 1, false, 2);
 
-        this.mapSprites["DIE_LEFT"] = new Sprites("ninjaDieLeft_"+ color, 10, 1, false, 5);
-        this.mapSprites["DIE_RIGHT"] = new Sprites("ninjaDieRight_"+ color, 10, 1, false, 5);
+        this.mapSprites["DIE_LEFT"] = new Sprites("/Characters/" + name + "/DieLeft", 10, 1, false, 5);
+        this.mapSprites["DIE_RIGHT"] = new Sprites("/Characters/" + name + "/DieRight", 10, 1, false, 5);
 
         this.damageTaken = [];
         this.damageIndicator = [];
