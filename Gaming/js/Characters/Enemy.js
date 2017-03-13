@@ -90,12 +90,12 @@ class Enemy extends Characters{
         }
     }
 
-    throwShuriken(direction = "NONE")
+    throwShuriken(direction = "NONE", nb = 1)
     {
         if (this.fireTime <= 0)
         {
             this.fireTime = this.cadence;
-            return super.throwShuriken(direction);
+            return super.throwShuriken(direction, nb);
         }
         else
         {

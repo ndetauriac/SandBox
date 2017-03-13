@@ -1,6 +1,7 @@
 ﻿// Votre code ici.
 
 var mainPlayer;
+var levelBoss;
 var enemies = [];
 var nEnemies = 0;
 const ESCAPE_KEY = 27;
@@ -121,6 +122,7 @@ function init2()
 
     addEnemies();
     addEnemies();
+    addBoss();
 
     addPlateform(200, WORLD_HEIGHT - 100, 20, 100, "FULL");
     addPlateform(200, WORLD_HEIGHT - 120, 200, 20, "FULL");
@@ -176,6 +178,13 @@ function addEnemies()
 {
     // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
     enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
+    nEnemies ++;
+}
+
+function addBoss()
+{
+    // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
+    enemies[nEnemies] = new Boss((WORLD_WIDTH - 200) / WIN_RATIO, (WORLD_HEIGHT - 300) / WIN_RATIO);
     nEnemies ++;
 }
 

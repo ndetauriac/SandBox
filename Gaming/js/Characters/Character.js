@@ -150,12 +150,12 @@ class Characters {
             if(directionX == 0)
             {
                 dirX = (i - (nShuriken - 1) / 2) * 0.1;
-                dirY += Math.abs((i - (nShuriken - 1) / 2) * 0.05) * -Math.abs(directionY) / directionY; 
+                dirY += Math.abs((i - (nShuriken - 1) / 2) / nShuriken) * -Math.abs(directionY) / directionY; 
             }
             if(directionY == 0)
             {
                 dirY = (i - (nShuriken - 1) / 2) * 0.1;
-                dirX += Math.abs((i - (nShuriken - 1) / 2) * 0.05) * -Math.abs(directionX) / directionX; 
+                dirX += Math.abs((i - (nShuriken - 1) / 2) / nShuriken) * -Math.abs(directionX) / directionX; 
             }
             sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, this.staminaX, effects, this.strength, this));
         }
