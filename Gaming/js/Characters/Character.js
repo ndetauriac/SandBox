@@ -62,11 +62,6 @@ class Characters {
         this.dashTimer = 5 * SECOND;
     }
 
-    prepareLoadout(cards)
-    {
-        cards.applyEffect(this);
-    }
-
     get Health()
     {
         return this.health;

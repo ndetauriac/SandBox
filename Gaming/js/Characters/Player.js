@@ -20,6 +20,14 @@ class Player extends Characters{
         this.Energy = this.energy;
     }
 
+    prepareLoadout(cards)
+    {
+        var that = this;
+        cards.forEach(function(card){
+            card.applyEffect(that);
+        });
+    }
+
     hasCollectedItem(item)
     {
         if (item.contact(this.posX, this.posY, this.mapSprites[this.state].width, this.mapSprites[this.state].height) !== null)
