@@ -1,4 +1,4 @@
-const STATUS_REFRESH_RATE = SECOND / 2;
+const STATUS_REFRESH_RATE = SECOND;
 
 class StatusEffect
 {

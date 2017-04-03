@@ -1,4 +1,5 @@
 const FONT_DAMAGE = "30px Baloo";
+const DAMAGE_TEXT_DURATION = 2 * SECOND;
 
 class Damage
 {
@@ -14,7 +15,7 @@ class Damage
         this.height = 0;
         this.upSpeed = 0;
         this.context2D = document.getElementById('gameArea').getContext('2d');
-        this.lifeTime = 100;
+        this.lifeTime = DAMAGE_TEXT_DURATION;
     }
     
     draw(x, y)
@@ -37,7 +38,7 @@ class Damage
         this.lifeTime--;
         if (this.lifeTime > 0)
         {
-            this.upSpeed -= (this.lifeTime - this.lifeTime%10) / 100;
+            this.upSpeed -= (this.lifeTime - this.lifeTime%10) / DAMAGE_TEXT_DURATION;
             return true;
         }
         else

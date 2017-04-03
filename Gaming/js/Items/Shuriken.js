@@ -21,7 +21,7 @@ class Shuriken
 		this.winHeight = document.getElementById('gameArea').height;
         //this.statusEffects = [new StatusEffect("Fire"), new StatusEffect("Poison")];
         this.statusEffects = statusEffects;
-        this.lifeLink = 100;
+        this.lifeLink = 0;
         this.owner = character;
     }
 

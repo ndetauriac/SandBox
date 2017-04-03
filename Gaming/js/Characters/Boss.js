@@ -4,7 +4,8 @@ class Boss extends Enemy {
         super(x, y, 1000);
         this.cadence = 0.5 * SECOND;
         this.strength = 100;
-        this.timeBetweenPattern = 2 * SECOND;
+        this.timeBetweenPattern = 5 * SECOND;
+        this.time = this.timeBetweenPattern;
         this.patterns = [];
         this.currentPatternID = 0;
     }
@@ -14,7 +15,7 @@ class Boss extends Enemy {
         /*actions.forEach(function(action){
                         this.patterns.add(new Pattern(action))
                     });*/
-        this.patterns.push(new Pattern(this.test()));
+        this.patterns.push(new Pattern(this.test));
         if(this.patterns.length > 0)
         {
             this.currentPattern = this.patterns[this.currentPatternID];
@@ -24,19 +25,27 @@ class Boss extends Enemy {
 
     move(player)
     {
-        var retValue = this.currentPattern.Update();
-        if(retValue != null)
+        var retValue = this.currentPattern.Update(this);
+        if(this.currentPattern.HasEnded)
         {
+            this.time--;
+        }
+        if(this.time <= 0)
+        {
+            this.time = this.timeBetweenPattern;
             this.currentPatternID ++;
             if(this.currentPatternID >= this.patterns.length)
+            {
                 this.currentPatternID = 0;
-            this.currentPattern = this.patterns[this.currentPatternID]
+                this.currentPattern.Start();
+            }
+            this.currentPattern = this.patterns[this.currentPatternID];
         }
         return retValue;
     }
 
-    test()
+    test(that)
     {
-        return this.throwShuriken("LEFT", 10);
+        return that.throwShuriken("LEFT", 10);
     }
 }

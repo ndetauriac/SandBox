@@ -5,14 +5,19 @@ class Pattern {
         this.Action = action;
     }
 
+    HasEnded()
+    {
+        return this.hasEnded;
+    }
+
     Start() {
         this.isStarted = true;
         this.hasEnded = false;
     }
 
-    Update() {
+    Update(that) {
         if (this.isStarted && !this.hasEnded) {
-            var retValue = this.Action;
+            var retValue = this.Action(that);
             if (retValue != null)
             {
                 this.hasEnded = true;
