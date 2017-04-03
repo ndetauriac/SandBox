@@ -347,7 +347,7 @@ class Characters {
         {
             if (this.staminaX < MAX_SPEED_X && !this.slide)
                 this.staminaX = Incr(this.staminaX, MAX_SPEED_X * 10 / SECOND, MAX_SPEED_X);
-            else
+            else if (this.staminaX > MAX_SPEED_X)
             {
                 this.stopMoving();
             }

@@ -185,6 +185,7 @@ function addBoss()
 {
     // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
     enemies[nEnemies] = new Boss((WORLD_WIDTH - 200) / WIN_RATIO, (WORLD_HEIGHT - 300) / WIN_RATIO);
+    enemies[nEnemies].init();
     nEnemies ++;
 }
 

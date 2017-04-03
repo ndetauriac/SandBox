@@ -2,26 +2,41 @@ class Boss extends Enemy {
     constructor(x, y)
     {
         super(x, y, 1000);
-        this.cadence = 5 * SECOND;
-        this.strength = 300;
+        this.cadence = 0.5 * SECOND;
+        this.strength = 100;
+        this.timeBetweenPattern = 2 * SECOND;
+        this.patterns = [];
+        this.currentPatternID = 0;
+    }
+
+    init()
+    {
+        /*actions.forEach(function(action){
+                        this.patterns.add(new Pattern(action))
+                    });*/
+        this.patterns.push(new Pattern(this.test()));
+        if(this.patterns.length > 0)
+        {
+            this.currentPattern = this.patterns[this.currentPatternID];
+            this.currentPattern.Start();
+        }
     }
 
     move(player)
     {
-        var distX = Math.abs(player.PosX - this.PosX);
-        var distY = Math.abs(player.PosY - this.PosY);
+        var retValue = this.currentPattern.Update();
+        if(retValue != null)
+        {
+            this.currentPatternID ++;
+            if(this.currentPatternID >= this.patterns.length)
+                this.currentPatternID = 0;
+            this.currentPattern = this.patterns[this.currentPatternID]
+        }
+        return retValue;
+    }
 
-        // Move
-        if(player.PosX > this.posX)
-        {
-            this.lastDir = 1;
-            return super.throwShuriken("RIGHT", 10);
-            
-        }
-        else if(player.PosX < this.posX)
-        {
-            this.lastDir = -1;
-            return super.throwShuriken("LEFT", 10);
-        }
+    test()
+    {
+        return this.throwShuriken("LEFT", 10);
     }
 }

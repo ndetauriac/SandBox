@@ -8,7 +8,7 @@ class Map
         this.sizeMapY = WIN_HEIGHT * 1;
         this.width = Math.min(this.sizeMapX, WIN_WIDTH);
         this.height = Math.min(this.sizeMapY, WIN_HEIGHT);
-        this.background = bibliImages["dojo"];
+        this.background = bibliImages["game-background"];
         this.initMap();
     }
 
