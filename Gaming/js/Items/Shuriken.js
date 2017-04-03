@@ -5,7 +5,6 @@ class Shuriken
     constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100, character = null)
     {
         this.sprite = new Sprites("shuriken3", 4, 1, true, 1);
-        // this.sprite = new Sprites("./images/fumaShuriken.png", 8, 1, true, 0);
         this.value = 10 * dmgBonus / 100;
         this.posX = x;
         this.posY = y;
@@ -19,7 +18,6 @@ class Shuriken
         this.lifeTime = 100;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
-        //this.statusEffects = [new StatusEffect("Fire"), new StatusEffect("Poison")];
         this.statusEffects = statusEffects;
         this.lifeLink = 0;
         this.owner = character;
