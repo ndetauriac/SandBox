@@ -14,7 +14,7 @@ class Player extends Characters{
         $("#playerAmmo").text(this.ammo);
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
-        this.power = new Invisibility();
+        this.power = new ShuriRain();
         this.cadence = SECOND / 4;
         this.Health = this.health;
         this.Energy = this.energy;

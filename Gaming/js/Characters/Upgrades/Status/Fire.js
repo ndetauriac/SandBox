@@ -2,7 +2,7 @@ class Fire extends StatusEffect
 {
     constructor()
     {
-        super(5, 0.5);
+        super(5, 0.5 * SECOND);
         this.color = "red";
         this.damage = 4;
     }
