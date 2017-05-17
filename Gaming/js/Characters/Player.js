@@ -15,7 +15,7 @@ class Player extends Characters{
         $("#playerCoin").text(this.score);
         $("#playerKill").text(this.kills);
         this.power = new Invisibility();
-        this.cadence = SECOND / 4;
+        this.cadence = SECOND / 10;
         this.Health = this.health;
         this.Energy = this.energy;
     }
@@ -126,6 +126,32 @@ class Player extends Characters{
                 this.Ammo -= row;
                 this.fireTime = this.cadence;
                 return super.throwShuriken(direction, row);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    throwShuriken(x, y)
+    {
+        let row = 1;
+        if (this.isAlive)
+        {
+
+            if ((this.Ammo >= row) && this.fireTime <= 0)
+            {
+                this.Ammo -= row;
+                this.fireTime = this.cadence;
+                var ratio = Math.max(Math.abs(x - this.PosX), Math.abs(y - this.PosY))
+                var dirX = (x - this.PosX) / ratio;
+                var dirY = (y - this.PosY) / ratio;
+                return super.throwShurikenDir(dirX, dirY, row);
             }
             else
             {
