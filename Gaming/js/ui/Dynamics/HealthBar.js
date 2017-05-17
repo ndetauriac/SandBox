@@ -2,13 +2,14 @@ const HEALTH_BAR_MAX_WIDTH = 50;
 
 class HealthBar
 {
-    constructor(healthMax)
+    constructor(healthMax, width = HEALTH_BAR_MAX_WIDTH)
     {
         this.currentHealth = healthMax;
         this.healthMax = healthMax;
         this.previewPosX;
         this.previewPosY;
         this.context2D = document.getElementById('gameArea').getContext('2d');
+		this.width = width;
     }
     
     takeDamage(value)
@@ -45,16 +46,16 @@ class HealthBar
         var posX = Math.floor(x - posWorldX);
         var posY = Math.floor(y - posWorldY);
         this.context2D.fillStyle = "#000";
-        this.context2D.fillRect(posX, posY, HEALTH_BAR_MAX_WIDTH + 2, 5);
+        this.context2D.fillRect(posX, posY, this.width + 2, 5);
         this.context2D.fillStyle = this.rgbToHex(255- 255*this.currentHealth / this.healthMax, 255*this.currentHealth / this.healthMax, 0);
-        this.context2D.fillRect(posX + 1 , posY + 1, HEALTH_BAR_MAX_WIDTH * this.currentHealth / this.healthMax, 3);
+        this.context2D.fillRect(posX + 1 , posY + 1, this.width * this.currentHealth / this.healthMax, 3);
         this.previewPosX = posX;
         this.previewPosY = posY;
     }
     
     clear()
     {
-        this.context2D.clearRect(this.previewPosX-1, this.previewPosY-1, HEALTH_BAR_MAX_WIDTH + 4, 7);
+        this.context2D.clearRect(this.previewPosX-1, this.previewPosY-1, this.width + 4, 7);
     }
 
     rgbToHex(r, g, b) {

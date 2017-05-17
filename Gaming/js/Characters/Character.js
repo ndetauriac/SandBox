@@ -117,10 +117,9 @@ class Characters {
         effects = cloneObject(this.bonusEffects);
         var sentShurikens = [];
         
-        
         for (var i = 0; i < nShuriken; i++)
         {
-            sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, this.staminaX, effects, this.strength, this));
+            sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, 0, effects, this.strength, this));
         }
         return sentShurikens;
     }
@@ -168,7 +167,7 @@ class Characters {
                 dirY = (i - (nShuriken - 1) / 2) * 0.1;
                 dirX += Math.abs((i - (nShuriken - 1) / 2) / nShuriken) * -Math.abs(directionX) / directionX; 
             }
-            sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, this.staminaX, effects, this.strength, this));
+            sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, 0, effects, this.strength, this));
         }
         return sentShurikens;
     }

@@ -1,8 +1,8 @@
 class Enemy extends Characters{
-    constructor(x, y, lifePoint = 50)
+    constructor(x, y, lifePoint = 50, skin = "NinjaRed")
     {
-        super(x, y, lifePoint, "NinjaRed");
-        this.healthBar = new HealthBar(this.maxHealth);
+        super(x, y, lifePoint, skin);
+        this.healthBar = new HealthBar(this.maxHealth, this.mapSprites[this.state].width);
         this.cadence = 2 * SECOND;
         this.Health = this.health;
         this.strength = 100;

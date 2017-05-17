@@ -1,7 +1,7 @@
 class Boss extends Enemy {
     constructor(x, y)
     {
-        super(x, y, 1000);
+        super(x, y, 1000, "Robot");
         this.cadence = 0.5 * SECOND;
         this.strength = 100;
         this.timeBetweenPattern = 5 * SECOND;
