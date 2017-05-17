@@ -30,6 +30,7 @@ const SECOND = 1000 / REFRESH_RATE;
 
 var WORLD_WIDTH = WIN_WIDTH * 1;
 var WORLD_HEIGHT = WIN_HEIGHT * 0.5;
+var WORLD_Floor = WORLD_HEIGHT;
 
 var posWorldX = 0;
 var posWorldY = 0;
@@ -44,12 +45,23 @@ function initImages()
 {
     boucle = false;
     var imageNames = ["dojo",
+                        "whiteWorld",
                         "game-background",
                         "coin",
                         "shuriken3",
                         "shurikenItem",
                         "potion_red",
                         "potion_yellow",
+                        "/Characters/Robot/DieLeft",
+                        "/Characters/Robot/DieRight",
+                        "/Characters/Robot/IdleLeft",
+                        "/Characters/Robot/IdleRight",
+                        "/Characters/Robot/JumpLeft",
+                        "/Characters/Robot/JumpRight",
+                        "/Characters/Robot/RunRight",
+                        "/Characters/Robot/RunLeft",
+                        "/Characters/Robot/SlideLeft",
+                        "/Characters/Robot/SlideRight",
                         "/Characters/NinjaPurple/DieLeft",
                         "/Characters/NinjaRed/DieLeft",
                         "/Characters/NinjaPurple/DieRight",
@@ -102,6 +114,7 @@ function init2()
     currentMap = new Map();
     WORLD_WIDTH = currentMap.MapX;
     WORLD_HEIGHT = currentMap.MapY;
+    WORLD_Floor = WORLD_HEIGHT - 193;
     posWorldX = 0;
     posWorldY = 0;
 
@@ -126,18 +139,18 @@ function init2()
     addEnemies();
     addBoss();
 
-    addPlateform(200, WORLD_HEIGHT - 100, 20, 100, "FULL");
-    addPlateform(200, WORLD_HEIGHT - 120, 200, 20, "FULL");
+    addPlateform(200, WORLD_Floor - 100, 20, 100, "FULL");
+    addPlateform(200, WORLD_Floor - 120, 200, 20, "FULL");
 
     // Borders
     // Left
-    addPlateform(-180, 0, 200, WORLD_HEIGHT);
+    addPlateform(-180, 0, 200, WORLD_Floor);
     // Right
-    addPlateform(WORLD_WIDTH - 20, 0, 200, WORLD_HEIGHT);
+    addPlateform(WORLD_WIDTH - 20, 0, 200, WORLD_Floor);
     // Top
     addPlateform(0, -180, WORLD_WIDTH, 200);
     // Bottom
-    addPlateform(0, WORLD_HEIGHT - 20, WORLD_WIDTH, 200);
+    addPlateform(0, WORLD_Floor, WORLD_WIDTH, 200, "INVI");
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
             case (KEY_R):
@@ -151,8 +164,37 @@ function init2()
                 break;
         }
     });
+    document.addEventListener("click", printMousePos);
+    
+    document.addEventListener('contextmenu', function(ev) {
+    ev.preventDefault();
+    var x = posWorldX + event.clientX / WIN_RATIO;
+    var y = posWorldY + event.clientY / WIN_RATIO;
+    Shoot(x, y);
+});
+    
     boucle = true;
 }
+
+function printMousePos(event) {
+    var x = posWorldX + event.clientX / WIN_RATIO;
+    var y = posWorldY + event.clientY / WIN_RATIO;
+    Shoot(x, y);
+}
+
+function Shoot(x, y)
+{
+    let tmpShuriken = mainPlayer.throwShuriken(x, y);
+    if (tmpShuriken !== null)
+    {
+        tmpShuriken.forEach(function(element){
+            shurikens[nShurikens] = element;
+            nShurikens++;
+        });
+    }
+}
+
+
 
 var items = [];
 var nItem = 0;
@@ -186,7 +228,7 @@ function addEnemies()
 function addBoss()
 {
     // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
-    enemies[nEnemies] = new Boss((WORLD_WIDTH - 200) / WIN_RATIO, (WORLD_HEIGHT - 300) / WIN_RATIO);
+    enemies[nEnemies] = new Boss((WORLD_WIDTH - 800) / WIN_RATIO, (WORLD_HEIGHT - 800) / WIN_RATIO);
     enemies[nEnemies].init();
     nEnemies ++;
 }
@@ -286,71 +328,26 @@ function refreshGame() {
         // Controls
         if(mainPlayer.isPAlive)
         {
-            if(map[ARROW_LEFT]){
+            if(map[KEY_Q]){
                 mainPlayer.moveLeft();
             }
-            if(map[ARROW_UP] || map[SPACE_BAR]){
+            if(map[KEY_Z] || map[SPACE_BAR]){
                 mainPlayer.moveUp();
             }
-            if(map[ARROW_RIGHT]){
+            if(map[KEY_D]){
                 mainPlayer.moveRight();
             }
             if(map[CTRL_LEFT]){
             }
-            if(!map[ARROW_LEFT] && !map[ARROW_RIGHT])
+            if(!map[KEY_Q] && !map[KEY_D])
             {
                 mainPlayer.stopMoving();
             }
-            if(map[ARROW_DOWN]){
+            if(map[KEY_S]){
                 mainPlayer.playerSlide = true;
             }
             else{
                 mainPlayer.playerSlide = false;
-            }
-
-            if(map[KEY_Z])
-            {
-                let tmpShuriken = mainPlayer.throwShuriken("UP");
-                if (tmpShuriken !== null)
-                {
-                    tmpShuriken.forEach(function(element){
-                        shurikens[nShurikens] = element;
-                        nShurikens++;
-                    });
-                }
-            }
-            if(map[KEY_S])
-            {
-                let tmpShuriken = mainPlayer.throwShuriken("DOWN");
-                if (tmpShuriken !== null)
-                {
-                    tmpShuriken.forEach(function(element){
-                        shurikens[nShurikens] = element;
-                        nShurikens++;
-                    });
-                }
-            }
-            if(map[KEY_Q])
-            {
-                let tmpShuriken = mainPlayer.throwShuriken("LEFT");
-                if (tmpShuriken !== null)
-                {
-                    tmpShuriken.forEach(function(element){
-                        shurikens[nShurikens] = element;
-                        nShurikens++;
-                    });
-                }
-            }
-            if(map[KEY_D])
-            {
-                let tmpShuriken = mainPlayer.throwShuriken("RIGHT");
-                if (tmpShuriken !== null)
-                {
-                    tmpShuriken.forEach(function(element){
-                        shurikens[nShurikens] = element;
-                        nShurikens++;
-                    });
-                }
             }
             if(map[KEY_E])
             {

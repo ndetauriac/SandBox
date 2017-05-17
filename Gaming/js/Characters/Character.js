@@ -1,4 +1,4 @@
-const MAX_SPEED_X = 350 / WIN_RATIO / SECOND;
+const MAX_SPEED_X = 450 / WIN_RATIO / SECOND;
 const PIXEL_PER_SECOND = 10;
 const GRIP = 100; // % of break
 const GRAVITY = 10 / WIN_RATIO / SECOND;
@@ -109,7 +109,23 @@ class Characters {
         return this.posY + this.mapSprites[this.state].height / 2;
     }
 
-    throwShuriken(direction, nShuriken = 1)
+    throwShurikenDir(dirX, dirY, nShuriken)
+    {
+        var xThrow = this.posX;
+        var yThrow = this.posY;
+        var effects = [];
+        effects = cloneObject(this.bonusEffects);
+        var sentShurikens = [];
+        
+        
+        for (var i = 0; i < nShuriken; i++)
+        {
+            sentShurikens.push(new Shuriken(xThrow, yThrow, dirX, dirY, this.staminaX, effects, this.strength, this));
+        }
+        return sentShurikens;
+    }
+
+    throwShuriken(direction, nShuriken)
     {
         var xThrow = this.posX;
         var yThrow = this.posY;
