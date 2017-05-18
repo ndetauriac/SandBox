@@ -4,8 +4,8 @@ class Robot extends Boss
     {
         super(x, y, 1000, "Robot");
         this.cadence = 0.5 * SECOND;
-        this.strength = 100;
-        this.timeBetweenPattern = 5 * SECOND;
+        this.strength = 200;
+        this.timeBetweenPattern = 2 * SECOND;
         this.time = this.timeBetweenPattern;
         this.patterns = [];
         this.currentPatternID = 0;
@@ -14,6 +14,9 @@ class Robot extends Boss
     init()
     {
         this.patterns.push(new Pattern(this.patternLeft, SECOND));
+        this.patterns.push(new Pattern(this.patternShoot));
+        this.patterns.push(new Pattern(this.patternShoot));
+        this.patterns.push(new Pattern(this.patternShoot));
         this.patterns.push(new Pattern(this.patternShoot));
         this.patterns.push(new Pattern(this.patternRight, SECOND));
         this.patterns.push(new Pattern(this.patternShoot));
@@ -39,7 +42,11 @@ class Robot extends Boss
     patternShoot(that)
     {
         that.stopMoving(that);
-        return that.throwShuriken("LEFT", 10);
+        var shots = [];
+        shots.push(that.throwShuriken("LEFT", 1)[0]);
+        shots.push(that.throwShuriken("UP", 1)[0]);
+        shots.push(that.throwShuriken("RIGHT", 1)[0]);
+        return shots;
     }
 
     stopMoving(that)
@@ -69,5 +76,53 @@ class Robot extends Boss
                 that.stopMoving();
             }
         }
+    }
+
+    throwShuriken(direction, nShuriken)
+    {
+        var xThrow = this.posX;
+        var yThrow = this.posY;
+        var effects = [];
+        effects = cloneObject(this.bonusEffects);
+        var directionX = this.lastDir;
+        var directionY = 0;
+        var sentShurikens = [];
+
+        switch(direction)
+        {
+            case "LEFT":
+                directionX = -1;
+                directionY = 0;
+                break;
+            case "RIGHT":
+                directionX = 1;
+                directionY = 0;
+                break;
+            case "UP":
+                directionX = 0;
+                directionY = -1;
+                break;
+            case "DOWN":
+                directionX = 0;
+                directionY = 1;
+                break;
+        }
+        for (var i = 0; i < nShuriken; i++)
+        {
+            let dirX = directionX;
+            let dirY = directionY;
+            if(directionX == 0)
+            {
+                dirX = (i - (nShuriken - 1) / 2) * 0.1;
+                dirY += Math.abs((i - (nShuriken - 1) / 2) / nShuriken) * -Math.abs(directionY) / directionY; 
+            }
+            if(directionY == 0)
+            {
+                dirY = (i - (nShuriken - 1) / 2) * 0.1;
+                dirX += Math.abs((i - (nShuriken - 1) / 2) / nShuriken) * -Math.abs(directionX) / directionX; 
+            }
+            sentShurikens.push(new LaserShot(xThrow, yThrow, dirX, dirY, 0, effects, this.strength, this));
+        }
+        return sentShurikens;
     }
 }
