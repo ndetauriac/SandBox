@@ -50,6 +50,9 @@ function initImages()
                         "coin",
                         "shuriken3",
                         "shurikenItem",
+                        "fumaShuriken",
+                        "RobotShootLeft",
+                        "RobotShootRight",
                         "potion_red",
                         "potion_yellow",
                         "/Characters/Robot/DieLeft",
@@ -170,7 +173,7 @@ function init2()
     ev.preventDefault();
     var x = posWorldX + event.clientX / WIN_RATIO;
     var y = posWorldY + event.clientY / WIN_RATIO;
-    Shoot(x, y);
+    Shoot2(x, y);
 });
     
     boucle = true;
@@ -180,6 +183,18 @@ function printMousePos(event) {
     var x = posWorldX + event.clientX / WIN_RATIO;
     var y = posWorldY + event.clientY / WIN_RATIO;
     Shoot(x, y);
+}
+
+function Shoot2(x, y)
+{
+    let tmpShuriken = mainPlayer.throwFumaShuriken(x, y);
+    if (tmpShuriken !== null)
+    {
+        tmpShuriken.forEach(function(element){
+            shurikens[nShurikens] = element;
+            nShurikens++;
+        });
+    }
 }
 
 function Shoot(x, y)

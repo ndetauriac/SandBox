@@ -113,6 +113,21 @@ class Characters {
         return this.posY + this.mapSprites[this.state].height / 2;
     }
 
+    throwFumaShurikenDir(dirX, dirY, nShuriken)
+    {
+        var xThrow = this.posX;
+        var yThrow = this.posY;
+        var effects = [];
+        effects = cloneObject(this.bonusEffects);
+        var sentShurikens = [];
+        
+        for (var i = 0; i < nShuriken; i++)
+        {
+            sentShurikens.push(new ShurikenFuma(xThrow, yThrow, dirX, dirY, 0, effects, this.strength, this));
+        }
+        return sentShurikens;
+    }
+
     throwShurikenDir(dirX, dirY, nShuriken)
     {
         var xThrow = this.posX;

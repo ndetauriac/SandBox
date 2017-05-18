@@ -1,10 +1,11 @@
 //const SHURIKEN_SPEED = 500 / WIN_RATIO / SECOND;
 
-class Shuriken extends Projectile
+class LaserShot extends Projectile
 {
     constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100, character = null)
     {
-        var sprite = new Sprites("shuriken3", 4, 1, true, 1);
+        var angle = Math.atan2(directionY, directionX);
+        var sprite = new Sprites("RobotShootRight", 5, 1, true, 2, angle);
         super(x, y, directionX, directionY, innerSpeed, statusEffects, dmgBonus, character, sprite);
         this.value = 10 * dmgBonus / 100;
         this.posX = x;
@@ -14,9 +15,9 @@ class Shuriken extends Projectile
         this.staminaY = 0;
         this.onTheFloor = false;
         this.stasis = false;
-        this.staminaX = directionX * SHURIKEN_SPEED + innerSpeed*0.1;
+        this.staminaX = directionX * SHURIKEN_SPEED;
         this.staminaY = directionY * SHURIKEN_SPEED;
-        this.lifeTime = 100;
+        this.lifeTime = 1;
 		this.winWidth = document.getElementById('gameArea').width;
 		this.winHeight = document.getElementById('gameArea').height;
         this.statusEffects = statusEffects;
@@ -97,12 +98,6 @@ class Shuriken extends Projectile
 
     applyYPosition(){
         this.posY = this.previewPosY;
-        if (!this.onTheFloor){
-            this.staminaY += GRAVITY / 100;
-        }
-        else{
-            this.staminaY = 0;
-        }
     }
 
     contact(x, y, w, h)

@@ -1,6 +1,6 @@
 ﻿class Sprites
 {
-    constructor(img, frameNumberX, frameNumberY, repeat = true, refresh = 0)
+    constructor(img, frameNumberX, frameNumberY, repeat = true, refresh = 0, angle = 0)
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
         this.imgSprite = bibliImages[img];
@@ -15,6 +15,8 @@
         this.repeat = repeat;
         this.speed = 0;
         this.speedRefresh = refresh;
+        this.angle = angle;
+        this.defaultAngle = Math.atan2(this.spriteH, this.spriteW);
         
         this.frame = 0;
     }
@@ -65,13 +67,18 @@
     
     draw(x, y, visible = true)
     {
-        var posX = Math.floor(x - posWorldX);
+        var posX = Math.floor(x - posWorldX) ;
         var posY = Math.floor(y - posWorldY);
         var posSpriteX = (this.frame % this.frameNumberX) * this.spriteW;
         var posSpriteY = (this.frame - (this.frame % this.frameNumberX)) / this.frameNumberX * this.spriteH;
-        
+        this.context2D.save();
         if (this.imgSprite !== undefined)
         {
+            
+            this.context2D.translate(posX + this.spriteW / 2,posY + this.spriteH / 2); // to get it in the origin
+            this.context2D.rotate(this.angle);
+            this.context2D.translate(-posX - this.spriteW / 2,-posY - this.spriteH / 2); // to get it in the origin
+            //this.context2D.fillRect(posX,posY,this.spriteW, this.spriteH);
             if (visible)
             {
                 this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.spriteW, this.spriteH, posX, posY, this.spriteW, this.spriteH);
@@ -80,10 +87,10 @@
             {
                 this.context2D.globalAlpha = 0.3;
                 this.context2D.drawImage(this.imgSprite, posSpriteX, posSpriteY, this.spriteW, this.spriteH, posX, posY, this.spriteW, this.spriteH);
-                this.context2D.globalAlpha = 1;
             }
         
         }
+        this.context2D.restore();
         this.lastPosX = posX;
         this.lastPosY = posY;
     }
