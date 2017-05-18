@@ -1,11 +1,10 @@
-//const SHURIKEN_SPEED = 500 / WIN_RATIO / SECOND;
+const SHURIKEN_SPEED = 500 / WIN_RATIO / SECOND;
 
-class Shuriken extends Projectile
+class Projectile
 {
-    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100, character = null)
+    constructor(x, y, directionX, directionY, innerSpeed = 0, statusEffects = [], dmgBonus = 100, character = null, sprite)
     {
-        var sprite = new Sprites("shuriken3", 4, 1, true, 1);
-        super(x, y, directionX, directionY, innerSpeed, statusEffects, dmgBonus, character, sprite);
+        this.sprite = sprite;
         this.value = 10 * dmgBonus / 100;
         this.posX = x;
         this.posY = y;
