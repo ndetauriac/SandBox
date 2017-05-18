@@ -1,7 +1,7 @@
 class Boss extends Enemy {
-    constructor(x, y)
+    constructor(x, y, health, skin)
     {
-        super(x, y, 1000, "Robot");
+        super(x, y, health, skin);
         this.cadence = 0.5 * SECOND;
         this.strength = 100;
         this.timeBetweenPattern = 5 * SECOND;
@@ -12,9 +12,6 @@ class Boss extends Enemy {
 
     init()
     {
-        /*actions.forEach(function(action){
-                        this.patterns.add(new Pattern(action))
-                    });*/
         this.patterns.push(new Pattern(this.test));
         if(this.patterns.length > 0)
         {
@@ -37,9 +34,9 @@ class Boss extends Enemy {
             if(this.currentPatternID >= this.patterns.length)
             {
                 this.currentPatternID = 0;
-                this.currentPattern.Start();
             }
             this.currentPattern = this.patterns[this.currentPatternID];
+            this.currentPattern.Start();
         }
         return retValue;
     }

@@ -12,9 +12,12 @@ class Characters {
         this.mapSprites = {};
         this.mapSprites["IDLE_LEFT"] = new Sprites("/Characters/" + name + "/IdleLeft", 10, 1, true, 3);
         this.mapSprites["IDLE_RIGHT"] = new Sprites("/Characters/" + name + "/IdleRight", 10, 1, true, 3);
-
-        this.mapSprites["RUN_LEFT"] = new Sprites("/Characters/" + name + "/RunLeft", 10, 1, true, 3);
-        this.mapSprites["RUN_RIGHT"] = new Sprites("/Characters/" + name + "/RunRight", 10, 1, true, 3);
+        
+        var runSprites = 10;
+        if (name == "Robot")
+            runSprites = 8;
+        this.mapSprites["RUN_LEFT"] = new Sprites("/Characters/" + name + "/RunLeft", runSprites, 1, true, 3);
+        this.mapSprites["RUN_RIGHT"] = new Sprites("/Characters/" + name + "/RunRight", runSprites, 1, true, 3);
 
         this.mapSprites["SLIDE_LEFT"] = new Sprites("/Characters/" + name + "/SlideLeft", 10, 1, true, 3);
         this.mapSprites["SLIDE_RIGHT"] = new Sprites("/Characters/" + name + "/SlideRight", 10, 1, true, 3);
@@ -60,6 +63,7 @@ class Characters {
         this.maxHealth = startHealth;
         this.wallGrip = 0;
         this.dashTimer = 5 * SECOND;
+        this.regen = 2 / (5 * SECOND);
     }
 
     get Health()
@@ -221,6 +225,9 @@ class Characters {
         var prevHeight = this.mapSprites[this.lastState].height;
         this.onTheFloor = false;
         this.wallGrip = 0;
+        if (this.isAlive)
+            this.Health += this.regen;
+
         for (plat = 0; plat < nPlateform; plat++)
         {
             if (sWidth != null && sHeight != null) {
