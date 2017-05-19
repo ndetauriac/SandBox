@@ -1,4 +1,4 @@
-const SHURIKEN_SPEED = 500 / WIN_RATIO / SECOND;
+const SHURIKEN_SPEED = 800 / WIN_RATIO / SECOND;
 
 class Projectile
 {
