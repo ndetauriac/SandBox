@@ -42,11 +42,7 @@ class Robot extends Boss
     patternShoot(that)
     {
         that.stopMoving(that);
-        var shots = [];
-        shots.push(that.throwShuriken("LEFT", 1)[0]);
-        shots.push(that.throwShuriken("UP", 1)[0]);
-        shots.push(that.throwShuriken("RIGHT", 1)[0]);
-        return shots;
+        return that.throwShuriken("LEFT", 5);
     }
 
     stopMoving(that)
