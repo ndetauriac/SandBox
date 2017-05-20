@@ -21,7 +21,7 @@ class Plateform
         this.kill = false;
         this.lifeTime = -1;
         this.mode = mode;
-        
+        this.alpha = 1.0;
         switch(mode)
         {
             case "TOP":
@@ -57,12 +57,19 @@ class Plateform
                 this.rightSide = true;
                 this.texture.color = "#000000";
                 break;
-            default:
+            case "INVI":
                 this.bottomSide = true;
                 this.topSide = true;
                 this.leftSide = true;
                 this.rightSide = true;
                 this.texture.color = "#000";
+                this.alpha = 0;
+            default:
+                this.bottomSide = true;
+                this.topSide = true;
+                this.leftSide = true;
+                this.rightSide = true;
+                this.texture.color = "#F06292";
                 break;
         }
     }
@@ -151,6 +158,7 @@ class Plateform
 
     draw()
     {
+        this.context2D.globalAlpha = this.alpha;
         if (this.lifeTime >= 0)
             this.context2D.globalAlpha = this.lifeTime / PLATEFORM_LIFETIME;
         this.previousRectX = this.posX;

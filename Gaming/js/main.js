@@ -40,16 +40,18 @@ var currentMap;
 var bibliImages = [];
 var loadedImages = 0;
 
-
+/*
+                        "game-background_first",
+                        "whiteWorld_scn",
+                        "Clouds",*/
 function initImages()
 {
     boucle = false;
     var imageNames = ["dojo",
                         "whiteWorld",
+                        "space",
+                        "/Spaceship/spaceship",
                         "game-background",
-                        "game-background_first",
-                        "whiteWorld_scn",
-                        "Clouds",
                         "coin",
                         "shuriken3",
                         "shurikenItem",
@@ -125,7 +127,7 @@ function init2()
     posWorldX = 0;
     posWorldY = 0;
 
-    mainPlayer = new Player(600, 10);
+    mainPlayer = new Player(5000, 1600);
     var ListCard = [];
     ListCard.push(new Burn());
     ListCard.push(new Toxic());
@@ -141,21 +143,103 @@ function init2()
     nShurikensEnemy = 0;
     platform = [];
     nPlatform = 0;
-
+/*
     addEnemies();
     addEnemies();
     addBoss();
+*/
 
-    addPlateform(200, WORLD_Floor - 100, 20, 100, "FULL");
-    addPlateform(200, WORLD_Floor - 120, 200, 20, "FULL");
+    //Dojo
+    addWall(1135, 1028, 3182, 1028); // TOP
+    addWall(1135, 1028, 1135, 1505); // LEFT
+    addWall(3167, 1028, 3167, 1371); // RIGHT
+    addWall(3167, 1356, 3265, 1356); // CORRIDOR
 
-    // Borders
+    // Toilettes
+    addWall(1938, 743, 2131, 743); // TOP
+    addWall(1938, 743, 1938, 1005); // LEFT
+    addWall(2116, 743, 2116, 871); // RIGHT
+    addWall(2116, 856, 2161, 856); // CORRIDOR
+
+    //Chambre
+    addWall(2145, 743, 3182, 743); // TOP
+    addWall(2145, 743, 2145, 871); // LEFT
+    addWall(3167, 743, 3167, 871); // RIGHT
+    addWall(3167, 856, 3264, 856); // CORRIDOR
+
+    //Stuff
+    addWall(3264, 743, 3752, 743); // TOP
+    addWall(3264, 743, 3264, 871); // LEFT
+    addWall(3737, 743, 3737, 871); // RIGHT
+    addWall(3737, 856, 3777, 856); // CORRIDOR
+
+    //Security
+    addWall(3777, 686, 4263, 686); // TOP
+    addWall(3777, 686, 3777, 871); // LEFT
+    addWall(4248, 686, 4248, 754); // RIGHT
+    addWall(4248, 845, 4248, 989); // RIGHT
+    addWall(4248, 739, 5158, 739); // CORRIDOR
+    addWall(4248, 844, 5158, 844); // CORRIDOR
+
+    //Repos
+    addWall(3265, 1028, 3870, 1028); // TOP
+    addWall(3941, 1028, 3987, 1028); // TOP
+    addWall(3265, 1028, 3265, 1356); // LEFT
+    addWall(3972, 1028, 3972, 1505); // RIGHT
+    addWall(3855, 990, 3855, 1028); // CORRIDOR
+    addWall(3941, 990, 3941, 1028); // CORRIDOR
+
+
+    //7
+    addWall(5143, 700, 5853, 700); // TOP
+    addWall(5143, 700, 5143, 739); // LEFT
+    addWall(5143, 844, 5143, 960); // LEFT
+    addWall(5838, 700, 5838, 855); // RIGHT
+    addWall(5838, 840, 5894, 840); // CORRIDOR
+
+    //8
+    addWall(5879, 643, 6436, 643); // TOP
+    addWall(5879, 643, 5879, 855); // LEFT
+    addWall(6421, 643, 6421, 960); // RIGHT
+    addWall(6047, 946, 6062, 1018); // CORRIDOR
+    addWall(6133, 946, 6133, 1018); // CORRIDOR
+
+    //9
+    addWall(5143, 1018, 6011, 1018); // TOP
+    addWall(5143, 1018, 5143, 1268); // LEFT
+    addWall(5996, 1018, 5996, 1162); // RIGHT
+    addWall(5996, 1147, 6046, 1147); // CORRIDOR
+
+    //10
+    addWall(6031, 1018, 6062, 1018); // TOP
+    addWall(6133, 1018, 6432, 1018); // TOP
+    addWall(6031, 1018, 6031, 1147); // LEFT
+    addWall(6421, 1018, 6421, 1268); // RIGHT
+    /*
+    addPlateform(1938, 743, 2131 - 1937 - 15, 15, "INVI"); // TOP
+    addPlateform(1938, 743, 15, 1005 - 743 - 15, "INVI"); //LEFT
+    addPlateform(2131 - 15, 743, 15, 871 - 743 - 15, "INVI"); //RIGHT
+    addPlateform(2131 - 15, 871 - 15, 44, 15, "INVI"); //CORRIDOR
+    /*/
+    addWall(1937, 989, 3870, 989, "INVI"); // BOT
+    addWall(3941, 989, 4263, 989, "INVI"); // BOT
+    addWall(1135, 1490, 3987, 1490, "INVI"); // BOT
+    addWall(5143, 945, 6062, 945, "INVI"); // BOT
+    addWall(6133, 945, 6421, 945, "INVI"); // BOT
+    addWall(5143, 1253, 6432, 1253, "INVI"); // BOT
+
+
+
+    addPlateform(200, WORLD_Floor - 120, 200, 20, "INVI");
+
+    /* Borders
     // Left
     addPlateform(-180, 0, 200, WORLD_Floor);
     // Right
     addPlateform(WORLD_WIDTH - 20, 0, 200, WORLD_Floor);
     // Top
     addPlateform(0, -180, WORLD_WIDTH, 200);
+    /* Borders */
     // Bottom
     addPlateform(0, WORLD_Floor, WORLD_WIDTH, 200, "INVI");
     document.addEventListener('keydown', function (event) {
@@ -304,6 +388,17 @@ function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
 {
     platform[nPlatform] = new Plateform(x / WIN_RATIO , y / WIN_RATIO , w / WIN_RATIO , h / WIN_RATIO , mode);
     nPlatform++;
+}
+
+function addWall(x1, y1, x2, y2)
+{
+    var w = 15;
+    var h = 15;
+    if(x1 != x2)
+        w = x2 - x1;
+    if(y1 != y2)
+        h = y2 - y1;
+    addPlateform(x1, y1, w, h, "INVI");
 }
 
 function addSemiPlateform(x, y, w = 200, h = 10)
