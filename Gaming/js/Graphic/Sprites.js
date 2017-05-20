@@ -53,6 +53,8 @@
         }
         else
             this.speed++;
+        
+        return (!this.repeat && this.speed == this.speedRefresh && this.frame >= this.frameNumberX * this.frameNumberY - 1);
     }
     
     resetAnimation()

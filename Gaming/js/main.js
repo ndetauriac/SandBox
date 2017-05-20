@@ -47,12 +47,16 @@ function initImages()
     var imageNames = ["dojo",
                         "whiteWorld",
                         "game-background",
+                        "game-background_first",
+                        "whiteWorld_scn",
+                        "Clouds",
                         "coin",
                         "shuriken3",
                         "shurikenItem",
                         "fumaShuriken",
                         "RobotShootLeft",
                         "RobotShootRight",
+                        "Explosion",
                         "potion_red",
                         "potion_yellow",
                         "/Characters/Robot/DieLeft",
@@ -223,6 +227,9 @@ var nShurikensEnemy = 0;
 var platform = [];
 var nPlatform = 0;
 
+var effect = [];
+var nEffect = 0;
+
 var boucle = false;
 var frameCpt = 0;
 
@@ -258,6 +265,12 @@ function addCoin(x, y, stasis = false)
 {
     items[nItem] = new Coin(x, y, stasis);
     nItem++;
+}
+
+function addExplosion(x, y, direction)
+{
+    effect[nEffect] = new Explosion(x, y, direction);
+    nEffect++;
 }
 
 function addLoot(x, y)
@@ -496,7 +509,12 @@ function refreshGame() {
             }
             frameCpt = 0;
         }
-
+        
+        for (i = 0; i < nEffect; i++)
+        {
+            if (effect[i].update())
+                effect[i] = effect[--nEffect];
+        }
 
         // Draw sprites
         currentMap.draw();
@@ -511,5 +529,7 @@ function refreshGame() {
         mainPlayer.draw();
         for (i = 0; i < nPlatform; i++)
             platform[i].draw();
+        for (i = 0; i < nEffect; i++)
+            effect[i].draw();
     }
 }

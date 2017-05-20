@@ -33,6 +33,7 @@ class LaserShot extends Projectile
 
         var sWidth = this.sprite.width;
         var sHeight = this.sprite.height;
+        
         for (plat = 0; plat < nPlateform; plat++)
         {
 
@@ -45,6 +46,7 @@ class LaserShot extends Projectile
                     this.staminaX = 0;
                     this.staminaY = 0;
                     this.onTheFloor = true;
+                    addExplosion(gap.gapX, this.previewPosY, "LEFT");
                 }
                 if (gap.isInContactRight)
                 {
@@ -52,6 +54,7 @@ class LaserShot extends Projectile
                     this.staminaX = 0;
                     this.staminaY = 0;
                     this.onTheFloor = true;
+                    addExplosion(gap.gapX, this.previewPosY, "RIGHT");
                 }
                 if (gap.isInContactBot)
                 {
@@ -59,6 +62,7 @@ class LaserShot extends Projectile
                     this.staminaY = 0;
                     this.staminaX = 0;
                     this.onTheFloor = true;
+                    addExplosion(this.previewPosX, gap.gapY, "DOWN");
                 }
                 if (gap.isInContactTop)
                 {
@@ -66,9 +70,9 @@ class LaserShot extends Projectile
                     this.staminaY = 0;
                     this.staminaX = 0;
                     this.onTheFloor = true;
+                    addExplosion(this.previewPosX, gap.gapY + sHeight, "UP");
                 }
             }
-
         }
 
         this.applyXPosition();
@@ -114,6 +118,7 @@ class LaserShot extends Projectile
         }
         if (this.lifeLink > 0 && this.owner !== null)
             this.owner.Health += damageValue * this.lifeLink / 100;
+        
         return damageValue;
     }
 
@@ -127,7 +132,9 @@ class LaserShot extends Projectile
         if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
         {
             if (this.staminaX !== 0 || this.staminaY !== 0)
-                this.sprite.animate();
+            {
+            }
+            this.sprite.animate();
             this.sprite.draw(this.posX, this.posY);
         }
     }
