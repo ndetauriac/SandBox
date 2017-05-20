@@ -51,6 +51,8 @@ function initImages()
                         "whiteWorld",
                         "space",
                         "/Spaceship/spaceship",
+                        "/Spaceship/bg_1",
+                        "/Spaceship/bg_2",
                         "game-background",
                         "coin",
                         "shuriken3",
@@ -256,14 +258,14 @@ function init2()
         }
     });
     document.addEventListener("click", printMousePos);
-    
+
     document.addEventListener('contextmenu', function(ev) {
     ev.preventDefault();
     var x = posWorldX + event.clientX / WIN_RATIO;
     var y = posWorldY + event.clientY / WIN_RATIO;
     Shoot2(x, y);
 });
-    
+
     boucle = true;
 }
 
@@ -604,7 +606,7 @@ function refreshGame() {
             }
             frameCpt = 0;
         }
-        
+
         for (i = 0; i < nEffect; i++)
         {
             if (effect[i].update())

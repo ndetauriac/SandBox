@@ -154,7 +154,7 @@ var selectedBonus = {};
 var cardState = {};
 var draggingCard;
 function handleDragStart(e) {
-	draggingCard = e.target.id;
+		draggingCard = e.target.id;
 }
 
 function handleDragOver(e) {

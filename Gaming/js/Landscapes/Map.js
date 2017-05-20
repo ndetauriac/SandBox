@@ -7,7 +7,8 @@ class Map
         this.sizeMapX = 8000;
         this.sizeMapY = 2500;
         this.backgrounds = [];
-        this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "space"));
+        this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "/Spaceship/bg_1"));
+        this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "/Spaceship/bg_2"));
         this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "/Spaceship/spaceship"));
 
     }
