@@ -35,7 +35,7 @@ class Projectile
         {
 
             if (this.sprite.width !== null && this.sprite.height !== null) {
-                var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
+                var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight, false);
 
                 if (gap.isInContactLeft)
                 {
@@ -65,6 +65,10 @@ class Projectile
                     this.staminaX = 0;
                     this.onTheFloor = true;
                 }
+				if(!(gap.isInContactLeft || gap.isInContactRight || gap.isInContactBot || gap.isInContactTop) && this.onTheFloor)
+				{
+					this.staminaY += GRAVITY;
+				}
             }
 
         }

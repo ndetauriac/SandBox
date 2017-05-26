@@ -32,11 +32,11 @@ class Shuriken extends Projectile
 
         var sWidth = this.sprite.width;
         var sHeight = this.sprite.height;
+		
         for (plat = 0; plat < nPlateform; plat++)
         {
-
             if (this.sprite.width !== null && this.sprite.height !== null) {
-                var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight);
+                var gap = plateforms[plat].contact(this.posX, this.posY, this.previewPosX, this.previewPosY, sWidth, sHeight, sWidth, sHeight, false);
 
                 if (gap.isInContactLeft)
                 {

@@ -156,12 +156,14 @@ function init2()
     addWall(1135, 1028, 1135, 1505); // LEFT
     addWall(3167, 1028, 3167, 1371); // RIGHT
     addWall(3167, 1356, 3265, 1356); // CORRIDOR
+    addDoor(3216, 1356, 15, 149); // DOOR
 
     // Toilettes
     addWall(1938, 743, 2131, 743); // TOP
     addWall(1938, 743, 1938, 1005); // LEFT
     addWall(2116, 743, 2116, 871); // RIGHT
     addWall(2116, 856, 2161, 856); // CORRIDOR
+    addDoor(2131, 856, 15, 133); // DOOR
 
     //Chambre
     addWall(2145, 743, 3182, 743); // TOP
@@ -189,6 +191,7 @@ function init2()
     addWall(3265, 1028, 3265, 1356); // LEFT
     addWall(3972, 1028, 3972, 1505); // RIGHT
     addWall(3855, 990, 3855, 1028); // CORRIDOR
+    addDoor(3855, 1002, 3941-3855, 15, true); // DOOR
     addWall(3941, 990, 3941, 1028); // CORRIDOR
 
 
@@ -257,6 +260,9 @@ function init2()
                 break;
         }
     });
+	$(document).mousedown(function(event){
+		event.preventDefault();
+	});
     document.addEventListener("click", printMousePos);
 
     document.addEventListener('contextmenu', function(ev) {
@@ -386,9 +392,15 @@ function addRandomCoin()
     addCoin(x, y);
 }
 
-function addPlateform(x, y, w = 200, h = 10, mode = "FULL")
+function addPlateform(x, y, w = 200, h = 15, mode = "FULL")
 {
     platform[nPlatform] = new Plateform(x / WIN_RATIO , y / WIN_RATIO , w / WIN_RATIO , h / WIN_RATIO , mode);
+    nPlatform++;
+}
+
+function addDoor(x, y, w = 200, h = 15, horiz = false)
+{
+    platform[nPlatform] = new Door(x / WIN_RATIO , y / WIN_RATIO , w / WIN_RATIO , h / WIN_RATIO , horiz);
     nPlatform++;
 }
 

@@ -64,6 +64,14 @@ class Plateform
                 this.rightSide = true;
                 this.texture.color = "#000";
                 this.alpha = 0;
+                break;
+            case "DOOR":
+                this.bottomSide = true;
+                this.topSide = true;
+                this.leftSide = true;
+                this.rightSide = true;
+                this.texture.color = "#000000";
+                break;
             default:
                 this.bottomSide = true;
                 this.topSide = true;
