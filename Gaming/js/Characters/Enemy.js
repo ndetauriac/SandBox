@@ -7,6 +7,8 @@ class Enemy extends Characters{
         this.Health = this.health;
         this.strength = 100;
         this.slow = 50;
+        this.behavior = "SLEEP";
+        this.sight = new Sight(x, y, 1000, Math.PI/12, this.lastDir);
     }
 
     get Health()
@@ -19,11 +21,19 @@ class Enemy extends Characters{
         super.Health = value;
         this.healthBar.setHealth(super.Health);
     }
-
+    
+    updatePosition(plateforms, nPlateform)
+    {
+        var keepValue = super.updatePosition(plateforms, nPlateform)
+        this.sight.updatePosition(this.PosXMiddle, this.PosYMiddle, this.lastDir);
+        return keepValue;
+    }
+    
     move(player)
     {
-        if(player.IsInvisible)
+        if(!this.sight.isInSight(player))
         {
+            this.stopMoving();
             return null;
         }
         else
@@ -43,7 +53,7 @@ class Enemy extends Characters{
                     this.moveLeft();
                 }
                 else
-                this.stopMoving();
+                    this.stopMoving();
 
             } else {
                 if(player.PosX > this.posX)
@@ -107,7 +117,10 @@ class Enemy extends Characters{
     {
         super.draw();
         if (this.isAlive)
+        {
             this.healthBar.draw(this.posX, this.posY - 10);
+            this.sight.draw();
+        }
             
     }
 }

@@ -1,12 +1,13 @@
 class PutchInBall extends Enemy{
     constructor(x, y)
     {
-        super(x, y, 1000, "red");
+        super(x, y, 1000, "NinjaRed");
         this.cadence = CADENCE;
     }
  
     move(player)
     {
+        this.sight.isInSight(player)
         // Move
         if(player.PosX > this.posX)
         {
