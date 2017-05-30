@@ -47,10 +47,7 @@ var loadedImages = 0;
 function initImages()
 {
     boucle = false;
-    var imageNames = ["dojo",
-                        "whiteWorld",
-                        "space",
-                        "/Spaceship/spaceship",
+    var imageNames = ["/Spaceship/spaceship",
                         "/Spaceship/bg_1",
                         "/Spaceship/bg_2",
                         "game-background",
@@ -129,7 +126,7 @@ function init2()
     posWorldX = 0;
     posWorldY = 0;
 
-    mainPlayer = new Player(5000, 1600);
+    mainPlayer = new Player(2500/WIN_RATIO, 800/WIN_RATIO);
     var ListCard = [];
     ListCard.push(new Burn());
     ListCard.push(new Toxic());
@@ -150,6 +147,7 @@ function init2()
     addEnemies();
     addBoss();
 */
+    addEnemies(2500/WIN_RATIO, 800/WIN_RATIO);
 
     //Dojo
     addWall(1135, 1028, 3182, 1028); // TOP
@@ -332,10 +330,10 @@ onkeydown = onkeyup = function(e){
     /* insert conditional here */
 };
 
-function addEnemies()
+function addEnemies(x = Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, y = WIN_HEIGHT - 290)
 {
     // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
-    enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
+    enemies[nEnemies] = new Enemy(x, y);
     nEnemies ++;
 }
 

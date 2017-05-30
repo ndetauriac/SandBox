@@ -14,6 +14,15 @@ function Decr(variable, value, min)
     return variable;
 }
 
+function Bound(variable, min, max)
+{
+    if (variable < min)
+        variable = min;
+    if (variable > max)
+        variable = max;
+    return variable;
+}
+
 function cloneObject(obj) {
     if (obj === null || typeof obj !== 'object') {
         return obj;
