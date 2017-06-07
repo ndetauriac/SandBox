@@ -9,9 +9,9 @@ class Plateform
         this.rectX = Math.floor(x);
         this.rectY = Math.floor(y);
         this.posX = this.rectX;
-        this.posY = this.rectY
+        this.posY = this.rectY;
         this.previousPosX = this.rectX;
-        this.previousPosY = this.rectY
+        this.previousPosY = this.rectY;
         this.rectW = Math.floor(w);
         this.rectH = Math.floor(h);
         this.bottomSide = false;
@@ -166,16 +166,19 @@ class Plateform
 
     draw()
     {
-        this.context2D.globalAlpha = this.alpha;
-        if (this.lifeTime >= 0)
-            this.context2D.globalAlpha = this.lifeTime / PLATEFORM_LIFETIME;
-        this.previousRectX = this.posX;
-        this.previousRectY = this.posY;
-        this.context2D.fillStyle = this.texture.color;
-        this.posX = Math.floor(this.rectX - posWorldX);
-        this.posY = Math.floor(this.rectY - posWorldY);
-        this.context2D.fillRect(this.posX, this.posY, this.rectW, this.rectH);
-        this.context2D.globalAlpha = 1.0;
+        if(this.rectX > posWorldX - this.rectW && this.rectY > posWorldY - this.rectH && this.rectX < posWorldX + WIN_WIDTH / WIN_RATIO && this.rectY < posWorldY + WIN_HEIGHT / WIN_RATIO)
+        {
+            this.context2D.globalAlpha = this.alpha;
+            if (this.lifeTime >= 0)
+                this.context2D.globalAlpha = this.lifeTime / PLATEFORM_LIFETIME;
+            this.previousRectX = this.posX;
+            this.previousRectY = this.posY;
+            this.context2D.fillStyle = this.texture.color;
+            this.posX = Math.floor(this.rectX - posWorldX);
+            this.posY = Math.floor(this.rectY - posWorldY);
+            this.context2D.fillRect(this.posX, this.posY, this.rectW, this.rectH);
+            this.context2D.globalAlpha = 1.0;
+        }
     }
 
     clear()

@@ -452,12 +452,11 @@ class Characters {
 
     draw()
     {
-        if (this.posX > posWorldX && this.posY > posWorldY && this.posX < posWorldX + WIN_WIDTH / WIN_RATIO && this.posY < posWorldY + WIN_HEIGHT / WIN_RATIO)
+        this.mapSprites[this.state].animate();
+        
+        var i = 0;
+        if(this.mapSprites[this.state].draw(this.posX, this.posY, this.visible))
         {
-            this.mapSprites[this.state].animate();
-            this.mapSprites[this.state].draw(this.posX, this.posY, this.visible);
-            
-            var i = 0;
             for (var color in this.damageTaken)
             {
                 if (this.damageTaken[color] !== null)
