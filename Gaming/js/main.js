@@ -154,26 +154,28 @@ function init2()
     addWall(1135, 1028, 1135, 1505); // LEFT
     addWall(3167, 1028, 3167, 1371); // RIGHT
     addWall(3167, 1356, 3265, 1356); // CORRIDOR
-    addDoor(3216, 1356, 15, 149); // DOOR
+    addDoor(3216, 1356, 10, 149); // DOOR
 
     // Toilettes
     addWall(1938, 743, 2131, 743); // TOP
     addWall(1938, 743, 1938, 1005); // LEFT
     addWall(2116, 743, 2116, 871); // RIGHT
     addWall(2116, 856, 2161, 856); // CORRIDOR
-    addDoor(2131, 856, 15, 133); // DOOR
+    addDoor(2131, 856, 10, 133); // DOOR
 
     //Chambre
     addWall(2145, 743, 3182, 743); // TOP
     addWall(2145, 743, 2145, 871); // LEFT
     addWall(3167, 743, 3167, 871); // RIGHT
     addWall(3167, 856, 3264, 856); // CORRIDOR
+    addDoor(3200, 856, 10, 133); // DOOR
 
     //Stuff
     addWall(3264, 743, 3752, 743); // TOP
     addWall(3264, 743, 3264, 871); // LEFT
     addWall(3737, 743, 3737, 871); // RIGHT
     addWall(3737, 856, 3777, 856); // CORRIDOR
+    addDoor(3757, 856, 10, 133); // DOOR
 
     //Security
     addWall(3777, 686, 4263, 686); // TOP
@@ -189,7 +191,7 @@ function init2()
     addWall(3265, 1028, 3265, 1356); // LEFT
     addWall(3972, 1028, 3972, 1505); // RIGHT
     addWall(3855, 990, 3855, 1028); // CORRIDOR
-    addDoor(3855, 1002, 3941-3855, 15, true); // DOOR
+    addDoor(3855, 1002, 3941-3855, 10, true); // DOOR
     addWall(3941, 990, 3941, 1028); // CORRIDOR
 
 
@@ -218,18 +220,13 @@ function init2()
     addWall(6133, 1018, 6432, 1018); // TOP
     addWall(6031, 1018, 6031, 1147); // LEFT
     addWall(6421, 1018, 6421, 1268); // RIGHT
-    /*
-    addPlateform(1938, 743, 2131 - 1937 - 15, 15, "INVI"); // TOP
-    addPlateform(1938, 743, 15, 1005 - 743 - 15, "INVI"); //LEFT
-    addPlateform(2131 - 15, 743, 15, 871 - 743 - 15, "INVI"); //RIGHT
-    addPlateform(2131 - 15, 871 - 15, 44, 15, "INVI"); //CORRIDOR
-    /*/
-    addWall(1937, 989, 3870, 989, "INVI"); // BOT
-    addWall(3941, 989, 4263, 989, "INVI"); // BOT
-    addWall(1135, 1490, 3987, 1490, "INVI"); // BOT
-    addWall(5143, 945, 6062, 945, "INVI"); // BOT
-    addWall(6133, 945, 6421, 945, "INVI"); // BOT
-    addWall(5143, 1253, 6432, 1253, "INVI"); // BOT
+
+    addWall(1937, 989, 3870, 989); // BOT
+    addWall(3941, 989, 4263, 989); // BOT
+    addWall(1135, 1490, 3987, 1490); // BOT
+    addWall(5143, 945, 6062, 945); // BOT
+    addWall(6133, 945, 6421, 945); // BOT
+    addWall(5143, 1253, 6432, 1253); // BOT
 
 
 

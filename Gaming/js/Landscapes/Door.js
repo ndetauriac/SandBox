@@ -1,4 +1,4 @@
-const OPENING_SPEED = 0.5*SECOND;
+const OPENING_SPEED = 0.3*SECOND;
 
 class Door extends Plateform
 {
