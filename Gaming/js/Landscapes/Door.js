@@ -17,7 +17,7 @@ class Door extends Plateform
 	contact(prevX, prevY, nextX, nextY, prevW, prevH, nextW, nextH, canOpen = true)
 	{
 		
-        if (!(nextX > this.rectX + this.rectW + this.range || nextX < this.rectX - nextW - this.range || nextY > this.rectY + this.rectH + this.range || nextY < this.rectY - nextH - this.range))
+        if (!(nextX > this.rectX + this.maxW + this.range || nextX < this.rectX - nextW - this.range || nextY > this.rectY + this.maxH + this.range || nextY < this.rectY - nextH - this.range))
 		{
 			if (this.closed && canOpen)
 			{

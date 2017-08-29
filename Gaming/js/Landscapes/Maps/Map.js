@@ -4,12 +4,7 @@ class Map
     {
         this.context2D = document.getElementById('gameArea').getContext('2d');
 
-        this.sizeMapX = 8000;
-        this.sizeMapY = 2500;
         this.backgrounds = [];
-        this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "/Spaceship/bg_1"));
-        this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "/Spaceship/bg_2"));
-        this.backgrounds.push(new Background(this.sizeMapX, this.sizeMapY, "/Spaceship/spaceship"));
 
     }
 
@@ -21,6 +16,21 @@ class Map
     get MapY()
     {
         return this.sizeMapY;
+    }
+
+    initWall()
+    {
+
+    }
+
+    initPlayer()
+    {
+        return new Player(0/WIN_RATIO, 0/WIN_RATIO);
+    }
+    
+    initEnemies()
+    {
+        addEnemies(100/WIN_RATIO, 0/WIN_RATIO);
     }
 
     draw()
