@@ -16,6 +16,7 @@ class Earth extends Map
     
     initEnemies()
     {
-        addEnemies(200/WIN_RATIO, 0/WIN_RATIO);
+        var target = addPNJ(2040/WIN_RATIO, 100/WIN_RATIO);
+        addEnemies(200/WIN_RATIO, 0/WIN_RATIO, target);
     }
 }

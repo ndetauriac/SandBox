@@ -118,6 +118,7 @@ class Sight
     
     draw()
     {
+        /*
         this.context2D.save();
         // the triangle
         this.context2D.beginPath();
@@ -139,6 +140,7 @@ class Sight
         this.context2D.globalAlpha = 0.3;
         this.context2D.fill();
         this.context2D.restore();
+        */
     }
     
 }

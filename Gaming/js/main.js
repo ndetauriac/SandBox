@@ -146,9 +146,9 @@ function init2()
     WORLD_Floor = WORLD_HEIGHT;
 
     currentMap.initWall();
+    mainPlayer = currentMap.initPlayer();
     currentMap.initEnemies();
 
-    mainPlayer = currentMap.initPlayer();
     var ListCard = [];
     //ListCard.push(new Burn());
     //ListCard.push(new Toxic());
@@ -241,11 +241,24 @@ onkeydown = onkeyup = function(e){
     /* insert conditional here */
 };
 
-function addEnemies(x = Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, y = WIN_HEIGHT - 290)
+function addEnemies(x = Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, y = WIN_HEIGHT - 290, target = null)
 {
     // enemies[nEnemies] = new Enemy(Math.random()*WORLD_WIDTH*0.9+WORLD_WIDTH*0.05, WIN_HEIGHT - 290);
     enemies[nEnemies] = new Enemy(x, y);
+    if(target === null)
+        enemies[nEnemies].target = mainPlayer;
+    else
+    {
+        enemies[nEnemies].target = target;
+        enemies[nEnemies].behavior = "ATTACK";
+    }
     nEnemies ++;
+}
+
+function addPNJ(x, y)
+{
+    enemies[nEnemies] = new PNJ(x, y);
+    return enemies[nEnemies++];
 }
 
 function addBoss()
@@ -276,15 +289,15 @@ function addExplosion(x, y, direction)
 
 function addLoot(x, y)
 {
-    let rnd = Math.floor(Math.random()*4);
-    if(rnd === 0)
-        items[nItem] = new Ammo(x, y, true);
+    let rnd = Math.floor(Math.random()*10);
     if(rnd == 1)
-        items[nItem] = new Coin(x, y, true);
-    if(rnd == 2)
-        items[nItem] = new HealthPotion(x, y, true);
-    if(rnd == 3)
-        items[nItem] = new EnergyPotion(x, y, true);
+        items[nItem] = new Coin(x, y, false);
+    else if(rnd == 2)
+        items[nItem] = new HealthPotion(x, y, false);
+    else if(rnd == 3)
+        items[nItem] = new EnergyPotion(x, y, false);
+    else
+        items[nItem] = new Ammo(x, y, false);
     nItem++;
 }
 
@@ -479,7 +492,7 @@ function refreshGame() {
             {
                 if(enemies[i].isAlive)
                 {
-                    let tmpShuriken = enemies[i].move(mainPlayer);
+                    let tmpShuriken = enemies[i].move();
                     if (tmpShuriken !== null)
                     {
                         tmpShuriken.forEach(function(element){
